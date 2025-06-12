@@ -1,0 +1,178 @@
+
+import { useState } from 'react';
+import { Dialog, DialogContent } from './ui/dialog';
+import LocationSelection from './booking/LocationSelection';
+import ServiceSelection from './booking/ServiceSelection';
+import StaffSelection from './booking/StaffSelection';
+import DateTimeSelection from './booking/DateTimeSelection';
+import CustomerInformation from './booking/CustomerInformation';
+import OrderVerification from './booking/OrderVerification';
+import AppointmentConfirmation from './booking/AppointmentConfirmation';
+import BookingSummary from './booking/BookingSummary';
+import { BookingItem, Customer } from '../types/booking';
+
+interface BookingModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export type BookingStep = 
+  | 'location' 
+  | 'service' 
+  | 'staff' 
+  | 'datetime' 
+  | 'customer' 
+  | 'verification' 
+  | 'confirmation';
+
+const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
+  const [currentStep, setCurrentStep] = useState<BookingStep>('location');
+  const [cartItems, setCartItems] = useState<BookingItem[]>([]);
+  const [currentBooking, setCurrentBooking] = useState<Partial<BookingItem>>({});
+  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [orderNumber, setOrderNumber] = useState<string>('');
+
+  const addToCart = (item: BookingItem) => {
+    setCartItems(prev => [...prev, item]);
+    setCurrentBooking({});
+  };
+
+  const removeFromCart = (index: number) => {
+    setCartItems(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const getTotalPrice = () => {
+    return cartItems.reduce((sum, item) => sum + item.price, 0);
+  };
+
+  const addMoreService = () => {
+    setCurrentStep('location');
+    setCurrentBooking({});
+  };
+
+  const handleClose = () => {
+    setCurrentStep('location');
+    setCartItems([]);
+    setCurrentBooking({});
+    setCustomer(null);
+    setOrderNumber('');
+    onClose();
+  };
+
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 'location':
+        return (
+          <LocationSelection
+            onSelect={(location) => {
+              setCurrentBooking(prev => ({ ...prev, location }));
+              setCurrentStep('service');
+            }}
+          />
+        );
+      case 'service':
+        return (
+          <ServiceSelection
+            location={currentBooking.location!}
+            onSelect={(service) => {
+              setCurrentBooking(prev => ({ ...prev, service, price: service.price }));
+              setCurrentStep('staff');
+            }}
+            onBack={() => setCurrentStep('location')}
+          />
+        );
+      case 'staff':
+        return (
+          <StaffSelection
+            service={currentBooking.service!}
+            location={currentBooking.location!}
+            onSelect={(staff) => {
+              setCurrentBooking(prev => ({ ...prev, staff }));
+              setCurrentStep('datetime');
+            }}
+            onBack={() => setCurrentStep('service')}
+          />
+        );
+      case 'datetime':
+        return (
+          <DateTimeSelection
+            onSelect={(date, time) => {
+              const newBooking: BookingItem = {
+                id: Date.now().toString(),
+                location: currentBooking.location!,
+                service: currentBooking.service!,
+                staff: currentBooking.staff!,
+                date,
+                time,
+                price: currentBooking.price!
+              };
+              addToCart(newBooking);
+              setCurrentStep('customer');
+            }}
+            onBack={() => setCurrentStep('staff')}
+          />
+        );
+      case 'customer':
+        return (
+          <CustomerInformation
+            onSubmit={(customerData) => {
+              setCustomer(customerData);
+              setCurrentStep('verification');
+            }}
+            onBack={() => setCurrentStep('datetime')}
+            onAddMore={addMoreService}
+          />
+        );
+      case 'verification':
+        return (
+          <OrderVerification
+            cartItems={cartItems}
+            customer={customer!}
+            totalPrice={getTotalPrice()}
+            onSubmit={() => {
+              const orderNum = 'CTSRZZV'; // Generate random order number
+              setOrderNumber(orderNum);
+              setCurrentStep('confirmation');
+            }}
+            onBack={() => setCurrentStep('customer')}
+            onAddMore={addMoreService}
+          />
+        );
+      case 'confirmation':
+        return (
+          <AppointmentConfirmation
+            cartItems={cartItems}
+            customer={customer!}
+            orderNumber={orderNumber}
+            totalPrice={getTotalPrice()}
+            onClose={handleClose}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={handleClose}>
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden p-0">
+        <div className="flex h-full">
+          <div className="flex-1 overflow-y-auto">
+            {renderCurrentStep()}
+          </div>
+          <div className="w-80 bg-gray-50 border-l">
+            <BookingSummary
+              cartItems={cartItems}
+              totalPrice={getTotalPrice()}
+              onRemoveItem={removeFromCart}
+              onAddMore={addMoreService}
+              currentStep={currentStep}
+            />
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default BookingModal;
