@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-import { Dialog, DialogContent } from './ui/dialog';
 import LocationSelection from './booking/LocationSelection';
 import ServiceSelection from './booking/ServiceSelection';
 import StaffSelection from './booking/StaffSelection';
@@ -153,25 +152,24 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
     }
   };
 
+  // When embedded in page, always show content regardless of isOpen prop
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden p-0">
-        <div className="flex h-full">
-          <div className="flex-1 overflow-y-auto">
-            {renderCurrentStep()}
-          </div>
-          <div className="w-80 bg-gray-50 border-l">
-            <BookingSummary
-              cartItems={cartItems}
-              totalPrice={getTotalPrice()}
-              onRemoveItem={removeFromCart}
-              onAddMore={addMoreService}
-              currentStep={currentStep}
-            />
-          </div>
+    <div className="w-full">
+      <div className="flex flex-col lg:flex-row h-full min-h-[600px]">
+        <div className="flex-1 order-2 lg:order-1 overflow-y-auto">
+          {renderCurrentStep()}
         </div>
-      </DialogContent>
-    </Dialog>
+        <div className="w-full lg:w-80 order-1 lg:order-2 bg-gray-50 border-b lg:border-b-0 lg:border-l">
+          <BookingSummary
+            cartItems={cartItems}
+            totalPrice={getTotalPrice()}
+            onRemoveItem={removeFromCart}
+            onAddMore={addMoreService}
+            currentStep={currentStep}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 

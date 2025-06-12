@@ -5,7 +5,6 @@ import { Button } from '../components/ui/button';
 import { Instagram, PhoneCall, Mail } from 'lucide-react';
 
 const Index = () => {
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Handle scroll effect for navbar
@@ -58,38 +57,44 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Hero Section with Booking Modal */}
-      <section className="pt-24 md:pt-32 relative overflow-hidden">
+      {/* Hero Section with Embedded Booking */}
+      <section className="pt-24 md:pt-32 relative overflow-hidden min-h-screen">
+        {/* Background Images */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black/20 z-10"></div>
-          <div className="flex h-full">
-            <div className="w-1/2 h-full overflow-hidden">
-              <img 
-                src="/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png" 
-                alt="Men's salon services" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="w-1/2 h-full overflow-hidden">
-              <img 
-                src="/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png" 
-                alt="Women's salon services" 
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <div className="absolute inset-0 bg-black/30 z-10"></div>
+          {/* Desktop Background */}
+          <div className="hidden md:block w-full h-full">
+            <img 
+              src="/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png" 
+              alt="Beauty services for men and women" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          {/* Mobile Background */}
+          <div className="block md:hidden w-full h-full">
+            <img 
+              src="/lovable-uploads/f83342f5-83bc-4eb0-a214-dc4e18c6b8f4.png" 
+              alt="Beauty services" 
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
-        <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-32 text-center">
-          <h1 className="text-4xl md:text-6xl font-serif text-white mb-8">
-            BEAUTY & SALON SERVICES
-          </h1>
-          <Button 
-            onClick={() => setIsBookingOpen(true)}
-            className="bg-amber-200 text-black hover:bg-amber-300 px-8 py-4 text-lg font-medium"
-          >
-            Book in 60 Seconds
-          </Button>
+        {/* Embedded Booking Content */}
+        <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-16">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-3xl md:text-5xl font-serif text-white mb-4">
+              BEAUTY & SALON SERVICES
+            </h1>
+            <p className="text-lg md:text-xl text-amber-100 mb-8">
+              Book your appointment in 60 seconds
+            </p>
+          </div>
+          
+          {/* Embedded Booking Modal */}
+          <div className="bg-white rounded-lg shadow-2xl max-w-6xl mx-auto">
+            <BookingModal isOpen={true} onClose={() => {}} />
+          </div>
         </div>
       </section>
 
@@ -278,12 +283,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-
-      {/* Booking Modal */}
-      <BookingModal 
-        isOpen={isBookingOpen} 
-        onClose={() => setIsBookingOpen(false)} 
-      />
     </div>
   );
 };
