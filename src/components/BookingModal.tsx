@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import LocationSelection from './booking/LocationSelection';
 import ServiceSelection from './booking/ServiceSelection';
@@ -155,22 +156,24 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
   const showSummary = cartItems.length > 0 && ['customer', 'verification', 'confirmation'].includes(currentStep);
 
   return (
-    <div className="w-1/2 mx-auto">
-      <div className="flex flex-col lg:flex-row bg-white rounded-lg shadow-lg overflow-hidden min-h-[500px]">
-        <div className={`flex-1 order-2 lg:order-1 ${showSummary ? '' : 'lg:pr-0'}`}>
-          {renderCurrentStep()}
-        </div>
-        {showSummary && (
-          <div className="w-full lg:w-80 order-1 lg:order-2 bg-gray-50 border-b lg:border-b-0 lg:border-l">
-            <BookingSummary
-              cartItems={cartItems}
-              totalPrice={getTotalPrice()}
-              onRemoveItem={removeFromCart}
-              onAddMore={addMoreService}
-              currentStep={currentStep}
-            />
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="w-full max-w-4xl mx-auto">
+        <div className="flex flex-col lg:flex-row bg-white rounded-lg shadow-lg overflow-hidden min-h-[500px]">
+          <div className={`flex-1 order-2 lg:order-1 ${showSummary ? '' : 'lg:pr-0'}`}>
+            {renderCurrentStep()}
           </div>
-        )}
+          {showSummary && (
+            <div className="w-full lg:w-80 order-1 lg:order-2 bg-gray-50 border-b lg:border-b-0 lg:border-l">
+              <BookingSummary
+                cartItems={cartItems}
+                totalPrice={getTotalPrice()}
+                onRemoveItem={removeFromCart}
+                onAddMore={addMoreService}
+                currentStep={currentStep}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
