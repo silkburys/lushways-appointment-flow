@@ -61,7 +61,6 @@ const Index = () => {
       <section className="pt-24 md:pt-32 relative overflow-hidden min-h-screen">
         {/* Background Images */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black/30 z-10"></div>
           {/* Desktop Background */}
           <div className="hidden md:block w-full h-full">
             <img 
@@ -92,8 +91,10 @@ const Index = () => {
           </div>
           
           {/* Embedded Booking Modal */}
-          <div className="bg-white rounded-lg shadow-2xl max-w-6xl mx-auto">
-            <BookingModal isOpen={true} onClose={() => {}} />
+          <div className="flex justify-center">
+            <div className="w-full max-w-2xl">
+              <BookingModal isOpen={true} onClose={() => {}} />
+            </div>
           </div>
         </div>
       </section>
