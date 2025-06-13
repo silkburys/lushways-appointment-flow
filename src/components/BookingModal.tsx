@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import LocationSelection from './booking/LocationSelection';
 import ServiceSelection from './booking/ServiceSelection';
@@ -155,35 +154,8 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
   // Only show summary if there are items in cart AND we're past the datetime step
   const showSummary = cartItems.length > 0 && ['customer', 'verification', 'confirmation'].includes(currentStep);
 
-  // Dynamic width based on content and whether summary is shown
-  const getContainerWidth = () => {
-    if (showSummary) {
-      return 'max-w-5xl'; // Wider when summary is shown
-    }
-    
-    // Adjust width based on current step
-    switch (currentStep) {
-      case 'location':
-        return 'max-w-2xl';
-      case 'service':
-        return 'max-w-3xl';
-      case 'staff':
-        return 'max-w-3xl';
-      case 'datetime':
-        return 'max-w-4xl';
-      case 'customer':
-        return 'max-w-3xl';
-      case 'verification':
-        return 'max-w-4xl';
-      case 'confirmation':
-        return 'max-w-3xl';
-      default:
-        return 'max-w-2xl';
-    }
-  };
-
   return (
-    <div className={`w-full ${getContainerWidth()} mx-auto`}>
+    <div className="w-1/2 mx-auto">
       <div className="flex flex-col lg:flex-row bg-white rounded-lg shadow-lg overflow-hidden min-h-[500px]">
         <div className={`flex-1 order-2 lg:order-1 ${showSummary ? '' : 'lg:pr-0'}`}>
           {renderCurrentStep()}
