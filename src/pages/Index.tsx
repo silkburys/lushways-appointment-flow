@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import BookingModal from '../components/BookingModal';
 import { Button } from '../components/ui/button';
-import { Instagram, PhoneCall, Mail } from 'lucide-react';
+import { Instagram, PhoneCall, Mail, MapPin } from 'lucide-react';
 
 const Index = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,11 +30,13 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img 
-                src="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" 
-                alt="LUSHWAYS" 
-                className="h-8 md:h-10" 
-              />
+              <a href="/">
+                <img 
+                  src="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" 
+                  alt="LUSHWAYS" 
+                  className="h-8 md:h-10 cursor-pointer" 
+                />
+              </a>
             </div>
             
             {/* Navigation */}
@@ -141,18 +143,26 @@ const Index = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
               <div className="h-48 bg-gray-200"></div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Barber Shop</h3>
-                <p className="text-gray-600 mb-4">Al Barsha City Centre Gents and ladies, Dubai, UAE</p>
-                <Button variant="outline" className="w-full">View Details</Button>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-gray-200"></div>
-              <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">Meaisem City Centre Ladies</h3>
                 <p className="text-gray-600 mb-4">Meaisem City Centre, Dubai, UAE</p>
-                <Button variant="outline" className="w-full">View Details</Button>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 flex items-center justify-center gap-2"
+                    onClick={() => window.open('https://maps.app.goo.gl/gpWiYDvQMxohYH2w8', '_blank')}
+                  >
+                    <MapPin size={16} />
+                    Directions
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 flex items-center justify-center gap-2"
+                    onClick={() => window.location.href = 'tel:0521622999'}
+                  >
+                    <PhoneCall size={16} />
+                    Call
+                  </Button>
+                </div>
               </div>
             </div>
             
@@ -161,7 +171,50 @@ const Index = () => {
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">Al Barsha City Centre Ladies</h3>
                 <p className="text-gray-600 mb-4">Al Barsha City Centre, Dubai, UAE</p>
-                <Button variant="outline" className="w-full">View Details</Button>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 flex items-center justify-center gap-2"
+                    onClick={() => window.open('https://maps.app.goo.gl/k5kYCNkqbnfRw3Xv6', '_blank')}
+                  >
+                    <MapPin size={16} />
+                    Directions
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 flex items-center justify-center gap-2"
+                    onClick={() => window.location.href = 'tel:045540344'}
+                  >
+                    <PhoneCall size={16} />
+                    Call
+                  </Button>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-48 bg-gray-200"></div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Barber Shop</h3>
+                <p className="text-gray-600 mb-4">Al Barsha City Centre Gents and ladies, Dubai, UAE</p>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 flex items-center justify-center gap-2"
+                    onClick={() => window.open('https://maps.app.goo.gl/SbyRyFuaXE1WYWWy5', '_blank')}
+                  >
+                    <MapPin size={16} />
+                    Directions
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 flex items-center justify-center gap-2"
+                    onClick={() => window.location.href = 'tel:0585618383'}
+                  >
+                    <PhoneCall size={16} />
+                    Call
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -263,8 +316,14 @@ const Index = () => {
             <div>
               <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
               <div className="space-y-2">
-                <p className="flex items-center"><PhoneCall size={16} className="mr-2" /> 052 162 2999</p>
-                <p className="flex items-center"><Mail size={16} className="mr-2" /> booking@lushways.com</p>
+                <p className="flex items-center">
+                  <PhoneCall size={16} className="mr-2" /> 
+                  <a href="tel:0521622999" className="hover:text-white">052 162 2999</a>
+                </p>
+                <p className="flex items-center">
+                  <Mail size={16} className="mr-2" /> 
+                  <a href="mailto:booking@lushways.com" className="hover:text-white">booking@lushways.com</a>
+                </p>
               </div>
             </div>
             

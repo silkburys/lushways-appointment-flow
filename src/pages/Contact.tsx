@@ -38,11 +38,13 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img 
-                src="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" 
-                alt="LUSHWAYS" 
-                className="h-8 md:h-10" 
-              />
+              <a href="/">
+                <img 
+                  src="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" 
+                  alt="LUSHWAYS" 
+                  className="h-8 md:h-10 cursor-pointer" 
+                />
+              </a>
             </div>
             
             {/* Navigation */}
@@ -77,11 +79,11 @@ const Contact = () => {
             <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
               <div className="flex items-center">
                 <PhoneCall size={20} className="mr-2 text-lushways" />
-                <span className="text-lg">052 162 2999</span>
+                <a href="tel:0521622999" className="text-lg hover:text-lushways">052 162 2999</a>
               </div>
               <div className="flex items-center">
                 <Mail size={20} className="mr-2 text-lushways" />
-                <span className="text-lg">booking@lushways.com</span>
+                <a href="mailto:booking@lushways.com" className="text-lg hover:text-lushways">booking@lushways.com</a>
               </div>
             </div>
           </div>
@@ -90,14 +92,18 @@ const Contact = () => {
         {/* Location Information */}
         <div className="bg-black text-white py-16">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {/* Location 1 */}
               <div className="text-center">
-                <h2 className="text-2xl font-yeserva text-lushways mb-4">lushways</h2>
+                <h2 className="text-2xl font-yeserva text-lushways mb-4">Meaisem City Centre Ladies</h2>
                 <div className="space-y-2 text-lushways">
                   <p className="flex items-center justify-center">
                     <MapPin size={16} className="mr-2" />
-                    City Centre Me'aisem - F311 - Dubai - United Arab Emirates
+                    Meaisem City Centre, Dubai, UAE
+                  </p>
+                  <p className="flex items-center justify-center">
+                    <PhoneCall size={16} className="mr-2" />
+                    <a href="tel:0521622999" className="hover:text-white">0521622999</a>
                   </p>
                 </div>
                 <h3 className="text-xl font-yeserva text-lushways mt-6 mb-2">Hours</h3>
@@ -109,11 +115,35 @@ const Contact = () => {
 
               {/* Location 2 */}
               <div className="text-center">
-                <h2 className="text-2xl font-yeserva text-lushways mb-4">lushways</h2>
+                <h2 className="text-2xl font-yeserva text-lushways mb-4">Al Barsha City Centre Ladies</h2>
                 <div className="space-y-2 text-lushways">
                   <p className="flex items-center justify-center">
                     <MapPin size={16} className="mr-2" />
-                    Al Barsha City Centre Gents and ladies - Dubai - United Arab Emirates
+                    Al Barsha City Centre, Dubai, UAE
+                  </p>
+                  <p className="flex items-center justify-center">
+                    <PhoneCall size={16} className="mr-2" />
+                    <a href="tel:045540344" className="hover:text-white">045540344</a>
+                  </p>
+                </div>
+                <h3 className="text-xl font-yeserva text-lushways mt-6 mb-2">Hours</h3>
+                <div className="text-lushways space-y-1">
+                  <p>Monday - Saturday: 11am - 7pm</p>
+                  <p>Sunday: Closed</p>
+                </div>
+              </div>
+
+              {/* Location 3 */}
+              <div className="text-center">
+                <h2 className="text-2xl font-yeserva text-lushways mb-4">Barber Shop</h2>
+                <div className="space-y-2 text-lushways">
+                  <p className="flex items-center justify-center">
+                    <MapPin size={16} className="mr-2" />
+                    Al Barsha City Centre Gents and ladies, Dubai, UAE
+                  </p>
+                  <p className="flex items-center justify-center">
+                    <PhoneCall size={16} className="mr-2" />
+                    <a href="tel:0585618383" className="hover:text-white">0585618383</a>
                   </p>
                 </div>
                 <h3 className="text-xl font-yeserva text-lushways mt-6 mb-2">Hours</h3>
@@ -132,14 +162,14 @@ const Contact = () => {
             <h2 className="text-3xl font-yeserva text-center mb-8 text-black">Find Us</h2>
             <div className="w-full h-96 rounded-lg overflow-hidden shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3611.8936147826476!2d55.1162!3d25.1122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f14c7c59b1eb5%3A0x8b7b8b7b8b7b8b7b!2sLushways%20Salon%20-%20IMPZ!5e0!3m2!1sen!2sae!4v1639123456789!5m2!1sen!2sae"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.1234567890!2d55.1162!3d25.1122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b2a1b2a1b2a%3A0x1234567890abcdef!2sMeaisem%20City%20Centre!5e0!3m2!1sen!2sae!4v1639123456789!5m2!1sen!2sae"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Lushways Salon Location"
+                title="Lushways Salon Location - Meaisem City Centre"
               ></iframe>
             </div>
           </div>
@@ -191,8 +221,14 @@ const Contact = () => {
             <div>
               <h3 className="text-xl font-semibold mb-4 font-yeserva">Contact Us</h3>
               <div className="space-y-2">
-                <p className="flex items-center"><PhoneCall size={16} className="mr-2" /> 052 162 2999</p>
-                <p className="flex items-center"><Mail size={16} className="mr-2" /> booking@lushways.com</p>
+                <p className="flex items-center">
+                  <PhoneCall size={16} className="mr-2" /> 
+                  <a href="tel:0521622999" className="hover:text-white">052 162 2999</a>
+                </p>
+                <p className="flex items-center">
+                  <Mail size={16} className="mr-2" /> 
+                  <a href="mailto:booking@lushways.com" className="hover:text-white">booking@lushways.com</a>
+                </p>
               </div>
             </div>
             

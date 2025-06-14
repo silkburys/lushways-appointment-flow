@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -78,11 +79,13 @@ const QuickPay = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img 
-                src="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" 
-                alt="LUSHWAYS" 
-                className="h-8 md:h-10" 
-              />
+              <a href="/">
+                <img 
+                  src="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" 
+                  alt="LUSHWAYS" 
+                  className="h-8 md:h-10 cursor-pointer" 
+                />
+              </a>
             </div>
             
             {/* Navigation */}
@@ -203,8 +206,14 @@ const QuickPay = () => {
             <div>
               <h3 className="text-xl font-semibold mb-4 font-yeserva">Contact Us</h3>
               <div className="space-y-2">
-                <p className="flex items-center"><PhoneCall size={16} className="mr-2" /> 052 162 2999</p>
-                <p className="flex items-center"><Mail size={16} className="mr-2" /> booking@lushways.com</p>
+                <p className="flex items-center">
+                  <PhoneCall size={16} className="mr-2" /> 
+                  <a href="tel:0521622999" className="hover:text-white">052 162 2999</a>
+                </p>
+                <p className="flex items-center">
+                  <Mail size={16} className="mr-2" /> 
+                  <a href="mailto:booking@lushways.com" className="hover:text-white">booking@lushways.com</a>
+                </p>
               </div>
             </div>
             
