@@ -155,9 +155,9 @@ const Vouchers = () => {
           {/* Vouchers Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {vouchers.map((voucher) => (
-              <Card key={voucher.id} className="border-2 border-amber-200 hover:shadow-lg transition-shadow">
-                <CardHeader className="bg-amber-200 text-center">
-                  <div className="text-sm font-medium text-black mb-2">
+              <Card key={voucher.id} className="border-2 border-yellow-700 hover:shadow-lg transition-shadow bg-white">
+                <CardHeader className="bg-yellow-700 text-center py-3">
+                  <div className="text-sm font-medium text-white">
                     {voucher.duration}
                   </div>
                 </CardHeader>
@@ -179,7 +179,7 @@ const Vouchers = () => {
                     ))}
                   </div>
                   <Button 
-                    className="bg-amber-200 text-black hover:bg-amber-300 w-full"
+                    className="bg-yellow-600 text-white hover:bg-yellow-700 w-full font-medium"
                     onClick={() => handleBookNow(voucher.price)}
                   >
                     BOOK NOW
