@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -106,11 +105,10 @@ const Vouchers = () => {
     window.open(`https://lushways.com/payment/pay.php?amount=${amount}&type=membership`, '_blank');
   };
 
-  // List of voucher price values that should be "expanded"
   const expandedPrices = [1000, 1750, 4000];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black">
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black shadow-md py-2' : 'bg-black py-4'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -146,14 +144,13 @@ const Vouchers = () => {
       <main className="pt-24 md:pt-32">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-5xl font-serif text-black mb-4">
+            <h1 className="text-3xl md:text-5xl font-serif text-white mb-4">
               MEMBERSHIP VOUCHERS
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
               A wide variety and choice of Free add on's. Approach the receptionist at the nearest branch to know more.
             </p>
           </div>
-
           {/* Vouchers Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {vouchers.map((voucher) => {
@@ -161,7 +158,7 @@ const Vouchers = () => {
               return (
                 <Card
                   key={voucher.id}
-                  className={`border-2 border-gold-brand bg-white transition-shadow
+                  className={`border-2 border-gold-brand bg-black transition-shadow
                     ${isExpanded ? "expanded-voucher-card" : ""}
                   `}
                   style={{
@@ -177,24 +174,24 @@ const Vouchers = () => {
                   <CardContent
                     className={`p-6 text-center flex flex-col ${isExpanded ? "py-12 md:py-14 min-h-[360px] md:min-h-[400px]" : ""}`}
                     style={{
-                      background: "#fff",
+                      background: "#000",
                       borderRadius: "0 0 10px 10px",
                       overflowWrap: "break-word",
                       wordBreak: "break-word"
                     }}
                   >
-                    <div className="text-3xl font-bold text-black mb-2 break-words">
+                    <div className="text-3xl font-bold text-white mb-2 break-words">
                       AED {voucher.price.toLocaleString()}
                     </div>
-                    <CardTitle className="text-xl font-semibold text-black mb-4 break-words">
+                    <CardTitle className="text-xl font-semibold text-white mb-4 break-words">
                       {voucher.title}
                     </CardTitle>
-                    <div className="text-sm font-medium text-black mb-4">
+                    <div className="text-sm font-medium text-white mb-4">
                       MEMBERSHIP DETAILS
                     </div>
                     <div className="space-y-2 mb-6">
                       {voucher.details.map((detail, index) => (
-                        <p key={index} className="text-sm text-gray-700 break-words whitespace-pre-line">
+                        <p key={index} className="text-sm text-white break-words whitespace-pre-line">
                           {detail}
                         </p>
                       ))}
@@ -260,4 +257,3 @@ const Vouchers = () => {
 };
 
 export default Vouchers;
-
