@@ -82,13 +82,13 @@ const LocationSelection = ({ onSelect }: LocationSelectionProps) => {
               <h3 className="font-medium text-gray-900">{location.name}</h3>
               <p className="text-sm text-gray-600">{location.address}</p>
             </div>
-            <div className={`w-5 h-5 rounded-full border-2 ${
+            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
               selectedLocation?.id === location.id
-                ? 'border-orange-500 bg-orange-500'
-                : 'border-gray-300'
+                ? 'border-orange-500 bg-white'
+                : 'border-gray-300 bg-white'
             }`}>
               {selectedLocation?.id === location.id && (
-                <div className="w-full h-full rounded-full bg-white border-2 border-orange-500"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-orange-500"></div>
               )}
             </div>
           </div>
