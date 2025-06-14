@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -15,12 +14,24 @@ const Vouchers = () => {
         setIsScrolled(false);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  // Colors and fonts from the user's suggested elegant theme
+  const COLORS = {
+    teal: "#4A908A",
+    gold: "#D4AF37",
+    light: "#FBFAF5",
+    card: "#fff",
+    text: "#333333",
+    border: "#4A908A",
+    mutedBg: "#F0F0F0"
+  };
+
+  // Add Google Fonts in index.html for Playfair Display and Open Sans as per context
 
   const vouchers = [
     {
@@ -106,11 +117,12 @@ const Vouchers = () => {
     window.open(`https://lushways.com/payment/pay.php?amount=${amount}&type=membership`, '_blank');
   };
 
+  // These are the cards you want more prominent
   const expandedPrices = [1000, 1750, 4000];
 
   return (
     <div
-      style={{ background: "#FCF7EE" }}
+      style={{ background: COLORS.light, fontFamily: "Open Sans, sans-serif", color: COLORS.text }}
       className="min-h-screen"
     >
       {/* Header */}
@@ -127,15 +139,15 @@ const Vouchers = () => {
               </a>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">HOME</a>
-              <a href="/quick-pay" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">QUICK PAY</a>
-              <a href="/terms" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">TERMS & CONDITIONS</a>
-              <a href="/privacy" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">PRIVACY POLICY</a>
-              <a href="/contact" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">CONTACT US</a>
+              <a href="/" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">HOME</a>
+              <a href="/quick-pay" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">QUICK PAY</a>
+              <a href="/terms" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">TERMS & CONDITIONS</a>
+              <a href="/privacy" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">PRIVACY POLICY</a>
+              <a href="/contact" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">CONTACT US</a>
             </nav>
             <Button 
-              variant="link" 
-              className="text-neutral-800 hover:text-amber-700 transition-colors"
+              variant="link"
+              className="text-neutral-800 hover:text-[#4A908A] transition-colors"
             >
               LOG IN
             </Button>
@@ -147,65 +159,118 @@ const Vouchers = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
           <div className="text-center mb-12">
             <h1 
-              className="text-3xl md:text-5xl font-serif mb-4 font-bold tracking-tight" 
-              style={{ color: "#E6BB53" }}
+              className="text-3xl md:text-5xl font-serif font-bold tracking-tight mb-4"
+              style={{
+                color: COLORS.teal,
+                fontFamily: "'Playfair Display', serif",
+                letterSpacing: '0.02em',
+              }}
             >
               MEMBERSHIP VOUCHERS
             </h1>
-            <p className="text-lg text-neutral-700 max-w-2xl mx-auto">
+            <p 
+              className="text-lg max-w-2xl mx-auto"
+              style={{
+                color: COLORS.text,
+                fontFamily: "Open Sans, sans-serif",
+                lineHeight: 1.6
+              }}
+            >
               A wide variety and choice of Free add on's. Approach the receptionist at the nearest branch to know more.
             </p>
           </div>
           {/* Vouchers Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {vouchers.map((voucher) => {
               const isExpanded = expandedPrices.includes(voucher.price);
               return (
                 <Card
                   key={voucher.id}
-                  className={`border-2 border-gold-brand bg-white transition-shadow
-                    ${isExpanded ? "expanded-voucher-card" : ""}
-                  `}
+                  className={`transition-shadow ${isExpanded ? "expanded-voucher-card" : ""}`}
                   style={{
-                    borderRadius: '12px',
-                    boxShadow: isExpanded 
-                      ? "0 6px 24px 0 rgba(198,187,77,0.07), 0 2px 8px 0 rgba(90,70,0,0.04)" 
-                      : "0 1.5px 6px 0 rgba(170,146,73,0.06)",
+                    background: COLORS.card,
+                    border: `2px solid ${COLORS.teal}`,
+                    borderRadius: '14px',
+                    boxShadow: isExpanded ?
+                      "0 10px 24px 0 rgba(74, 144, 138, 0.13), 0 2px 8px 0 rgba(68, 63, 63, 0.09)" :
+                      "0 2px 8px 0 rgba(74, 144, 138, 0.07)",
+                    minHeight: isExpanded ? 430 : 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
                   }}
                 >
-                  <CardHeader className="bg-gold-brand text-center py-3 rounded-t-[10px]">
-                    <div className="text-sm font-medium" style={{ color: "#744800" }}>
-                      {voucher.duration}
-                    </div>
-                  </CardHeader>
-                  <CardContent
-                    className={`p-6 text-center flex flex-col ${isExpanded ? "py-12 md:py-14 min-h-[360px] md:min-h-[400px]" : ""}`}
+                  <CardHeader
+                    className="text-center py-3 rounded-t-[10px]"
                     style={{
-                      background: "#fff",
-                      borderRadius: "0 0 10px 10px",
-                      overflowWrap: "break-word",
-                      wordBreak: "break-word"
+                      background: COLORS.gold,
+                      color: COLORS.text,
+                      fontFamily: "'Playfair Display', serif",
+                      fontWeight: 600,
+                      fontSize: "1rem",
+                      letterSpacing: "0.01em"
                     }}
                   >
-                    <div className="text-3xl font-bold mb-2 break-words text-neutral-900">
+                    <div>{voucher.duration}</div>
+                  </CardHeader>
+                  <CardContent
+                    className={`flex flex-col text-center ${isExpanded ? "py-12 md:py-14 min-h-[360px] md:min-h-[400px]" : "py-8"}`}
+                    style={{
+                      background: COLORS.card,
+                      borderRadius: "0 0 10px 10px",
+                      overflowWrap: "anywhere",
+                      color: COLORS.text
+                    }}
+                  >
+                    <div
+                      className="text-3xl font-bold mb-2 break-words"
+                      style={{
+                        color: COLORS.teal,
+                        fontFamily: "'Playfair Display', serif",
+                        lineHeight: 1.1,
+                      }}
+                    >
                       AED {voucher.price.toLocaleString()}
                     </div>
-                    <CardTitle className="text-xl font-semibold mb-4 break-words text-neutral-900">
+                    <CardTitle
+                      className="text-xl font-semibold mb-3 break-words"
+                      style={{
+                        color: COLORS.text,
+                        fontFamily: "'Playfair Display', serif",
+                        lineHeight: 1.2,
+                        letterSpacing: "0.02em"
+                      }}
+                    >
                       {voucher.title}
                     </CardTitle>
-                    <div className="text-sm font-medium mb-4" style={{ color: "#75541C" }}>
+                    <div
+                      className="text-base font-semibold mb-4"
+                      style={{
+                        color: COLORS.teal,
+                        fontFamily: "'Open Sans', sans-serif",
+                        letterSpacing: '0.03em'
+                      }}
+                    >
                       MEMBERSHIP DETAILS
                     </div>
-                    <div className="space-y-2 mb-6">
+                    <div className="space-y-2 mb-6" style={{ fontFamily: "'Open Sans', sans-serif", color: COLORS.text, fontSize: '16px', lineHeight: 1.5 }}>
                       {voucher.details.map((detail, index) => (
-                        <p key={index} className="text-sm text-neutral-700 break-words whitespace-pre-line">
+                        <p key={index} className="break-words whitespace-pre-line">
                           {detail}
                         </p>
                       ))}
                     </div>
                     <Button
-                      className="diamond-gold-gradient w-full font-medium py-2 px-6 rounded-md"
+                      className="w-full font-semibold py-2 px-6 rounded-md border-0 shadow-md text-base transition-colors"
+                      style={{
+                        background: COLORS.gold,
+                        color: "#fff",
+                        fontFamily: "'Open Sans', sans-serif",
+                        letterSpacing: "0.01em"
+                      }}
                       onClick={() => handleBookNow(voucher.price)}
+                      onMouseOver={e => (e.currentTarget.style.background = COLORS.teal)}
+                      onMouseOut={e => (e.currentTarget.style.background = COLORS.gold)}
                     >
                       PAY NOW
                     </Button>
@@ -218,42 +283,71 @@ const Vouchers = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white text-neutral-800 py-12 mt-16 border-t border-gray-200">
+      <footer style={{ background: "#fff", color: COLORS.text }} className="py-12 mt-16 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-semibold mb-4" style={{ color: "#E6BB53" }}>LUSHWAYS</h3>
-              <p className="mb-4">Professional beauty and salon services across Dubai.</p>
-              <div className="flex space-x-4">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-amber-700"><Instagram size={20} /></a>
+              <h3
+                className="text-xl font-semibold mb-4"
+                style={{
+                  color: COLORS.gold,
+                  fontFamily: "'Playfair Display', serif",
+                  letterSpacing: '0.02em'
+                }}
+              >
+                LUSHWAYS
+              </h3>
+              <p style={{ fontFamily: "'Open Sans', sans-serif" }}>Professional beauty and salon services across Dubai.</p>
+              <div className="flex space-x-4 mt-2">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ color: COLORS.teal, display: "inline-flex" }}>
+                  <Instagram size={20} />
+                </a>
               </div>
             </div>
             
             <div>
-              <h3 className="text-xl font-semibold mb-4" style={{ color: "#E6BB53" }}>Contact Us</h3>
-              <div className="space-y-2">
+              <h3
+                className="text-xl font-semibold mb-4"
+                style={{
+                  color: COLORS.gold,
+                  fontFamily: "'Playfair Display', serif",
+                  letterSpacing: '0.02em'
+                }}
+              >
+                Contact Us
+              </h3>
+              <div className="space-y-2" style={{ fontFamily: "'Open Sans', sans-serif" }}>
                 <p className="flex items-center">
-                  <PhoneCall size={16} className="mr-2" /> 
-                  <a href="tel:0521622999" className="hover:text-amber-700">052 162 2999</a>
+                  <PhoneCall size={16} className="mr-2" style={{ color: COLORS.teal }} /> 
+                  <a href="tel:0521622999" style={{ color: COLORS.text }} className="hover:text-[#4A908A]">052 162 2999</a>
                 </p>
                 <p className="flex items-center">
-                  <Mail size={16} className="mr-2" /> 
-                  <a href="mailto:booking@lushways.com" className="hover:text-amber-700">booking@lushways.com</a>
+                  <Mail size={16} className="mr-2" style={{ color: COLORS.teal }} /> 
+                  <a href="mailto:booking@lushways.com" style={{ color: COLORS.text }} className="hover:text-[#4A908A]">booking@lushways.com</a>
                 </p>
               </div>
             </div>
             
             <div>
-              <h3 className="text-xl font-semibold mb-4" style={{ color: "#E6BB53" }}>Quick Links</h3>
-              <ul className="space-y-2">
-                <li><a href="/" className="hover:text-amber-700">Home</a></li>
-                <li><a href="/quick-pay" className="hover:text-amber-700">Quick Pay</a></li>
-                <li><a href="/terms" className="hover:text-amber-700">Terms & Conditions</a></li>
-                <li><a href="/privacy" className="hover:text-amber-700">Privacy Policy</a></li>
+              <h3
+                className="text-xl font-semibold mb-4"
+                style={{
+                  color: COLORS.gold,
+                  fontFamily: "'Playfair Display', serif",
+                  letterSpacing: '0.02em'
+                }}
+              >
+                Quick Links
+              </h3>
+              <ul className="space-y-2" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+                <li><a href="/" className="hover:text-[#4A908A]" style={{ color: COLORS.text }}>Home</a></li>
+                <li><a href="/quick-pay" className="hover:text-[#4A908A]" style={{ color: COLORS.text }}>Quick Pay</a></li>
+                <li><a href="/terms" className="hover:text-[#4A908A]" style={{ color: COLORS.text }}>Terms & Conditions</a></li>
+                <li><a href="/privacy" className="hover:text-[#4A908A]" style={{ color: COLORS.text }}>Privacy Policy</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-200 pt-6 text-center text-neutral-500">
+          <div className="border-t border-gray-200 pt-6 text-center" style={{ color: "#888", fontFamily: "'Open Sans', sans-serif" }}>
             <p>&copy; {new Date().getFullYear()} Lushways. All rights reserved.</p>
           </div>
         </div>
