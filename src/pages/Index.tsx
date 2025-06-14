@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from 'react';
 import BookingModal from '../components/BookingModal';
 import { Button } from '../components/ui/button';
@@ -323,13 +321,23 @@ const Index = () => {
             <div className="text-center p-8 bg-amber-50 rounded-lg">
               <h3 className="text-2xl font-semibold mb-4">Memberships</h3>
               <p className="text-gray-600 mb-6">Enjoy exclusive benefits and savings with our membership plans.</p>
-              <Button className="bg-amber-200 text-black hover:bg-amber-300">View Memberships</Button>
+              <Button
+                className="bg-amber-200 text-black hover:bg-amber-300"
+                onClick={() => window.location.href = '/vouchers'}
+              >
+                View Memberships
+              </Button>
             </div>
             
             <div className="text-center p-8 bg-amber-50 rounded-lg">
               <h3 className="text-2xl font-semibold mb-4">Products</h3>
               <p className="text-gray-600 mb-6">Discover our premium beauty and salon products.</p>
-              <Button className="bg-amber-200 text-black hover:bg-amber-300">Shop Products</Button>
+              <Button
+                className="bg-amber-200 text-black hover:bg-amber-300"
+                onClick={() => window.location.href = '/products'}
+              >
+                Shop Products
+              </Button>
             </div>
           </div>
         </div>
@@ -382,4 +390,3 @@ const Index = () => {
 };
 
 export default Index;
-

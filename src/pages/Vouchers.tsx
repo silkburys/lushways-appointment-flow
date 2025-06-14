@@ -164,7 +164,7 @@ const Vouchers = () => {
                     {voucher.duration}
                   </div>
                 </CardHeader>
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-6 text-center" style={{ background: "#fff", borderRadius: "0 0 10px 10px" }}>
                   <div className="text-3xl font-bold text-black mb-2">
                     AED {voucher.price.toLocaleString()}
                   </div>
