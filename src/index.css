@@ -174,3 +174,22 @@
 .bg-gold-box {
   background-color: #D9C87A !important;
 }
+
+/* Add style for expanded voucher cards */
+.expanded-voucher-card {
+  box-shadow: 0 6px 18px 0 rgba(245, 217, 50, 0.08), 0 0.5px 4px 0 rgba(90,70,0,0.04);
+}
+.expanded-voucher-card .shadcn-card-content {
+  background: #fff !important;
+  /* Already handled inline, but keep here in case for further separation */
+}
+.expanded-voucher-card {
+  /* Extra vertical space for prominence */
+  min-height: 450px;
+}
+
+@media (min-width: 768px) {
+  .expanded-voucher-card {
+    min-height: 480px;
+  }
+}

@@ -105,6 +105,9 @@ const Vouchers = () => {
     window.open(`https://lushways.com/payment/pay.php?amount=${amount}&type=membership`, '_blank');
   };
 
+  // List of voucher price values that should be "expanded"
+  const expandedPrices = [1000, 1750, 4000];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -139,7 +142,6 @@ const Vouchers = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="pt-24 md:pt-32">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
           <div className="text-center mb-12">
@@ -153,43 +155,55 @@ const Vouchers = () => {
 
           {/* Vouchers Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {vouchers.map((voucher) => (
-              <Card 
-                key={voucher.id} 
-                className="border-2 border-gold-brand bg-gold-box hover:shadow-lg transition-shadow"
-                style={{ borderRadius: '12px' }}
-              >
-                <CardHeader className="bg-gold-brand text-center py-3 rounded-t-[10px]">
-                  <div className="text-sm font-medium text-gold-header">
-                    {voucher.duration}
-                  </div>
-                </CardHeader>
-                <CardContent className="p-6 text-center" style={{ background: "#fff", borderRadius: "0 0 10px 10px" }}>
-                  <div className="text-3xl font-bold text-black mb-2">
-                    AED {voucher.price.toLocaleString()}
-                  </div>
-                  <CardTitle className="text-xl font-semibold text-black mb-4">
-                    {voucher.title}
-                  </CardTitle>
-                  <div className="text-sm font-medium text-black mb-4">
-                    MEMBERSHIP DETAILS
-                  </div>
-                  <div className="space-y-2 mb-6">
-                    {voucher.details.map((detail, index) => (
-                      <p key={index} className="text-sm text-gray-700">
-                        {detail}
-                      </p>
-                    ))}
-                  </div>
-                  <Button 
-                    className="diamond-gold-gradient w-full font-medium py-2 px-6 rounded-md"
-                    onClick={() => handleBookNow(voucher.price)}
+            {vouchers.map((voucher) => {
+              const isExpanded = expandedPrices.includes(voucher.price);
+              return (
+                <Card
+                  key={voucher.id}
+                  className={`border-2 border-gold-brand bg-gold-box hover:shadow-lg transition-shadow ${isExpanded ? "expanded-voucher-card" : ""}`}
+                  style={{ borderRadius: '12px' }}
+                >
+                  <CardHeader className="bg-gold-brand text-center py-3 rounded-t-[10px]">
+                    <div className="text-sm font-medium text-gold-header">
+                      {voucher.duration}
+                    </div>
+                  </CardHeader>
+                  <CardContent
+                    className={`p-6 text-center`}
+                    style={{
+                      background: "#fff",
+                      borderRadius: "0 0 10px 10px",
+                      ...(isExpanded
+                        ? { paddingTop: "2.5rem", paddingBottom: "2.5rem", minHeight: 340 }
+                        : {})
+                    }}
                   >
-                    PAY NOW
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                    <div className="text-3xl font-bold text-black mb-2">
+                      AED {voucher.price.toLocaleString()}
+                    </div>
+                    <CardTitle className="text-xl font-semibold text-black mb-4">
+                      {voucher.title}
+                    </CardTitle>
+                    <div className="text-sm font-medium text-black mb-4">
+                      MEMBERSHIP DETAILS
+                    </div>
+                    <div className="space-y-2 mb-6">
+                      {voucher.details.map((detail, index) => (
+                        <p key={index} className="text-sm text-gray-700">
+                          {detail}
+                        </p>
+                      ))}
+                    </div>
+                    <Button
+                      className="diamond-gold-gradient w-full font-medium py-2 px-6 rounded-md"
+                      onClick={() => handleBookNow(voucher.price)}
+                    >
+                      PAY NOW
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </main>
