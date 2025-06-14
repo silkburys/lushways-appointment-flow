@@ -173,7 +173,17 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-gray-200"></div>
+              <div className="h-48 bg-gray-200">
+                <img 
+                  src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.05.42-PM-150x150.png"
+                  alt="Meaisem City Centre Ladies"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
+                  }}
+                />
+              </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">Meaisem City Centre Ladies</h3>
                 <p className="text-gray-600 mb-4">Meaisem City Centre, Dubai, UAE</p>
@@ -199,7 +209,17 @@ const Index = () => {
             </div>
             
             <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-gray-200"></div>
+              <div className="h-48 bg-gray-200">
+                <img 
+                  src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.14.18-PM-150x150.png"
+                  alt="Al Barsha City Centre Ladies"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
+                  }}
+                />
+              </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">Al Barsha City Centre Ladies</h3>
                 <p className="text-gray-600 mb-4">Al Barsha City Centre, Dubai, UAE</p>
@@ -225,7 +245,17 @@ const Index = () => {
             </div>
             
             <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-gray-200"></div>
+              <div className="h-48 bg-gray-200">
+                <img 
+                  src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.18.40-PM-150x150.png"
+                  alt="Barber Shop"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
+                  }}
+                />
+              </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">Barber Shop</h3>
                 <p className="text-gray-600 mb-4">Al Barsha City Centre Gents and ladies, Dubai, UAE</p>
