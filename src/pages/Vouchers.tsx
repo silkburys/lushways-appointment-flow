@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -108,9 +109,12 @@ const Vouchers = () => {
   const expandedPrices = [1000, 1750, 4000];
 
   return (
-    <div className="min-h-screen bg-black">
+    <div
+      style={{ background: "#FCF7EE" }}
+      className="min-h-screen"
+    >
       {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black shadow-md py-2' : 'bg-black py-4'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-white py-4'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -122,18 +126,16 @@ const Vouchers = () => {
                 />
               </a>
             </div>
-            
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-amber-100 hover:text-white text-sm font-medium">HOME</a>
-              <a href="/quick-pay" className="text-amber-100 hover:text-white text-sm font-medium">QUICK PAY</a>
-              <a href="/terms" className="text-amber-100 hover:text-white text-sm font-medium">TERMS & CONDITIONS</a>
-              <a href="/privacy" className="text-amber-100 hover:text-white text-sm font-medium">PRIVACY POLICY</a>
-              <a href="/contact" className="text-amber-100 hover:text-white text-sm font-medium">CONTACT US</a>
+              <a href="/" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">HOME</a>
+              <a href="/quick-pay" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">QUICK PAY</a>
+              <a href="/terms" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">TERMS & CONDITIONS</a>
+              <a href="/privacy" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">PRIVACY POLICY</a>
+              <a href="/contact" className="text-neutral-800 hover:text-amber-700 text-sm font-medium transition-colors">CONTACT US</a>
             </nav>
-            
             <Button 
               variant="link" 
-              className="text-amber-100 hover:text-white"
+              className="text-neutral-800 hover:text-amber-700 transition-colors"
             >
               LOG IN
             </Button>
@@ -144,10 +146,13 @@ const Vouchers = () => {
       <main className="pt-24 md:pt-32">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-5xl font-serif text-white mb-4">
+            <h1 
+              className="text-3xl md:text-5xl font-serif mb-4 font-bold tracking-tight" 
+              style={{ color: "#E6BB53" }}
+            >
               MEMBERSHIP VOUCHERS
             </h1>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-700 max-w-2xl mx-auto">
               A wide variety and choice of Free add on's. Approach the receptionist at the nearest branch to know more.
             </p>
           </div>
@@ -158,40 +163,42 @@ const Vouchers = () => {
               return (
                 <Card
                   key={voucher.id}
-                  className={`border-2 border-gold-brand bg-black transition-shadow
+                  className={`border-2 border-gold-brand bg-white transition-shadow
                     ${isExpanded ? "expanded-voucher-card" : ""}
                   `}
                   style={{
                     borderRadius: '12px',
-                    boxShadow: isExpanded ? "0 6px 24px 0 rgba(198,187,77,0.07), 0 2px 8px 0 rgba(90,70,0,0.04)" : undefined,
+                    boxShadow: isExpanded 
+                      ? "0 6px 24px 0 rgba(198,187,77,0.07), 0 2px 8px 0 rgba(90,70,0,0.04)" 
+                      : "0 1.5px 6px 0 rgba(170,146,73,0.06)",
                   }}
                 >
                   <CardHeader className="bg-gold-brand text-center py-3 rounded-t-[10px]">
-                    <div className="text-sm font-medium text-gold-header">
+                    <div className="text-sm font-medium" style={{ color: "#744800" }}>
                       {voucher.duration}
                     </div>
                   </CardHeader>
                   <CardContent
                     className={`p-6 text-center flex flex-col ${isExpanded ? "py-12 md:py-14 min-h-[360px] md:min-h-[400px]" : ""}`}
                     style={{
-                      background: "#000",
+                      background: "#fff",
                       borderRadius: "0 0 10px 10px",
                       overflowWrap: "break-word",
                       wordBreak: "break-word"
                     }}
                   >
-                    <div className="text-3xl font-bold text-white mb-2 break-words">
+                    <div className="text-3xl font-bold mb-2 break-words text-neutral-900">
                       AED {voucher.price.toLocaleString()}
                     </div>
-                    <CardTitle className="text-xl font-semibold text-white mb-4 break-words">
+                    <CardTitle className="text-xl font-semibold mb-4 break-words text-neutral-900">
                       {voucher.title}
                     </CardTitle>
-                    <div className="text-sm font-medium text-white mb-4">
+                    <div className="text-sm font-medium mb-4" style={{ color: "#75541C" }}>
                       MEMBERSHIP DETAILS
                     </div>
                     <div className="space-y-2 mb-6">
                       {voucher.details.map((detail, index) => (
-                        <p key={index} className="text-sm text-white break-words whitespace-pre-line">
+                        <p key={index} className="text-sm text-neutral-700 break-words whitespace-pre-line">
                           {detail}
                         </p>
                       ))}
@@ -211,43 +218,42 @@ const Vouchers = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-black text-amber-100 py-12 mt-16">
+      <footer className="bg-white text-neutral-800 py-12 mt-16 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-semibold mb-4">LUSHWAYS</h3>
+              <h3 className="text-xl font-semibold mb-4" style={{ color: "#E6BB53" }}>LUSHWAYS</h3>
               <p className="mb-4">Professional beauty and salon services across Dubai.</p>
               <div className="flex space-x-4">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white"><Instagram size={20} /></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-amber-700"><Instagram size={20} /></a>
               </div>
             </div>
             
             <div>
-              <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
+              <h3 className="text-xl font-semibold mb-4" style={{ color: "#E6BB53" }}>Contact Us</h3>
               <div className="space-y-2">
                 <p className="flex items-center">
                   <PhoneCall size={16} className="mr-2" /> 
-                  <a href="tel:0521622999" className="hover:text-white">052 162 2999</a>
+                  <a href="tel:0521622999" className="hover:text-amber-700">052 162 2999</a>
                 </p>
                 <p className="flex items-center">
                   <Mail size={16} className="mr-2" /> 
-                  <a href="mailto:booking@lushways.com" className="hover:text-white">booking@lushways.com</a>
+                  <a href="mailto:booking@lushways.com" className="hover:text-amber-700">booking@lushways.com</a>
                 </p>
               </div>
             </div>
             
             <div>
-              <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+              <h3 className="text-xl font-semibold mb-4" style={{ color: "#E6BB53" }}>Quick Links</h3>
               <ul className="space-y-2">
-                <li><a href="/" className="hover:text-white">Home</a></li>
-                <li><a href="/quick-pay" className="hover:text-white">Quick Pay</a></li>
-                <li><a href="/terms" className="hover:text-white">Terms & Conditions</a></li>
-                <li><a href="/privacy" className="hover:text-white">Privacy Policy</a></li>
+                <li><a href="/" className="hover:text-amber-700">Home</a></li>
+                <li><a href="/quick-pay" className="hover:text-amber-700">Quick Pay</a></li>
+                <li><a href="/terms" className="hover:text-amber-700">Terms & Conditions</a></li>
+                <li><a href="/privacy" className="hover:text-amber-700">Privacy Policy</a></li>
               </ul>
             </div>
           </div>
-          
-          <div className="border-t border-gray-800 pt-6 text-center">
+          <div className="border-t border-gray-200 pt-6 text-center text-neutral-500">
             <p>&copy; {new Date().getFullYear()} Lushways. All rights reserved.</p>
           </div>
         </div>
