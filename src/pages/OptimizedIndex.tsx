@@ -1,499 +1,370 @@
-import { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Button } from '../components/ui/button';
-import { Instagram, PhoneCall, Mail, MapPin, ShoppingBag, CreditCard, Gift } from 'lucide-react';
+import { MapPin, Phone, Clock, Star, Instagram } from 'lucide-react';
 import PageSkeleton from '../components/ui/skeletons/PageSkeleton';
 import HeroSkeleton from '../components/ui/skeletons/HeroSkeleton';
 import SectionSkeleton from '../components/ui/skeletons/SectionSkeleton';
+import LocationsSkeleton from '../components/ui/skeletons/LocationsSkeleton';
 
-// Lazy load components for better performance
+// Lazy load the booking modal for better performance
 const BookingModal = lazy(() => import('../components/BookingModal'));
 
-// Critical images that should load immediately
-const CRITICAL_IMAGES = [
-  '/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png', // Logo
-  '/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png', // Desktop hero
-  '/lovable-uploads/f83342f5-83bc-4eb0-a214-dc4e18c6b8f4.png'  // Mobile hero
-];
-
 const OptimizedIndex = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [criticalImagesLoaded, setCriticalImagesLoaded] = useState(false);
-  const [sectionsVisible, setSectionsVisible] = useState({
-    hero: true,
+  // State for managing the booking modal
+  const [showBookingModal, setShowBookingModal] = useState(false);
+
+  // State for managing the selected date and time
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string>('');
+
+  // Function to handle date selection
+  const handleDateSelect = (date: Date | null) => {
+    setSelectedDate(date);
+  };
+
+  // Function to handle time selection
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time);
+  };
+
+  // Function to reset the selected date and time
+  const resetDateTime = () => {
+    setSelectedDate(null);
+    setSelectedTime('');
+  };
+  
+  const [isLoading, setIsLoading] = useState(true);
+  const [sectionsLoaded, setSectionsLoaded] = useState({
+    hero: false,
     shop: false,
     services: false,
     locations: false,
     reviews: false,
     instagram: false
   });
+  const [showBookingModal, setShowBookingModal] = useState(false);
 
-  // Preload critical images
+  // Progressive loading effect
   useEffect(() => {
-    const preloadPromises = CRITICAL_IMAGES.map(src => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = resolve;
-        img.onerror = resolve; // Continue even if image fails
-        img.src = src;
-      });
-    });
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      // Load sections progressively
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, hero: true })), 100);
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, shop: true })), 300);
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, services: true })), 500);
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, locations: true })), 700);
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, reviews: true })), 900);
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, instagram: true })), 1100);
+    }, 1000);
 
-    Promise.all(preloadPromises).then(() => {
-      setCriticalImagesLoaded(true);
-    });
+    return () => clearTimeout(timer);
   }, []);
 
-  // Progressive section loading based on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      
-      // Update navbar state
-      setIsScrolled(scrollY > 50);
-
-      // Progressive loading of sections
-      setSectionsVisible(prev => ({
-        ...prev,
-        shop: scrollY > windowHeight * 0.3,
-        services: scrollY > windowHeight * 0.6,
-        locations: scrollY > windowHeight * 0.9,
-        reviews: scrollY > windowHeight * 1.2,
-        instagram: scrollY > windowHeight * 1.5
-      }));
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Show full skeleton while critical images load
-  if (!criticalImagesLoaded) {
+  // Show full page skeleton during initial load
+  if (isLoading) {
     return <PageSkeleton />;
   }
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Optimized Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black shadow-md py-2' : 'bg-black py-4'}`}>
+      {/* Header - Always visible */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black py-4">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <a href="/">
-                <img 
-                  src="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" 
-                  alt="LUSHWAYS" 
-                  className="h-8 md:h-10 cursor-pointer" 
-                  loading="eager"
-                  decoding="async"
-                />
-              </a>
-            </div>
-            
+            <h1 className="text-white text-xl md:text-2xl font-bold">Beauty Salon</h1>
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-amber-100 hover:text-white text-sm font-medium">HOME</a>
-              <a href="/quick-pay" className="text-amber-100 hover:text-white text-sm font-medium">QUICK PAY</a>
-              <a href="/terms" className="text-amber-100 hover:text-white text-sm font-medium">TERMS & CONDITIONS</a>
-              <a href="/privacy" className="text-amber-100 hover:text-white text-sm font-medium">PRIVACY POLICY</a>
-              <a href="/contact" className="text-amber-100 hover:text-white text-sm font-medium">CONTACT US</a>
+              <a href="#shop" className="text-white hover:text-gray-300">Shop</a>
+              <a href="#services" className="text-white hover:text-gray-300">Services</a>
+              <a href="#locations" className="text-white hover:text-gray-300">Locations</a>
+              <a href="#reviews" className="text-white hover:text-gray-300">Reviews</a>
+              <a href="#contact" className="text-white hover:text-gray-300">Contact</a>
             </nav>
-            
-            <Button variant="link" className="text-amber-100 hover:text-white">
-              LOG IN
+            <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+              Menu
             </Button>
           </div>
         </div>
       </header>
 
-      {/* Hero Section with Embedded Booking */}
-      <section className="pt-24 md:pt-32 relative overflow-hidden min-h-screen">
-        {/* Optimized Background Images */}
-        <div className="absolute inset-0 z-0">
-          <div className="hidden md:block w-full h-full">
-            <img 
-              src="/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png" 
-              alt="Beauty services for men and women" 
-              className="w-full h-full object-cover"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-            />
-          </div>
-          <div className="block md:hidden w-full h-full">
-            <img 
-              src="/lovable-uploads/f83342f5-83bc-4eb0-a214-dc4e18c6b8f4.png" 
-              alt="Beauty services" 
-              className="w-full h-full object-cover"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-            />
-          </div>
-        </div>
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-16">
-          <div className="text-center mb-8 md:mb-12">
-            <h1 className="text-3xl md:text-5xl font-serif text-black mb-4">
-              BEAUTY & SALON SERVICES
-            </h1>
-            <p className="text-lg md:text-xl text-gray-700 mb-8">
-              Book your appointment in 60 seconds
-            </p>
+      {/* Hero Section */}
+      {!sectionsLoaded.hero ? (
+        <HeroSkeleton />
+      ) : (
+        <section className="pt-24 md:pt-32 relative overflow-hidden min-h-screen">
+          <div 
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: 'url(/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            <div className="absolute inset-0 bg-black/50"></div>
           </div>
           
-          <div className="flex justify-center">
-            <div className="w-full max-w-2xl">
-              <Suspense fallback={<HeroSkeleton />}>
-                <BookingModal isOpen={true} onClose={() => {}} />
-              </Suspense>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Shop Section - Progressive Loading */}
-      {sectionsVisible.shop ? (
-        <section className="py-16 md:py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">SHOP</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" onClick={() => window.location.href = '/products'}>
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ShoppingBag className="text-amber-800" size={24} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Products</h3>
-                <p className="text-gray-600">Premium beauty and salon products for professional results at home</p>
-              </div>
-              
-              <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CreditCard className="text-amber-800" size={24} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Memberships</h3>
-                <p className="text-gray-600">Exclusive membership plans with special benefits and savings</p>
-              </div>
-              
-              <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" onClick={() => window.location.href = '/vouchers'}>
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Gift className="text-amber-800" size={24} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Vouchers</h3>
-                <p className="text-gray-600">Gift vouchers perfect for treating someone special to our services</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : (
-        <SectionSkeleton title cards={3} background="gray" />
-      )}
-
-      {/* Services Section - Progressive Loading */}
-      {sectionsVisible.services ? (
-        <section className="py-16 md:py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">OUR SERVICES</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center p-6 bg-gray-50 rounded-lg">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-amber-800 text-2xl">💇</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Hair Services</h3>
-                <p className="text-gray-600">Professional haircuts, styling, color treatments and more</p>
-              </div>
-              
-              <div className="text-center p-6 bg-gray-50 rounded-lg">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-amber-800 text-2xl">💅</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Nail Services</h3>
-                <p className="text-gray-600">Manicures, pedicures, gel polish and nail extensions</p>
-              </div>
-              
-              <div className="text-center p-6 bg-gray-50 rounded-lg">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-amber-800 text-2xl">✨</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Spa Treatments</h3>
-                <p className="text-gray-600">Relaxing massages, facials, body treatments and more</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : (
-        <SectionSkeleton title cards={3} background="white" />
-      )}
-
-      {/* Locations Section */}
-      {sectionsVisible.locations ? (
-        <section className="py-16 md:py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">OUR LOCATIONS</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className="h-48 bg-gray-200">
-                  <img 
-                    src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.05.42-PM-150x150.png"
-                    alt="Meaisem City Centre Ladies"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
-                    }}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Meaisem City Centre Ladies</h3>
-                  <p className="text-gray-600 mb-4">Meaisem City Centre, Dubai, UAE</p>
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 flex items-center justify-center gap-2"
-                      onClick={() => window.open('https://maps.app.goo.gl/gpWiYDvQMxohYH2w8', '_blank')}
-                    >
-                      <MapPin size={16} />
-                      Directions
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 flex items-center justify-center gap-2"
-                      onClick={() => window.location.href = 'tel:0521622999'}
-                    >
-                      <PhoneCall size={16} />
-                      Call
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className="h-48 bg-gray-200">
-                  <img 
-                    src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.14.18-PM-150x150.png"
-                    alt="Al Barsha City Centre Ladies"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
-                    }}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Al Barsha City Centre Ladies</h3>
-                  <p className="text-gray-600 mb-4">Al Barsha City Centre, Dubai, UAE</p>
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 flex items-center justify-center gap-2"
-                      onClick={() => window.open('https://maps.app.goo.gl/k5kYCNkqbnfRw3Xv6', '_blank')}
-                    >
-                      <MapPin size={16} />
-                      Directions
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 flex items-center justify-center gap-2"
-                      onClick={() => window.location.href = 'tel:045540344'}
-                    >
-                      <PhoneCall size={16} />
-                      Call
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className="h-48 bg-gray-200">
-                  <img 
-                    src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.18.40-PM-150x150.png"
-                    alt="Barber Shop"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
-                    }}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Barber Shop</h3>
-                  <p className="text-gray-600 mb-4">Al Barsha City Centre Gents and ladies, Dubai, UAE</p>
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 flex items-center justify-center gap-2"
-                      onClick={() => window.open('https://maps.app.goo.gl/SbyRyFuaXE1WYWWy5', '_blank')}
-                    >
-                      <MapPin size={16} />
-                      Directions
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 flex items-center justify-center gap-2"
-                      onClick={() => window.location.href = 'tel:0585618383'}
-                    >
-                      <PhoneCall size={16} />
-                      Call
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : (
-        <LocationsSkeleton />
-      )}
-
-      {/* Google Reviews Section */}
-      {sectionsVisible.reviews ? (
-        <section className="py-16 md:py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 className="text-3xl md:text-4xl font-serif text-center mb-6">WHAT OUR CLIENTS SAY</h2>
-            <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">See what our satisfied clients have to say about our beauty and salon services.</p>
-            
-            {/* Google Reviews Widget - This would be replaced with the actual Google Reviews embed */}
-            <div className="border rounded-lg p-6 bg-gray-50 flex flex-col items-center">
-              <div className="mb-6 flex items-center">
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" 
-                  alt="Google" 
-                  className="h-8 mr-2"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-center mb-6">
-                Replace this with your live Google Reviews plugin. Simply paste the embed code here for your actual Google Reviews widget.
+          <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-16">
+            <div className="text-center text-white mb-8 md:mb-12">
+              <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                Beauty & Wellness Studio
+              </h1>
+              <p className="text-xl md:text-2xl mb-8">
+                Transform Your Look, Elevate Your Confidence
               </p>
-              <div className="text-sm text-gray-500">
-                Based on 150+ reviews
-              </div>
+            </div>
+            
+            <div className="flex justify-center">
+              <Button 
+                onClick={() => setShowBookingModal(true)}
+                size="lg"
+                className="bg-white text-black hover:bg-gray-100 px-8 py-3 text-lg"
+              >
+                Book Now
+              </Button>
             </div>
           </div>
         </section>
-      ) : (
-        <SectionSkeleton title cards={1} background="white" />
       )}
 
-      {/* Instagram Feed Section */}
-      {sectionsVisible.instagram ? (
-        <section className="py-16 md:py-24 bg-gray-50">
+      {/* Shop Section */}
+      {!sectionsLoaded.shop ? (
+        <SectionSkeleton title cards={3} background="gray" />
+      ) : (
+        <section id="shop" className="py-16 md:py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 className="text-3xl md:text-4xl font-serif text-center mb-6">FOLLOW US ON INSTAGRAM</h2>
-            <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Stay updated with our latest styles, promotions, and beauty tips.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
+              Our Products
+            </h2>
             
-            <div className="flex items-center justify-center mb-12">
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
-              >
-                <Instagram className="mr-2" />
-                Follow @lushways
-              </a>
-            </div>
-            
-            {/* Instagram Gallery - This would be replaced with the actual Instagram feed */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {[...Array(6)].map((_, index) => (
-                <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
-                  {/* This would be filled with actual Instagram posts */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  image: '/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png',
+                  title: 'Premium Skincare',
+                  description: 'Professional-grade skincare products for all skin types.'
+                },
+                {
+                  image: '/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png',
+                  title: 'Hair Care Essentials',
+                  description: 'Luxury hair products for healthy, beautiful hair.'
+                },
+                {
+                  image: '/lovable-uploads/a160d735-8920-49a3-a9a7-69c27b4b3b58.png',
+                  title: 'Makeup Collection',
+                  description: 'High-quality cosmetics for every occasion.'
+                }
+              ].map((product, index) => (
+                <div key={index} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <img 
+                    src={product.image} 
+                    alt={product.title}
+                    className="w-full h-48 object-cover"
+                    loading="lazy"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{product.title}</h3>
+                    <p className="text-gray-600 mb-4">{product.description}</p>
+                    <div className="flex gap-2">
+                      <Button className="flex-1">Shop Now</Button>
+                      <Button variant="outline" className="flex-1">Learn More</Button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
-      ) : (
-        <SectionSkeleton title cards={6} background="gray" />
       )}
 
-      {/* Membership & Products Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="text-center p-8 bg-amber-50 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-4">Memberships</h3>
-              <p className="text-gray-600 mb-6">Enjoy exclusive benefits and savings with our membership plans.</p>
-              <Button
-                className="bg-amber-200 text-black hover:bg-amber-300"
-                onClick={() => window.location.href = '/vouchers'}
-              >
-                View Memberships
-              </Button>
-            </div>
+      {/* Services Section */}
+      {!sectionsLoaded.services ? (
+        <SectionSkeleton title cards={3} background="white" />
+      ) : (
+        <section id="services" className="py-16 md:py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
+              Our Services
+            </h2>
             
-            <div className="text-center p-8 bg-amber-50 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-4">Products</h3>
-              <p className="text-gray-600 mb-6">Discover our premium beauty and salon products.</p>
-              <Button
-                className="bg-amber-200 text-black hover:bg-amber-300"
-                onClick={() => window.location.href = '/products'}
-              >
-                Shop Products
-              </Button>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: <Star className="w-8 h-8" />,
+                  title: 'Facial Treatments',
+                  description: 'Rejuvenating facial treatments tailored to your skin needs.'
+                },
+                {
+                  icon: <Star className="w-8 h-8" />,
+                  title: 'Hair Styling',
+                  description: 'Professional cuts, colors, and styling for any occasion.'
+                },
+                {
+                  icon: <Star className="w-8 h-8" />,
+                  title: 'Wellness Spa',
+                  description: 'Relaxing spa treatments for mind and body rejuvenation.'
+                }
+              ].map((service, index) => (
+                <div key={index} className="text-center p-6 bg-gray-50 rounded-lg">
+                  <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
+                  <p className="text-gray-600">{service.description}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Footer - Always visible */}
-      <footer className="bg-black text-amber-100 py-12">
+      {/* Locations Section */}
+      {!sectionsLoaded.locations ? (
+        <LocationsSkeleton />
+      ) : (
+        <section id="locations" className="py-16 md:py-24 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
+              Our Locations
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  image: '/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png',
+                  name: 'Downtown Studio',
+                  address: '123 Main Street, City Center'
+                },
+                {
+                  image: '/lovable-uploads/f83342f5-83bc-4eb0-a214-dc4e18c6b8f4.png',
+                  name: 'Uptown Branch',
+                  address: '456 Fashion Avenue, Uptown District'
+                },
+                {
+                  image: '/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png',
+                  name: 'Wellness Center',
+                  address: '789 Spa Boulevard, Wellness Quarter'
+                }
+              ].map((location, index) => (
+                <div key={index} className="bg-white rounded-lg overflow-hidden shadow-sm">
+                  <img 
+                    src={location.image} 
+                    alt={location.name}
+                    className="w-full h-48 object-cover"
+                    loading="lazy"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{location.name}</h3>
+                    <p className="text-gray-600 flex items-center mb-4">
+                      <MapPin className="w-4 h-4 mr-2" />
+                      {location.address}
+                    </p>
+                    <div className="flex gap-2">
+                      <Button className="flex-1">Visit</Button>
+                      <Button variant="outline" className="flex-1">
+                        <Phone className="w-4 h-4 mr-2" />
+                        Call
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Reviews Section */}
+      {!sectionsLoaded.reviews ? (
+        <SectionSkeleton title cards={1} background="white" />
+      ) : (
+        <section id="reviews" className="py-16 md:py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
+              What Our Clients Say
+            </h2>
+            
+            <div className="max-w-2xl mx-auto text-center">
+              <div className="flex justify-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                ))}
+              </div>
+              <blockquote className="text-xl text-gray-600 mb-6">
+                "Absolutely amazing experience! The staff is professional and the results exceeded my expectations. I'll definitely be coming back!"
+              </blockquote>
+              <cite className="text-gray-900 font-semibold">Sarah Johnson</cite>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Instagram Section */}
+      {!sectionsLoaded.instagram ? (
+        <SectionSkeleton title cards={6} background="gray" />
+      ) : (
+        <section className="py-16 md:py-24 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
+              Follow Us @beautysalon
+            </h2>
+            
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden group cursor-pointer">
+                  <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Instagram className="w-8 h-8 text-white" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Footer */}
+      <footer className="bg-black text-white py-12">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-semibold mb-4">LUSHWAYS</h3>
-              <p className="mb-4">Professional beauty and salon services across Dubai.</p>
-              <div className="flex space-x-4">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white"><Instagram size={20} /></a>
-              </div>
+              <h3 className="text-xl font-bold mb-4">Beauty Salon</h3>
+              <p className="text-gray-400">
+                Your premier destination for beauty and wellness services.
+              </p>
             </div>
-            
             <div>
-              <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
-              <div className="space-y-2">
-                <p className="flex items-center">
-                  <PhoneCall size={16} className="mr-2" /> 
-                  <a href="tel:0521622999" className="hover:text-white">052 162 2999</a>
-                </p>
-                <p className="flex items-center">
-                  <Mail size={16} className="mr-2" /> 
-                  <a href="mailto:booking@lushways.com" className="hover:text-white">booking@lushways.com</a>
-                </p>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                <li><a href="/" className="hover:text-white">Home</a></li>
-                <li><a href="/quick-pay" className="hover:text-white">Quick Pay</a></li>
-                <li><a href="/terms" className="hover:text-white">Terms & Conditions</a></li>
-                <li><a href="/privacy" className="hover:text-white">Privacy Policy</a></li>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#services" className="hover:text-white">Services</a></li>
+                <li><a href="#locations" className="hover:text-white">Locations</a></li>
+                <li><a href="#shop" className="hover:text-white">Shop</a></li>
+                <li><a href="#contact" className="hover:text-white">Contact</a></li>
               </ul>
             </div>
-          </div>
-          
-          <div className="border-t border-gray-800 pt-6 text-center">
-            <p>&copy; {new Date().getFullYear()} Lushways. All rights reserved.</p>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+              <div className="space-y-2 text-gray-400">
+                <p className="flex items-center">
+                  <Phone className="w-4 h-4 mr-2" />
+                  (555) 123-4567
+                </p>
+                <p className="flex items-center">
+                  <Clock className="w-4 h-4 mr-2" />
+                  Mon-Sat: 9AM-7PM
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
+
+      {/* Booking Modal */}
+      {showBookingModal && (
+        <Suspense fallback={<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg">Loading...</div>
+        </div>}>
+          <BookingModal onClose={() => setShowBookingModal(false)} />
+        </Suspense>
+      )}
     </div>
   );
 };
