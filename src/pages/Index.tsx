@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import BookingModal from '../components/BookingModal';
 import { Button } from '../components/ui/button';
@@ -83,10 +84,10 @@ const Index = () => {
         {/* Embedded Booking Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-16">
           <div className="text-center mb-8 md:mb-12">
-            <h1 className="text-3xl md:text-5xl font-serif text-white mb-4">
+            <h1 className="text-3xl md:text-5xl font-serif text-black mb-4">
               BEAUTY & SALON SERVICES
             </h1>
-            <p className="text-lg md:text-xl text-amber-100 mb-8">
+            <p className="text-lg md:text-xl text-gray-700 mb-8">
               Book your appointment in 60 seconds
             </p>
           </div>
