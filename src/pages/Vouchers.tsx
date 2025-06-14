@@ -179,10 +179,10 @@ const Vouchers = () => {
                     ))}
                   </div>
                   <Button 
-                    className="bg-yellow-600 text-white hover:bg-yellow-700 w-full font-medium"
+                    className="bg-amber-400 text-black hover:bg-amber-500 w-full font-medium border border-amber-500"
                     onClick={() => handleBookNow(voucher.price)}
                   >
-                    BOOK NOW
+                    PAY NOW
                   </Button>
                 </CardContent>
               </Card>
