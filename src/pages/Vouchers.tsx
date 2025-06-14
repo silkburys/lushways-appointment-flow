@@ -155,9 +155,13 @@ const Vouchers = () => {
           {/* Vouchers Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {vouchers.map((voucher) => (
-              <Card key={voucher.id} className="border-2 border-yellow-700 hover:shadow-lg transition-shadow bg-white">
-                <CardHeader className="bg-yellow-700 text-center py-3">
-                  <div className="text-sm font-medium text-white">
+              <Card 
+                key={voucher.id} 
+                className="border-2 border-gold-brand hover:shadow-lg transition-shadow bg-white"
+                style={{ borderRadius: '12px' }}
+              >
+                <CardHeader className="bg-gold-brand text-center py-3 rounded-t-[10px]">
+                  <div className="text-sm font-medium text-gold-header">
                     {voucher.duration}
                   </div>
                 </CardHeader>

@@ -146,3 +146,14 @@
 .gold-gradient:hover, .gold-gradient:focus {
   filter: brightness(1.08) saturate(1.12);
 }
+
+/* Brand gold color for borders and backgrounds */
+.border-gold-brand {
+  border-color: #F7EBA6 !important;
+}
+.bg-gold-brand {
+  background-color: #F7EBA6 !important;
+}
+.text-gold-header {
+  color: #5c4219 !important; /* A deep brown for contrast, matches logo palette well */
+}
