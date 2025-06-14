@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Yeserva+One&display=swap');
 @tailwind base;
 @tailwind components;
@@ -170,4 +169,8 @@
 .diamond-gold-gradient:hover,
 .diamond-gold-gradient:focus {
   filter: brightness(1.06) saturate(1.10);
+}
+
+.bg-gold-box {
+  background-color: #D9C87A !important;
 }

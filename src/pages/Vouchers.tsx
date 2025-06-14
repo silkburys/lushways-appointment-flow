@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -157,7 +156,7 @@ const Vouchers = () => {
             {vouchers.map((voucher) => (
               <Card 
                 key={voucher.id} 
-                className="border-2 border-gold-brand hover:shadow-lg transition-shadow bg-white"
+                className="border-2 border-gold-brand bg-gold-box hover:shadow-lg transition-shadow"
                 style={{ borderRadius: '12px' }}
               >
                 <CardHeader className="bg-gold-brand text-center py-3 rounded-t-[10px]">
