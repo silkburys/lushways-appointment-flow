@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -38,7 +37,7 @@ const QuickPay = () => {
     // Create a form and submit to the PHP endpoint
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = 'https://lushways.com/payment/index';
+    form.action = 'https://lushways.com/payment/index.php';
 
     // Add form fields
     Object.entries(formData).forEach(([key, value]) => {
