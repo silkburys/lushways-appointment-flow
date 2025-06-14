@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -88,17 +87,17 @@ const QuickPay = () => {
             
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-amber-100 hover:text-white text-sm font-medium">HOME</a>
-              <a href="/quick-pay" className="text-amber-100 hover:text-white text-sm font-medium">QUICK PAY</a>
-              <a href="/terms" className="text-amber-100 hover:text-white text-sm font-medium">TERMS & CONDITIONS</a>
-              <a href="/privacy" className="text-amber-100 hover:text-white text-sm font-medium">PRIVACY POLICY</a>
-              <a href="/contact" className="text-amber-100 hover:text-white text-sm font-medium">CONTACT US</a>
+              <a href="/" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">HOME</a>
+              <a href="/quick-pay" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
+              <a href="/terms" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
+              <a href="/privacy" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
+              <a href="/contact" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">CONTACT US</a>
             </nav>
             
             {/* Login Button */}
             <Button 
               variant="link" 
-              className="text-amber-100 hover:text-white"
+              className="text-amber-100 hover:text-white font-yeserva"
             >
               LOG IN
             </Button>
@@ -110,7 +109,7 @@ const QuickPay = () => {
       <div className="pt-24 md:pt-32 min-h-screen bg-black flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-serif text-amber-300 mb-2">
+            <h1 className="text-4xl md:text-5xl font-serif text-amber-300 mb-2 font-yeserva">
               QUICK PAY
             </h1>
           </div>
@@ -194,7 +193,7 @@ const QuickPay = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-semibold mb-4">LUSHWAYS</h3>
+              <h3 className="text-xl font-semibold mb-4 font-yeserva">LUSHWAYS</h3>
               <p className="mb-4">Professional beauty and salon services across Dubai.</p>
               <div className="flex space-x-4">
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white"><Instagram size={20} /></a>
@@ -202,7 +201,7 @@ const QuickPay = () => {
             </div>
             
             <div>
-              <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
+              <h3 className="text-xl font-semibold mb-4 font-yeserva">Contact Us</h3>
               <div className="space-y-2">
                 <p className="flex items-center"><PhoneCall size={16} className="mr-2" /> 052 162 2999</p>
                 <p className="flex items-center"><Mail size={16} className="mr-2" /> booking@lushways.com</p>
@@ -210,7 +209,7 @@ const QuickPay = () => {
             </div>
             
             <div>
-              <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+              <h3 className="text-xl font-semibold mb-4 font-yeserva">Quick Links</h3>
               <ul className="space-y-2">
                 <li><a href="/" className="hover:text-white">Home</a></li>
                 <li><a href="/quick-pay" className="hover:text-white">Quick Pay</a></li>
