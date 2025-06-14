@@ -37,17 +37,17 @@ const Terms = () => {
             
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">HOME</a>
-              <a href="/quick-pay" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
-              <a href="/terms" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
-              <a href="/privacy" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
-              <a href="/contact" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">CONTACT US</a>
+              <a href="/" className="text-lushways hover:text-white text-sm font-medium font-yeserva">HOME</a>
+              <a href="/quick-pay" className="text-lushways hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
+              <a href="/terms" className="text-lushways hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
+              <a href="/privacy" className="text-lushways hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
+              <a href="/contact" className="text-lushways hover:text-white text-sm font-medium font-yeserva">CONTACT US</a>
             </nav>
             
             {/* Login Button */}
             <Button 
               variant="link" 
-              className="text-amber-100 hover:text-white font-yeserva"
+              className="text-lushways hover:text-white font-yeserva"
             >
               LOG IN
             </Button>
@@ -102,7 +102,6 @@ const Terms = () => {
               <p className="mb-4">Multiple transactions may result in multiple postings to the cardholder's monthly statement.</p>
             </section>
 
-            {/* Continue with all other sections... */}
             <section>
               <h2 className="text-2xl font-semibold text-black mb-4">SECTION 2 – GENERAL CONDITIONS</h2>
               <p className="mb-4">We reserve the right to refuse service to anyone for any reason at any time.</p>
@@ -110,8 +109,6 @@ const Terms = () => {
               <p className="mb-4">You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the Service, use of the Service, or access to the Service or any contact on the website through which the service is provided, without express written permission by us.</p>
               <p className="mb-4">The headings used in this agreement are included for convenience only and will not limit or otherwise affect these Terms.</p>
             </section>
-
-            {/* Additional sections would continue here with all the terms content... */}
             
             <section>
               <h2 className="text-2xl font-semibold text-black mb-4">CONTACT INFORMATION</h2>
@@ -155,7 +152,7 @@ const Terms = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-black text-amber-100 py-12">
+      <footer className="bg-black text-lushways py-12">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>

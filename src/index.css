@@ -107,3 +107,32 @@
 .font-yeserva {
   font-family: 'Yeserva One', serif;
 }
+
+/* Custom color for lushways branding */
+.text-lushways {
+  color: #e3da94;
+}
+
+.bg-lushways {
+  background-color: #e3da94;
+}
+
+.border-lushways {
+  border-color: #e3da94;
+}
+
+.hover\:bg-lushways:hover {
+  background-color: #e3da94;
+}
+
+.hover\:text-lushways:hover {
+  color: #e3da94;
+}
+
+.focus\:border-lushways:focus {
+  border-color: #e3da94;
+}
+
+.focus\:ring-lushways:focus {
+  --tw-ring-color: #e3da94;
+}

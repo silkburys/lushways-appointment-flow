@@ -38,17 +38,17 @@ const Privacy = () => {
             
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">HOME</a>
-              <a href="/quick-pay" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
-              <a href="/terms" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
-              <a href="/privacy" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
-              <a href="/contact" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">CONTACT US</a>
+              <a href="/" className="text-lushways hover:text-white text-sm font-medium font-yeserva">HOME</a>
+              <a href="/quick-pay" className="text-lushways hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
+              <a href="/terms" className="text-lushways hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
+              <a href="/privacy" className="text-lushways hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
+              <a href="/contact" className="text-lushways hover:text-white text-sm font-medium font-yeserva">CONTACT US</a>
             </nav>
             
             {/* Login Button */}
             <Button 
               variant="link" 
-              className="text-amber-100 hover:text-white font-yeserva"
+              className="text-lushways hover:text-white font-yeserva"
             >
               LOG IN
             </Button>
@@ -60,22 +60,22 @@ const Privacy = () => {
       <div className="pt-24 md:pt-32 pb-16 bg-black text-white">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-serif text-amber-300 mb-4 font-yeserva">
+            <h1 className="text-4xl md:text-5xl font-serif text-lushways mb-4 font-yeserva">
               Privacy Policy
             </h1>
-            <p className="text-amber-100 text-lg">
+            <p className="text-lushways text-lg">
               This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from www.lushways.com
             </p>
           </div>
 
           <div className="prose prose-lg max-w-none text-gray-300 space-y-8">
             <section>
-              <h2 className="text-2xl font-semibold text-amber-300 mb-4 font-yeserva">PERSONAL INFORMATION WE COLLECT</h2>
+              <h2 className="text-2xl font-semibold text-lushways mb-4 font-yeserva">PERSONAL INFORMATION WE COLLECT</h2>
               <p className="mb-4">
                 When you visit the Site, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products that you view, what websites or search terms referred you to the Site, and information about how you interact with the Site. We refer to this automatically-collected information as "Device Information".
               </p>
               
-              <h3 className="text-xl font-semibold text-amber-300 mb-3 font-yeserva">We collect Device Information using the following technologies:</h3>
+              <h3 className="text-xl font-semibold text-lushways mb-3 font-yeserva">We collect Device Information using the following technologies:</h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li><strong>"Cookies"</strong> are data files that are placed on your device or computer and often include an anonymous unique identifier. For more information about cookies, and how to disable cookies, visit http://www.allaboutcookies.org.</li>
                 <li><strong>"Log files"</strong> track actions occurring on the Site, and collect data including your IP address, browser type, Internet service provider, referring/exit pages, and date/time stamps.</li>
@@ -92,21 +92,21 @@ const Privacy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-amber-300 mb-4 font-yeserva">DO NOT TRACK</h2>
+              <h2 className="text-2xl font-semibold text-lushways mb-4 font-yeserva">DO NOT TRACK</h2>
               <p className="mb-4">
                 Please note that we do not alter our Site's data collection and use practices when we see a Do Not Track signal from your browser.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-amber-300 mb-4 font-yeserva">DATA RETENTION</h2>
+              <h2 className="text-2xl font-semibold text-lushways mb-4 font-yeserva">DATA RETENTION</h2>
               <p className="mb-4">
                 When you place an order through the Site, we will maintain your Order Information for our records unless and until you ask us to delete this information.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-amber-300 mb-4 font-yeserva">CREDIT CARDS</h2>
+              <h2 className="text-2xl font-semibold text-lushways mb-4 font-yeserva">CREDIT CARDS</h2>
               <p className="mb-4">
                 All credit/debit cards details and personally identifiable information will NOT be stored, sold, shared, rented or leased to any third parties.
               </p>
@@ -122,14 +122,14 @@ const Privacy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-amber-300 mb-4 font-yeserva">CHANGES</h2>
+              <h2 className="text-2xl font-semibold text-lushways mb-4 font-yeserva">CHANGES</h2>
               <p className="mb-4">
                 We may update this privacy policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal or regulatory reasons.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-amber-300 mb-4 font-yeserva">CONTACT US</h2>
+              <h2 className="text-2xl font-semibold text-lushways mb-4 font-yeserva">CONTACT US</h2>
               <p className="mb-4">
                 For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e‑mail at legal@lushways.com
               </p>
@@ -139,7 +139,7 @@ const Privacy = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-black text-amber-100 py-12">
+      <footer className="bg-black text-lushways py-12">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
@@ -165,6 +165,7 @@ const Privacy = () => {
                 <li><a href="/quick-pay" className="hover:text-white">Quick Pay</a></li>
                 <li><a href="/terms" className="hover:text-white">Terms & Conditions</a></li>
                 <li><a href="/privacy" className="hover:text-white">Privacy Policy</a></li>
+                <li><a href="/contact" className="hover:text-white">Contact Us</a></li>
               </ul>
             </div>
           </div>

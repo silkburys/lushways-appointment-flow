@@ -47,17 +47,17 @@ const Contact = () => {
             
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">HOME</a>
-              <a href="/quick-pay" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
-              <a href="/terms" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
-              <a href="/privacy" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
+              <a href="/" className="text-lushways hover:text-white text-sm font-medium font-yeserva">HOME</a>
+              <a href="/quick-pay" className="text-lushways hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
+              <a href="/terms" className="text-lushways hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
+              <a href="/privacy" className="text-lushways hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
               <a href="/contact" className="text-white text-sm font-medium font-yeserva">CONTACT US</a>
             </nav>
             
             {/* Login Button */}
             <Button 
               variant="link" 
-              className="text-amber-100 hover:text-white font-yeserva"
+              className="text-lushways hover:text-white font-yeserva"
             >
               LOG IN
             </Button>
@@ -70,17 +70,17 @@ const Contact = () => {
         {/* Hero Section */}
         <div className="bg-black text-white py-16">
           <div className="max-w-7xl mx-auto px-4 md:px-8 text-center">
-            <h1 className="text-4xl md:text-6xl font-yeserva text-amber-300 mb-8">
+            <h1 className="text-4xl md:text-6xl font-yeserva text-lushways mb-8">
               CONTACT US
             </h1>
             <p className="text-xl mb-8">Get in touch with us for bookings and inquiries</p>
             <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
               <div className="flex items-center">
-                <PhoneCall size={20} className="mr-2 text-amber-300" />
+                <PhoneCall size={20} className="mr-2 text-lushways" />
                 <span className="text-lg">052 162 2999</span>
               </div>
               <div className="flex items-center">
-                <Mail size={20} className="mr-2 text-amber-300" />
+                <Mail size={20} className="mr-2 text-lushways" />
                 <span className="text-lg">booking@lushways.com</span>
               </div>
             </div>
@@ -93,15 +93,15 @@ const Contact = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {/* Location 1 */}
               <div className="text-center">
-                <h2 className="text-2xl font-yeserva text-amber-300 mb-4">lushways</h2>
-                <div className="space-y-2 text-amber-100">
+                <h2 className="text-2xl font-yeserva text-lushways mb-4">lushways</h2>
+                <div className="space-y-2 text-lushways">
                   <p className="flex items-center justify-center">
                     <MapPin size={16} className="mr-2" />
                     City Centre Me'aisem - F311 - Dubai - United Arab Emirates
                   </p>
                 </div>
-                <h3 className="text-xl font-yeserva text-amber-300 mt-6 mb-2">Hours</h3>
-                <div className="text-amber-100 space-y-1">
+                <h3 className="text-xl font-yeserva text-lushways mt-6 mb-2">Hours</h3>
+                <div className="text-lushways space-y-1">
                   <p>Monday - Saturday: 11am - 7pm</p>
                   <p>Sunday: Closed</p>
                 </div>
@@ -109,15 +109,15 @@ const Contact = () => {
 
               {/* Location 2 */}
               <div className="text-center">
-                <h2 className="text-2xl font-yeserva text-amber-300 mb-4">lushways</h2>
-                <div className="space-y-2 text-amber-100">
+                <h2 className="text-2xl font-yeserva text-lushways mb-4">lushways</h2>
+                <div className="space-y-2 text-lushways">
                   <p className="flex items-center justify-center">
                     <MapPin size={16} className="mr-2" />
                     Al Barsha City Centre Gents and ladies - Dubai - United Arab Emirates
                   </p>
                 </div>
-                <h3 className="text-xl font-yeserva text-amber-300 mt-6 mb-2">Hours</h3>
-                <div className="text-amber-100 space-y-1">
+                <h3 className="text-xl font-yeserva text-lushways mt-6 mb-2">Hours</h3>
+                <div className="text-lushways space-y-1">
                   <p>Monday - Saturday: 11am - 7pm</p>
                   <p>Sunday: Closed</p>
                 </div>
@@ -148,10 +148,10 @@ const Contact = () => {
         {/* Newsletter Section */}
         <div className="bg-black text-white py-16">
           <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-yeserva text-amber-300 mb-4">
+            <h2 className="text-3xl md:text-4xl font-yeserva text-lushways mb-4">
               STAY ON THE CUTTING-EDGE
             </h2>
-            <p className="text-lg mb-8 text-amber-100">
+            <p className="text-lg mb-8 text-lushways">
               Sign up to hear from us about specials, sales, events, and fashion tips.
             </p>
             <form onSubmit={handleNewsletterSubmit} className="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
@@ -165,7 +165,7 @@ const Contact = () => {
               />
               <Button
                 type="submit"
-                className="bg-amber-400 hover:bg-amber-500 text-black font-semibold px-8"
+                className="bg-lushways hover:bg-lushways text-black font-semibold px-8"
               >
                 Submit
               </Button>
@@ -175,7 +175,7 @@ const Contact = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-black text-amber-100 py-12">
+      <footer className="bg-black text-lushways py-12">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>

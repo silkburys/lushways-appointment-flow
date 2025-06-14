@@ -87,17 +87,17 @@ const QuickPay = () => {
             
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">HOME</a>
-              <a href="/quick-pay" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
-              <a href="/terms" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
-              <a href="/privacy" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
-              <a href="/contact" className="text-amber-100 hover:text-white text-sm font-medium font-yeserva">CONTACT US</a>
+              <a href="/" className="text-lushways hover:text-white text-sm font-medium font-yeserva">HOME</a>
+              <a href="/quick-pay" className="text-lushways hover:text-white text-sm font-medium font-yeserva">QUICK PAY</a>
+              <a href="/terms" className="text-lushways hover:text-white text-sm font-medium font-yeserva">TERMS & CONDITIONS</a>
+              <a href="/privacy" className="text-lushways hover:text-white text-sm font-medium font-yeserva">PRIVACY POLICY</a>
+              <a href="/contact" className="text-lushways hover:text-white text-sm font-medium font-yeserva">CONTACT US</a>
             </nav>
             
             {/* Login Button */}
             <Button 
               variant="link" 
-              className="text-amber-100 hover:text-white font-yeserva"
+              className="text-lushways hover:text-white font-yeserva"
             >
               LOG IN
             </Button>
@@ -109,7 +109,7 @@ const QuickPay = () => {
       <div className="pt-24 md:pt-32 min-h-screen bg-black flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-serif text-amber-300 mb-2 font-yeserva">
+            <h1 className="text-4xl md:text-5xl font-serif text-lushways mb-2 font-yeserva">
               QUICK PAY
             </h1>
           </div>
@@ -125,7 +125,7 @@ const QuickPay = () => {
                   placeholder="Name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-amber-400 focus:ring-amber-400"
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-lushways focus:ring-lushways"
                   required
                 />
               </div>
@@ -139,7 +139,7 @@ const QuickPay = () => {
                   placeholder="Mobile"
                   value={formData.mobile}
                   onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-amber-400 focus:ring-amber-400"
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-lushways focus:ring-lushways"
                   required
                 />
               </div>
@@ -153,7 +153,7 @@ const QuickPay = () => {
                   placeholder="Email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-amber-400 focus:ring-amber-400"
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-lushways focus:ring-lushways"
                   required
                 />
               </div>
@@ -172,14 +172,14 @@ const QuickPay = () => {
                   placeholder="Amount"
                   value={formData.amount}
                   onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-amber-400 focus:ring-amber-400"
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-lushways focus:ring-lushways"
                   required
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-amber-400 hover:bg-amber-500 text-black font-semibold py-3 rounded-md transition-colors"
+                className="w-full bg-lushways hover:bg-lushways text-black font-semibold py-3 rounded-md transition-colors"
               >
                 PAY NOW
               </Button>
@@ -189,7 +189,7 @@ const QuickPay = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-black text-amber-100 py-12">
+      <footer className="bg-black text-lushways py-12">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
@@ -215,6 +215,7 @@ const QuickPay = () => {
                 <li><a href="/quick-pay" className="hover:text-white">Quick Pay</a></li>
                 <li><a href="/terms" className="hover:text-white">Terms & Conditions</a></li>
                 <li><a href="/privacy" className="hover:text-white">Privacy Policy</a></li>
+                <li><a href="/contact" className="hover:text-white">Contact Us</a></li>
               </ul>
             </div>
           </div>
