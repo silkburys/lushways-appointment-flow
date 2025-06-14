@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Button } from '../components/ui/button';
 import { MapPin, Phone, Clock, Star, Instagram } from 'lucide-react';
@@ -10,29 +11,6 @@ import LocationsSkeleton from '../components/ui/skeletons/LocationsSkeleton';
 const BookingModal = lazy(() => import('../components/BookingModal'));
 
 const OptimizedIndex = () => {
-  // State for managing the booking modal
-  const [showBookingModal, setShowBookingModal] = useState(false);
-
-  // State for managing the selected date and time
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string>('');
-
-  // Function to handle date selection
-  const handleDateSelect = (date: Date | null) => {
-    setSelectedDate(date);
-  };
-
-  // Function to handle time selection
-  const handleTimeSelect = (time: string) => {
-    setSelectedTime(time);
-  };
-
-  // Function to reset the selected date and time
-  const resetDateTime = () => {
-    setSelectedDate(null);
-    setSelectedTime('');
-  };
-  
   const [isLoading, setIsLoading] = useState(true);
   const [sectionsLoaded, setSectionsLoaded] = useState({
     hero: false,
@@ -362,7 +340,10 @@ const OptimizedIndex = () => {
         <Suspense fallback={<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg">Loading...</div>
         </div>}>
-          <BookingModal onClose={() => setShowBookingModal(false)} />
+          <BookingModal 
+            isOpen={showBookingModal}
+            onClose={() => setShowBookingModal(false)} 
+          />
         </Suspense>
       )}
     </div>
