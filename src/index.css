@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Yeserva+One&display=swap');
 @tailwind base;
 @tailwind components;
@@ -156,4 +157,17 @@
 }
 .text-gold-header {
   color: #5c4219 !important; /* A deep brown for contrast, matches logo palette well */
+}
+
+/* Radiant ("diamond") golden gradient for PAY NOW button */
+.diamond-gold-gradient {
+  background: radial-gradient(circle, #FBF5D3 0%, #F7EBA6 30%, #D9C87A 60%, #C5B760 100%);
+  color: #221c0f;
+  border: 1.5px solid #F7EBA6;
+  box-shadow: 0 2px 8px 0 rgba(198,187,77,0.13);
+  transition: filter 0.14s;
+}
+.diamond-gold-gradient:hover,
+.diamond-gold-gradient:focus {
+  filter: brightness(1.06) saturate(1.10);
 }

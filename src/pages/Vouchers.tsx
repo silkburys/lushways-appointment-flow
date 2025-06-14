@@ -183,7 +183,7 @@ const Vouchers = () => {
                     ))}
                   </div>
                   <Button 
-                    className="gold-gradient w-full font-medium py-2 px-6 rounded-md"
+                    className="diamond-gold-gradient w-full font-medium py-2 px-6 rounded-md"
                     onClick={() => handleBookNow(voucher.price)}
                   >
                     PAY NOW
