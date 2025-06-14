@@ -1,4 +1,5 @@
 
+
 import { useState, useEffect } from 'react';
 import BookingModal from '../components/BookingModal';
 import { Button } from '../components/ui/button';
@@ -101,40 +102,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">OUR SERVICES</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-gray-50 rounded-lg">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-amber-800 text-2xl">💇</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Hair Services</h3>
-              <p className="text-gray-600">Professional haircuts, styling, color treatments and more</p>
-            </div>
-            
-            <div className="text-center p-6 bg-gray-50 rounded-lg">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-amber-800 text-2xl">💅</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Nail Services</h3>
-              <p className="text-gray-600">Manicures, pedicures, gel polish and nail extensions</p>
-            </div>
-            
-            <div className="text-center p-6 bg-gray-50 rounded-lg">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-amber-800 text-2xl">✨</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Spa Treatments</h3>
-              <p className="text-gray-600">Relaxing massages, facials, body treatments and more</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Shop Section */}
+      {/* Shop Section - moved to first position */}
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">SHOP</h2>
@@ -162,6 +130,39 @@ const Index = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Vouchers</h3>
               <p className="text-gray-600">Gift vouchers perfect for treating someone special to our services</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section - moved to second position */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">OUR SERVICES</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6 bg-gray-50 rounded-lg">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-amber-800 text-2xl">💇</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Hair Services</h3>
+              <p className="text-gray-600">Professional haircuts, styling, color treatments and more</p>
+            </div>
+            
+            <div className="text-center p-6 bg-gray-50 rounded-lg">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-amber-800 text-2xl">💅</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Nail Services</h3>
+              <p className="text-gray-600">Manicures, pedicures, gel polish and nail extensions</p>
+            </div>
+            
+            <div className="text-center p-6 bg-gray-50 rounded-lg">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-amber-800 text-2xl">✨</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Spa Treatments</h3>
+              <p className="text-gray-600">Relaxing massages, facials, body treatments and more</p>
             </div>
           </div>
         </div>
@@ -381,3 +382,4 @@ const Index = () => {
 };
 
 export default Index;
+
