@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import BookingModal from '../components/BookingModal';
 import { Button } from '../components/ui/button';
-import { Instagram, PhoneCall, Mail, MapPin } from 'lucide-react';
+import { Instagram, PhoneCall, Mail, MapPin, ShoppingBag, CreditCard, Gift } from 'lucide-react';
 
 const Index = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -129,6 +128,39 @@ const Index = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Spa Treatments</h3>
               <p className="text-gray-600">Relaxing massages, facials, body treatments and more</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Shop Section */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">SHOP</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ShoppingBag className="text-amber-800" size={24} />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Products</h3>
+              <p className="text-gray-600">Premium beauty and salon products for professional results at home</p>
+            </div>
+            
+            <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CreditCard className="text-amber-800" size={24} />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Memberships</h3>
+              <p className="text-gray-600">Exclusive membership plans with special benefits and savings</p>
+            </div>
+            
+            <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Gift className="text-amber-800" size={24} />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Vouchers</h3>
+              <p className="text-gray-600">Gift vouchers perfect for treating someone special to our services</p>
             </div>
           </div>
         </div>
