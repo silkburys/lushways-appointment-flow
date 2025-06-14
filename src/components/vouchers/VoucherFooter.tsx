@@ -1,4 +1,3 @@
-
 import { PhoneCall, Mail, Instagram } from 'lucide-react';
 
 interface VoucherFooterProps {
@@ -12,8 +11,14 @@ interface VoucherFooterProps {
 
 const VoucherFooter = ({ colors }: VoucherFooterProps) => {
   return (
-    <footer style={{ background: colors.background, color: colors.text }} className="py-16 mt-20 border-t-2" 
-      sx={{ borderColor: colors.primary }}>
+    <footer 
+      style={{ 
+        background: colors.background, 
+        color: colors.text,
+        borderTop: `2px solid ${colors.primary}`
+      }} 
+      className="py-16 mt-20"
+    >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <div>
