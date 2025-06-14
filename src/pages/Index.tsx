@@ -155,7 +155,7 @@ const Index = () => {
               <p className="text-gray-600">Exclusive membership plans with special benefits and savings</p>
             </div>
             
-            <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+            <div className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" onClick={() => window.location.href = '/vouchers'}>
               <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Gift className="text-amber-800" size={24} />
               </div>
