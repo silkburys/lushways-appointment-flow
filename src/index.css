@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Yeserva+One&display=swap');
 @tailwind base;
 @tailwind components;
@@ -9,76 +10,51 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-
     --radius: 0.5rem;
-
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -100,11 +76,23 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Improve font rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-display: swap;
+  }
+  
+  /* Optimize image loading */
+  img {
+    max-width: 100%;
+    height: auto;
   }
 }
 
+/* Font face optimization */
 .font-yeserva {
   font-family: 'Yeserva One', serif;
+  font-display: swap;
 }
 
 /* Custom color for lushways branding */
@@ -143,6 +131,7 @@
   box-shadow: 0 2px 8px 0 rgba(198,187,77,0.1);
   transition: filter 0.15s;
 }
+
 .gold-gradient:hover, .gold-gradient:focus {
   filter: brightness(1.08) saturate(1.12);
 }
@@ -151,11 +140,13 @@
 .border-gold-brand {
   border-color: #F7EBA6 !important;
 }
+
 .bg-gold-brand {
   background-color: #F7EBA6 !important;
 }
+
 .text-gold-header {
-  color: #5c4219 !important; /* A deep brown for contrast, matches logo palette well */
+  color: #5c4219 !important;
 }
 
 /* Radiant ("diamond") golden gradient for PAY NOW button */
@@ -166,6 +157,7 @@
   box-shadow: 0 2px 8px 0 rgba(198,187,77,0.13);
   transition: filter 0.14s;
 }
+
 .diamond-gold-gradient:hover,
 .diamond-gold-gradient:focus {
   filter: brightness(1.06) saturate(1.10);
@@ -179,12 +171,12 @@
 .expanded-voucher-card {
   box-shadow: 0 6px 18px 0 rgba(245, 217, 50, 0.08), 0 0.5px 4px 0 rgba(90,70,0,0.04);
 }
+
 .expanded-voucher-card .shadcn-card-content {
   background: #fff !important;
-  /* Already handled inline, but keep here in case for further separation */
 }
+
 .expanded-voucher-card {
-  /* Extra vertical space for prominence */
   min-height: 450px;
 }
 
@@ -192,4 +184,20 @@
   .expanded-voucher-card {
     min-height: 480px;
   }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Optimize animations */
+* {
+  will-change: auto;
+}
+
+.hover\:shadow-md:hover {
+  will-change: box-shadow;
 }

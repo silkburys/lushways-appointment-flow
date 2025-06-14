@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import BookingModal from '../components/BookingModal';
 import { Button } from '../components/ui/button';
@@ -5,6 +6,7 @@ import { Instagram, PhoneCall, Mail, MapPin, ShoppingBag, CreditCard, Gift } fro
 
 const Index = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -22,6 +24,24 @@ const Index = () => {
     };
   }, []);
 
+  // Preload critical images
+  useEffect(() => {
+    const preloadImages = [
+      '/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png',
+      '/lovable-uploads/f83342f5-83bc-4eb0-a214-dc4e18c6b8f4.png'
+    ];
+
+    preloadImages.forEach(src => {
+      const img = new Image();
+      img.onload = () => {
+        if (src === preloadImages[0]) {
+          setHeroImageLoaded(true);
+        }
+      };
+      img.src = src;
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Black header with gold logo */}
@@ -34,6 +54,8 @@ const Index = () => {
                   src="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" 
                   alt="LUSHWAYS" 
                   className="h-8 md:h-10 cursor-pointer" 
+                  loading="eager"
+                  decoding="async"
                 />
               </a>
             </div>
@@ -60,15 +82,22 @@ const Index = () => {
 
       {/* Hero Section with Embedded Booking */}
       <section className="pt-24 md:pt-32 relative overflow-hidden min-h-screen">
-        {/* Background Images */}
+        {/* Background Images with optimization */}
         <div className="absolute inset-0 z-0">
           {/* Desktop Background */}
           <div className="hidden md:block w-full h-full">
             <img 
               src="/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png" 
               alt="Beauty services for men and women" 
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-opacity duration-300 ${heroImageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
+            {/* Fallback color while loading */}
+            {!heroImageLoaded && (
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-amber-100"></div>
+            )}
           </div>
           {/* Mobile Background */}
           <div className="block md:hidden w-full h-full">
@@ -76,6 +105,9 @@ const Index = () => {
               src="/lovable-uploads/f83342f5-83bc-4eb0-a214-dc4e18c6b8f4.png" 
               alt="Beauty services" 
               className="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
         </div>
@@ -178,6 +210,8 @@ const Index = () => {
                   src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.05.42-PM-150x150.png"
                   alt="Meaisem City Centre Ladies"
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
@@ -214,6 +248,8 @@ const Index = () => {
                   src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.14.18-PM-150x150.png"
                   alt="Al Barsha City Centre Ladies"
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
@@ -250,6 +286,8 @@ const Index = () => {
                   src="https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.18.40-PM-150x150.png"
                   alt="Barber Shop"
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
@@ -295,7 +333,9 @@ const Index = () => {
               <img 
                 src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" 
                 alt="Google" 
-                className="h-8 mr-2" 
+                className="h-8 mr-2"
+                loading="lazy"
+                decoding="async"
               />
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
