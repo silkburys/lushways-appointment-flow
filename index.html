@@ -8,34 +8,47 @@
     <meta name="description" content="Book professional beauty and salon services in Dubai with Lushways. Hair, nails, spa treatments and more." />
     <meta name="author" content="Lushways" />
 
-    <!-- Performance optimizations -->
-    <link rel="preload" href="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" as="image" />
-    <link rel="preload" href="/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png" as="image" />
-    <link rel="preload" href="/lovable-uploads/f83342f5-83bc-4eb0-a214-dc4e18c6b8f4.png" as="image" />
+    <!-- Critical performance optimizations for CloudFlare -->
+    <link rel="preload" href="/lovable-uploads/b3235b7a-c67c-4b61-8d20-82fc8d031c95.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png" as="image" media="(min-width: 768px)" />
+    <link rel="preload" href="/lovable-uploads/f83342f5-83bc-4eb0-a214-dc4e18c6b8f4.png" as="image" media="(max-width: 767px)" />
+    
+    <!-- CloudFlare optimizations -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
+    <meta name="robots" content="index, follow" />
     
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     <link rel="dns-prefetch" href="//lushways.com" />
     
-    <!-- Preconnect to Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Preconnect to critical origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Critical CSS fonts with display=swap for better FCP -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;500;600;700&display=swap" />
+    <!-- Critical CSS fonts with display=swap -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@400;600;700;800&family=Roboto:wght@400;500;600&display=swap" />
 
-    <!-- Critical CSS inline styles for immediate render -->
+    <!-- Critical CSS inline for immediate render -->
     <style>
-      /* Critical CSS for immediate render */
-      body {
+      /* Critical CSS for immediate render - prevent layout shift */
+      * {
+        box-sizing: border-box;
         margin: 0;
+        padding: 0;
+      }
+      
+      body {
         font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
         line-height: 1.6;
         color: #111827;
         background-color: #ffffff;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       
-      .header-loading {
+      /* Prevent layout shift for header */
+      .header-fixed {
         position: fixed;
         top: 0;
         left: 0;
@@ -43,29 +56,39 @@
         background-color: #000000;
         height: 80px;
         z-index: 50;
+        transform: translateZ(0); /* Force GPU acceleration */
       }
       
-      .hero-loading {
+      /* Prevent layout shift for hero section */
+      .hero-section {
         padding-top: 6rem;
         min-height: 100vh;
-        background: linear-gradient(135deg, #fef3c7 0%, #f3e8b6 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
+        overflow: hidden;
       }
       
-      .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid #f3f4f6;
-        border-top: 4px solid #d97706;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+      /* Loading states */
+      .skeleton {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
       }
       
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      
+      /* Optimize image loading */
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      /* Prevent FOUC */
+      .no-js {
+        display: none;
       }
     </style>
 
@@ -79,28 +102,28 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lushways" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- CloudFlare Web Analytics (if you have it) -->
+    <!-- <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "your-token"}'></script> -->
   </head>
 
   <body>
-    <!-- Loading skeleton for better perceived performance -->
-    <div id="initial-loading" style="display: none;">
-      <div class="header-loading"></div>
-      <div class="hero-loading">
-        <div class="loading-spinner"></div>
-      </div>
-    </div>
-    
+    <!-- Initial loading prevention -->
     <div id="root"></div>
+    
+    <!-- Load main script with module preload for better performance -->
+    <link rel="modulepreload" href="/src/main.tsx" />
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- Remove unused Google Maps script that was causing render blocking -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places" defer></script> -->
-
+    <!-- Service Worker for caching (optional for CloudFlare environments) -->
     <script>
-      // Remove unused Google Reviews script
-      // document.addEventListener('DOMContentLoaded', function() {
-      //   initGoogleReviews('your-place-id');
-      // });
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').catch(function() {
+            // Fail silently if SW not available
+          });
+        });
+      }
     </script>
   </body>
 </html>

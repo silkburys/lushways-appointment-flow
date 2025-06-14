@@ -1,0 +1,26 @@
+
+# CloudFlare Headers for optimal caching and performance
+
+# Cache static assets for 1 year
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache images for 1 month
+/lovable-uploads/*
+  Cache-Control: public, max-age=2592000
+
+# Cache fonts for 1 year
+*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML files - cache for 1 hour with revalidation
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Service Worker
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+# API routes (if any)
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate

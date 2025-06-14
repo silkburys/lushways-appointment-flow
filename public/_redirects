@@ -1,0 +1,11 @@
+
+# CloudFlare redirects and fallbacks
+
+# SPA fallback
+/*    /index.html   200
+
+# Preload key routes
+/    /index.html   200!
+/vouchers    /index.html   200
+/products    /index.html   200
+/quick-pay   /index.html   200
