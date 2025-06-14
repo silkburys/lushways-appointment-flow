@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -160,8 +161,13 @@ const Vouchers = () => {
               return (
                 <Card
                   key={voucher.id}
-                  className={`border-2 border-gold-brand bg-gold-box hover:shadow-lg transition-shadow ${isExpanded ? "expanded-voucher-card" : ""}`}
-                  style={{ borderRadius: '12px' }}
+                  className={`border-2 border-gold-brand bg-white transition-shadow
+                    ${isExpanded ? "expanded-voucher-card" : ""}
+                  `}
+                  style={{
+                    borderRadius: '12px',
+                    boxShadow: isExpanded ? "0 6px 24px 0 rgba(198,187,77,0.07), 0 2px 8px 0 rgba(90,70,0,0.04)" : undefined,
+                  }}
                 >
                   <CardHeader className="bg-gold-brand text-center py-3 rounded-t-[10px]">
                     <div className="text-sm font-medium text-gold-header">
@@ -169,19 +175,18 @@ const Vouchers = () => {
                     </div>
                   </CardHeader>
                   <CardContent
-                    className={`p-6 text-center`}
+                    className={`p-6 text-center flex flex-col ${isExpanded ? "py-12 md:py-14 min-h-[360px] md:min-h-[400px]" : ""}`}
                     style={{
                       background: "#fff",
                       borderRadius: "0 0 10px 10px",
-                      ...(isExpanded
-                        ? { paddingTop: "2.5rem", paddingBottom: "2.5rem", minHeight: 340 }
-                        : {})
+                      overflowWrap: "break-word",
+                      wordBreak: "break-word"
                     }}
                   >
-                    <div className="text-3xl font-bold text-black mb-2">
+                    <div className="text-3xl font-bold text-black mb-2 break-words">
                       AED {voucher.price.toLocaleString()}
                     </div>
-                    <CardTitle className="text-xl font-semibold text-black mb-4">
+                    <CardTitle className="text-xl font-semibold text-black mb-4 break-words">
                       {voucher.title}
                     </CardTitle>
                     <div className="text-sm font-medium text-black mb-4">
@@ -189,7 +194,7 @@ const Vouchers = () => {
                     </div>
                     <div className="space-y-2 mb-6">
                       {voucher.details.map((detail, index) => (
-                        <p key={index} className="text-sm text-gray-700">
+                        <p key={index} className="text-sm text-gray-700 break-words whitespace-pre-line">
                           {detail}
                         </p>
                       ))}
@@ -255,3 +260,4 @@ const Vouchers = () => {
 };
 
 export default Vouchers;
+
