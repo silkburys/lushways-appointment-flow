@@ -179,7 +179,7 @@ const Vouchers = () => {
                     ))}
                   </div>
                   <Button 
-                    className="bg-amber-400 text-black hover:bg-amber-500 w-full font-medium border border-amber-500"
+                    className="gold-gradient w-full font-medium py-2 px-6 rounded-md"
                     onClick={() => handleBookNow(voucher.price)}
                   >
                     PAY NOW
