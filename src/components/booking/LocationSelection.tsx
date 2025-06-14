@@ -19,19 +19,19 @@ const locations: Location[] = [
     id: '1',
     name: 'BarberShop',
     address: 'Al Barsha City Centre Gents and ladies, Dubai, UAE',
-    image: '/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png'
+    image: 'https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.18.40-PM-150x150.png'
   },
   {
     id: '2',
     name: 'Meaisem City Centre Ladies',
     address: 'Meaisem City Centre, Dubai, UAE',
-    image: '/lovable-uploads/a160d735-8920-49a3-a9a7-69c27b4b3b58.png'
+    image: 'https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.05.42-PM-150x150.png'
   },
   {
     id: '3',
     name: 'Al Barsha City Centre Ladies',
     address: 'Al Barsha City Centre Gents and ladies, Dubai, UAE',
-    image: '/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png'
+    image: 'https://lushways.com/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-07-at-12.14.18-PM-150x150.png'
   }
 ];
 
@@ -73,6 +73,10 @@ const LocationSelection = ({ onSelect }: LocationSelectionProps) => {
               src={location.image}
               alt={location.name}
               className="w-12 h-12 rounded-lg object-cover mr-4"
+              onError={(e) => {
+                // Fallback to placeholder if image fails to load
+                e.currentTarget.src = '/placeholder.svg';
+              }}
             />
             <div className="flex-1">
               <h3 className="font-medium text-gray-900">{location.name}</h3>
