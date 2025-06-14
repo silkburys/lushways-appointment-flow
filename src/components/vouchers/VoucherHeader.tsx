@@ -4,8 +4,9 @@ import { Button } from '../ui/button';
 
 interface VoucherHeaderProps {
   colors: {
-    teal: string;
-    text: string;
+    headerBg: string;
+    headerText: string;
+    primary: string;
   };
 }
 
@@ -27,7 +28,10 @@ const VoucherHeader = ({ colors }: VoucherHeaderProps) => {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-white py-4'}`}>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-md py-2' : 'py-4'}`}
+      style={{ background: colors.headerBg }}
+    >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -40,15 +44,82 @@ const VoucherHeader = ({ colors }: VoucherHeaderProps) => {
             </a>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="/" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">HOME</a>
-            <a href="/quick-pay" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">QUICK PAY</a>
-            <a href="/terms" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">TERMS & CONDITIONS</a>
-            <a href="/privacy" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">PRIVACY POLICY</a>
-            <a href="/contact" className="text-neutral-800 hover:text-[#4A908A] text-sm font-medium transition-colors">CONTACT US</a>
+            <a 
+              href="/" 
+              className="text-sm font-semibold transition-colors"
+              style={{ 
+                color: colors.headerText,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '0.02em'
+              }}
+              onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+              onMouseOut={e => (e.currentTarget.style.color = colors.headerText)}
+            >
+              HOME
+            </a>
+            <a 
+              href="/quick-pay" 
+              className="text-sm font-semibold transition-colors"
+              style={{ 
+                color: colors.headerText,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '0.02em'
+              }}
+              onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+              onMouseOut={e => (e.currentTarget.style.color = colors.headerText)}
+            >
+              QUICK PAY
+            </a>
+            <a 
+              href="/terms" 
+              className="text-sm font-semibold transition-colors"
+              style={{ 
+                color: colors.headerText,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '0.02em'
+              }}
+              onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+              onMouseOut={e => (e.currentTarget.style.color = colors.headerText)}
+            >
+              TERMS & CONDITIONS
+            </a>
+            <a 
+              href="/privacy" 
+              className="text-sm font-semibold transition-colors"
+              style={{ 
+                color: colors.headerText,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '0.02em'
+              }}
+              onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+              onMouseOut={e => (e.currentTarget.style.color = colors.headerText)}
+            >
+              PRIVACY POLICY
+            </a>
+            <a 
+              href="/contact" 
+              className="text-sm font-semibold transition-colors"
+              style={{ 
+                color: colors.headerText,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '0.02em'
+              }}
+              onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+              onMouseOut={e => (e.currentTarget.style.color = colors.headerText)}
+            >
+              CONTACT US
+            </a>
           </nav>
           <Button 
             variant="link"
-            className="text-neutral-800 hover:text-[#4A908A] transition-colors"
+            className="transition-colors font-semibold"
+            style={{ 
+              color: colors.headerText,
+              fontFamily: "'Montserrat', sans-serif",
+              letterSpacing: '0.02em'
+            }}
+            onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+            onMouseOut={e => (e.currentTarget.style.color = colors.headerText)}
           >
             LOG IN
           </Button>

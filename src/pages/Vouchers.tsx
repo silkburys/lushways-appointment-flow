@@ -12,37 +12,43 @@ const Vouchers = () => {
 
   return (
     <div
-      style={{ background: VOUCHER_COLORS.light, fontFamily: "Open Sans, sans-serif", color: VOUCHER_COLORS.text }}
+      style={{ 
+        background: VOUCHER_COLORS.background, 
+        fontFamily: "'Roboto', sans-serif", 
+        color: VOUCHER_COLORS.text 
+      }}
       className="min-h-screen"
     >
       <VoucherHeader colors={VOUCHER_COLORS} />
 
-      <main className="pt-24 md:pt-32">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
-          <div className="text-center mb-12">
+      <main className="pt-28 md:pt-36">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+          <div className="text-center mb-16">
             <h1 
-              className="text-3xl md:text-5xl font-serif font-bold tracking-tight mb-4"
+              className="text-5xl md:text-6xl font-black tracking-tight mb-6"
               style={{
-                color: VOUCHER_COLORS.teal,
-                fontFamily: "'Playfair Display', serif",
-                letterSpacing: '0.02em',
+                color: VOUCHER_COLORS.primary,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '-0.01em',
+                lineHeight: 1.1
               }}
             >
               MEMBERSHIP VOUCHERS
             </h1>
             <p 
-              className="text-lg max-w-2xl mx-auto"
+              className="text-xl max-w-3xl mx-auto"
               style={{
                 color: VOUCHER_COLORS.text,
-                fontFamily: "Open Sans, sans-serif",
-                lineHeight: 1.6
+                fontFamily: "'Roboto', sans-serif",
+                lineHeight: 1.5,
+                fontSize: '19px'
               }}
             >
               A wide variety and choice of Free add on's. Approach the receptionist at the nearest branch to know more.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {vouchersData.map((voucher) => {
               const isExpanded = expandedPrices.includes(voucher.price);
               return (

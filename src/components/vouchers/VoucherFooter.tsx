@@ -3,79 +3,155 @@ import { PhoneCall, Mail, Instagram } from 'lucide-react';
 
 interface VoucherFooterProps {
   colors: {
-    gold: string;
+    primary: string;
     text: string;
-    teal: string;
+    accent: string;
+    background: string;
   };
 }
 
 const VoucherFooter = ({ colors }: VoucherFooterProps) => {
   return (
-    <footer style={{ background: "#fff", color: colors.text }} className="py-12 mt-16 border-t border-gray-200">
+    <footer style={{ background: colors.background, color: colors.text }} className="py-16 mt-20 border-t-2" 
+      sx={{ borderColor: colors.primary }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <div>
             <h3
-              className="text-xl font-semibold mb-4"
+              className="text-2xl font-bold mb-5"
               style={{
-                color: colors.gold,
-                fontFamily: "'Playfair Display', serif",
-                letterSpacing: '0.02em'
+                color: colors.primary,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '0.01em'
               }}
             >
               LUSHWAYS
             </h3>
-            <p style={{ fontFamily: "'Open Sans', sans-serif" }}>Professional beauty and salon services across Dubai.</p>
-            <div className="flex space-x-4 mt-2">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ color: colors.teal, display: "inline-flex" }}>
-                <Instagram size={20} />
+            <p style={{ fontFamily: "'Roboto', sans-serif", fontSize: '17px', lineHeight: 1.5 }}>
+              Professional beauty and salon services across Dubai.
+            </p>
+            <div className="flex space-x-4 mt-4">
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: colors.accent, display: "inline-flex" }}
+                className="transition-colors hover:scale-110"
+                onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+                onMouseOut={e => (e.currentTarget.style.color = colors.accent)}
+              >
+                <Instagram size={24} />
               </a>
             </div>
           </div>
           
           <div>
             <h3
-              className="text-xl font-semibold mb-4"
+              className="text-2xl font-bold mb-5"
               style={{
-                color: colors.gold,
-                fontFamily: "'Playfair Display', serif",
-                letterSpacing: '0.02em'
+                color: colors.primary,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '0.01em'
               }}
             >
               Contact Us
             </h3>
-            <div className="space-y-2" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+            <div className="space-y-3" style={{ fontFamily: "'Roboto', sans-serif", fontSize: '17px' }}>
               <p className="flex items-center">
-                <PhoneCall size={16} className="mr-2" style={{ color: colors.teal }} /> 
-                <a href="tel:0521622999" style={{ color: colors.text }} className="hover:text-[#4A908A]">052 162 2999</a>
+                <PhoneCall size={18} className="mr-3" style={{ color: colors.accent }} /> 
+                <a 
+                  href="tel:0521622999" 
+                  style={{ color: colors.text }} 
+                  className="transition-colors"
+                  onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+                  onMouseOut={e => (e.currentTarget.style.color = colors.text)}
+                >
+                  052 162 2999
+                </a>
               </p>
               <p className="flex items-center">
-                <Mail size={16} className="mr-2" style={{ color: colors.teal }} /> 
-                <a href="mailto:booking@lushways.com" style={{ color: colors.text }} className="hover:text-[#4A908A]">booking@lushways.com</a>
+                <Mail size={18} className="mr-3" style={{ color: colors.accent }} /> 
+                <a 
+                  href="mailto:booking@lushways.com" 
+                  style={{ color: colors.text }} 
+                  className="transition-colors"
+                  onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+                  onMouseOut={e => (e.currentTarget.style.color = colors.text)}
+                >
+                  booking@lushways.com
+                </a>
               </p>
             </div>
           </div>
           
           <div>
             <h3
-              className="text-xl font-semibold mb-4"
+              className="text-2xl font-bold mb-5"
               style={{
-                color: colors.gold,
-                fontFamily: "'Playfair Display', serif",
-                letterSpacing: '0.02em'
+                color: colors.primary,
+                fontFamily: "'Montserrat', sans-serif",
+                letterSpacing: '0.01em'
               }}
             >
               Quick Links
             </h3>
-            <ul className="space-y-2" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-              <li><a href="/" className="hover:text-[#4A908A]" style={{ color: colors.text }}>Home</a></li>
-              <li><a href="/quick-pay" className="hover:text-[#4A908A]" style={{ color: colors.text }}>Quick Pay</a></li>
-              <li><a href="/terms" className="hover:text-[#4A908A]" style={{ color: colors.text }}>Terms & Conditions</a></li>
-              <li><a href="/privacy" className="hover:text-[#4A908A]" style={{ color: colors.text }}>Privacy Policy</a></li>
+            <ul className="space-y-3" style={{ fontFamily: "'Roboto', sans-serif", fontSize: '17px' }}>
+              <li>
+                <a 
+                  href="/" 
+                  className="transition-colors" 
+                  style={{ color: colors.text }}
+                  onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+                  onMouseOut={e => (e.currentTarget.style.color = colors.text)}
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/quick-pay" 
+                  className="transition-colors" 
+                  style={{ color: colors.text }}
+                  onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+                  onMouseOut={e => (e.currentTarget.style.color = colors.text)}
+                >
+                  Quick Pay
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/terms" 
+                  className="transition-colors" 
+                  style={{ color: colors.text }}
+                  onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+                  onMouseOut={e => (e.currentTarget.style.color = colors.text)}
+                >
+                  Terms & Conditions
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/privacy" 
+                  className="transition-colors" 
+                  style={{ color: colors.text }}
+                  onMouseOver={e => (e.currentTarget.style.color = colors.primary)}
+                  onMouseOut={e => (e.currentTarget.style.color = colors.text)}
+                >
+                  Privacy Policy
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-200 pt-6 text-center" style={{ color: "#888", fontFamily: "'Open Sans', sans-serif" }}>
+        <div 
+          className="border-t pt-8 text-center" 
+          style={{ 
+            borderColor: colors.primary, 
+            color: "#888", 
+            fontFamily: "'Roboto', sans-serif",
+            fontSize: '16px'
+          }}
+        >
           <p>&copy; {new Date().getFullYear()} Lushways. All rights reserved.</p>
         </div>
       </div>
