@@ -1,19 +1,21 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { TeamMemberCard } from './TeamMemberCard';
 import { AddTeamMemberModal } from './AddTeamMemberModal';
+import { EditTeamMemberForm } from './EditTeamMemberForm';
 
-// Hardcoded team members data
+// Now stores more data per member for edit screen
 const teamMembersData = [
   {
     id: 1,
     name: "Fadia",
     avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
-    status: "On Duty",
+    status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
+    phone: "+971501234567",
+    email: "salonlushways@gmail.com",
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -28,9 +30,11 @@ const teamMembersData = [
     id: 2,
     name: "Angelica",
     avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
-    status: "On Duty",
+    status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
+    phone: "+971501234568",
+    email: "angelica@gmail.com",
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -45,9 +49,11 @@ const teamMembersData = [
     id: 3,
     name: "Sakina",
     avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
-    status: "On Duty",
+    status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
+    phone: "+971501234569",
+    email: "sakina@gmail.com",
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -62,9 +68,11 @@ const teamMembersData = [
     id: 4,
     name: "Jenny",
     avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
-    status: "On Duty",
+    status: "Inactive",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
+    phone: "+971501234570",
+    email: "jenny@gmail.com",
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -79,9 +87,11 @@ const teamMembersData = [
     id: 5,
     name: "Nancy",
     avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
-    status: "On Duty",
+    status: "Inactive",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
+    phone: "+971501234571",
+    email: "nancy@gmail.com",
     weeklyAvailability: [
       { day: 'Mon', available: false },
       { day: 'Tue', available: true },
@@ -96,9 +106,11 @@ const teamMembersData = [
     id: 6,
     name: "Regine",
     avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
-    status: "On Duty",
+    status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
+    phone: "+971501234572",
+    email: "regine@gmail.com",
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -113,24 +125,51 @@ const teamMembersData = [
 
 export function AdminTeams() {
   const [showAddModal, setShowAddModal] = useState(false);
+  const [editingMemberId, setEditingMemberId] = useState<number | null>(null);
+  const [teamMembers, setTeamMembers] = useState(teamMembersData);
+
+  function handleEdit(id: number) {
+    setEditingMemberId(id);
+  }
+
+  function handleSaveEdit(updated: any) {
+    setTeamMembers(prev =>
+      prev.map(m => (m.id === updated.id ? { ...m, ...updated } : m))
+    );
+    setEditingMemberId(null);
+  }
+
+  function handleCancelEdit() {
+    setEditingMemberId(null);
+  }
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Team</h1>
-        <Button onClick={() => setShowAddModal(true)} className="flex items-center gap-2">
-          <Plus className="h-4 w-4" />
-          Add Team Member
-        </Button>
-      </div>
+      {!editingMemberId ? (
+        <>
+          {/* Header */}
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold">Team</h1>
+            <Button onClick={() => setShowAddModal(true)} className="flex items-center gap-2">
+              <Plus className="h-4 w-4" />
+              Add Team Member
+            </Button>
+          </div>
 
-      {/* Team Members Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {teamMembersData.map((member) => (
-          <TeamMemberCard key={member.id} member={member} />
-        ))}
-      </div>
+          {/* Team Members Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {teamMembers.map((member) => (
+              <TeamMemberCard key={member.id} member={member} onEdit={handleEdit} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <EditTeamMemberForm
+          member={teamMembers.find(m => m.id === editingMemberId)!}
+          onSave={handleSaveEdit}
+          onCancel={handleCancelEdit}
+        />
+      )}
 
       {/* Add Team Member Modal */}
       {showAddModal && (

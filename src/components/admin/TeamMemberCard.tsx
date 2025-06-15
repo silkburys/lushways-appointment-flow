@@ -19,13 +19,16 @@ interface TeamMember {
   schedule: string;
   bookings: number;
   weeklyAvailability: WeeklyAvailability[];
+  email?: string;
+  phone?: string;
 }
 
 interface TeamMemberCardProps {
   member: TeamMember;
+  onEdit?: (id: number) => void;
 }
 
-export function TeamMemberCard({ member }: TeamMemberCardProps) {
+export function TeamMemberCard({ member, onEdit }: TeamMemberCardProps) {
   return (
     <Card className="overflow-hidden">
       <CardHeader className="pb-3">
@@ -43,7 +46,6 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
           </div>
         </div>
       </CardHeader>
-
       <CardContent className="space-y-4">
         {/* Weekly Schedule */}
         <div className="flex justify-between items-center text-xs">
@@ -58,26 +60,24 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
             </div>
           ))}
         </div>
-
         {/* Status and Schedule */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">Today</span>
-            <Badge variant="outline" className="text-green-600 border-green-600">
+            <Badge variant="outline" className={`text-green-600 border-green-600`}>
               {member.status}
             </Badge>
           </div>
           <div className="text-sm font-medium">{member.schedule}</div>
         </div>
-
         {/* Bookings */}
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">Bookings</span>
           <span className="text-2xl font-bold">{member.bookings}</span>
         </div>
-
         {/* Edit Button */}
-        <Button variant="outline" size="sm" className="w-full">
+        <Button variant="outline" size="sm" className="w-full"
+          onClick={() => onEdit?.(member.id)}>
           <Edit className="h-4 w-4 mr-2" />
           Edit Agent
         </Button>
@@ -85,3 +85,4 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
     </Card>
   );
 }
+
