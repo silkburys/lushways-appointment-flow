@@ -1,4 +1,3 @@
-
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
@@ -111,7 +110,7 @@ const ServiceCategoryDetail = ({ categoryId, onSelect, onBack }: ServiceCategory
                       {service.price}AED
                     </p>
                     {service.priceIsFrom && (
-                      <p className="text-sm text-gray-500 mt-1 group-hover:text-orange-400 transition-colors duration-200">
+                      <p className="text-sm text-gray-500 mt-1">
                         Starts From
                       </p>
                     )}
