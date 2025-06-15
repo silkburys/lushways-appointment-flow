@@ -16,6 +16,7 @@ export interface ServiceCategory {
   color: string;
   image: string;
   services: Service[];
+  customImages?: string[]; // allow user-added images per category
 }
 
 export function useServiceCategories() {
@@ -133,6 +134,23 @@ export function useServiceCategories() {
     );
   };
 
+  // Handler for uploaded images
+  const uploadCategoryImage = (categoryId: string, imageUrl: string) => {
+    setCategories(cats =>
+      cats.map(cat =>
+        cat.id === categoryId
+          ? {
+              ...cat,
+              customImages: cat.customImages
+                ? [...cat.customImages, imageUrl]
+                : [imageUrl],
+              image: imageUrl,
+            }
+          : cat
+      )
+    );
+  };
+
   // UI handlers
   const openAddServiceModal = (categoryId: string) => {
     setSelectedCategoryId(categoryId);
@@ -156,5 +174,6 @@ export function useServiceCategories() {
     togglePriceIsFrom,
     updateServicePrice,
     changeCategoryImage,
+    uploadCategoryImage,
   };
 }

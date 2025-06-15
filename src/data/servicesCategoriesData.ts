@@ -1,13 +1,14 @@
+
 export const CATEGORY_IMAGES = {
-  "Moroccan Bath": "/lovable-uploads/photo-1488972685288-c3fd157d7c7a.png",
-  "Gents": "/lovable-uploads/f1c06ab8-85f5-4ed4-b321-133a1f2e35f6.png",
-  "Tatoo & Microbladding": "/lovable-uploads/photo-1582562124811-c09040d0aaf0.png",
-  "Nail": "/lovable-uploads/photo-1618160702438-9b02ab6515c9.png",
-  "Hair": "/lovable-uploads/photo-1466721591366-2d5fba72006d.png",
-  "Waxing": "/lovable-uploads/photo-1535268647677-300dbf3d78d1.png",
-  "Facial": "/lovable-uploads/photo-1452960962994-acf4fd70b632.png",
-  "Massage": "/lovable-uploads/photo-1485833077593-4278bba3f11f.png",
-  "Make Up": "/lovable-uploads/photo-1501286353178-1ec881214838.png",
+  "Moroccan Bath": "/lovable-uploads/313383ce-e9fa-4f55-bc9d-2df625fd4d51.png",
+  "Gents": "/lovable-uploads/bff581dc-3c67-4675-b75a-9db1b1a365f9.png",
+  "Tatoo & Microbladding": "/lovable-uploads/9ee77298-7a82-4c9f-9f0a-14321a504ad4.png",
+  "Nail": "/lovable-uploads/1578e119-2339-4b55-93a0-3464605b83d2.png",
+  "Hair": "/lovable-uploads/1a74869e-c105-4098-a03f-f445621fa7cc.png",
+  "Waxing": "/lovable-uploads/9084fb0a-5d41-498d-88a0-9242bc75e383.png",
+  "Facial": "/lovable-uploads/2ff2474d-c446-4a7c-9253-6bf5adfb9a36.png",
+  "Massage": "/lovable-uploads/69334d3b-0bb8-4a6d-9f0f-7789bc3048e5.png",
+  "Make Up": "/lovable-uploads/makeup.png",
 };
 
 export const initialCategories = [

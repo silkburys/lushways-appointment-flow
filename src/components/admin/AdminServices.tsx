@@ -24,7 +24,8 @@ export function AdminServices() {
     openAddServiceModal,
     togglePriceIsFrom,
     updateServicePrice,
-    changeCategoryImage
+    changeCategoryImage,
+    uploadCategoryImage,
   } = useServiceCategories();
 
   return (
@@ -53,6 +54,7 @@ export function AdminServices() {
             onTogglePriceIsFrom={togglePriceIsFrom}
             onUpdatePrice={updateServicePrice}
             onChangeCategoryImage={changeCategoryImage}
+            onUploadCategoryImage={uploadCategoryImage}
           />
         ))}
       </div>
@@ -71,4 +73,3 @@ export function AdminServices() {
     </div>
   );
 }
-

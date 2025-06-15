@@ -18,6 +18,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Image } from "lucide-react";
 import { CATEGORY_IMAGES } from "@/data/servicesCategoriesData";
+import { Upload } from "lucide-react";
 
 interface Service {
   id: string;
@@ -33,6 +34,7 @@ interface ServiceCategory {
   color: string;
   image: string;
   services: Service[];
+  customImages?: string[]; // new
 }
 
 interface ServiceCategoryCardProps {
@@ -46,6 +48,7 @@ interface ServiceCategoryCardProps {
   onTogglePriceIsFrom: (serviceId: string) => void;
   onUpdatePrice?: (serviceId: string, newPrice: number) => void;
   onChangeCategoryImage?: (categoryId: string, image: string) => void;
+  onUploadCategoryImage?: (categoryId: string, imageUrl: string) => void;
 }
 
 export function ServiceCategoryCard({
@@ -58,11 +61,13 @@ export function ServiceCategoryCard({
   onDeleteService,
   onTogglePriceIsFrom,
   onUpdatePrice,
-  onChangeCategoryImage
+  onChangeCategoryImage,
+  onUploadCategoryImage
 }: ServiceCategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [draggedService, setDraggedService] = useState<Service | null>(null);
   const [showImagePicker, setShowImagePicker] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleDragStart = (e: React.DragEvent, service: Service) => {
     setDraggedService(service);
@@ -106,7 +111,39 @@ export function ServiceCategoryCard({
     }
   };
 
-  const possibleImages = Object.values(CATEGORY_IMAGES);
+  // Get the list of all image options (hardcoded & custom uploads for this category)
+  const categoryCustomImages = category.customImages || [];
+  const presetImages = Object.values(CATEGORY_IMAGES);
+  const possibleImages = [...presetImages, ...categoryCustomImages.filter(img => !presetImages.includes(img))];
+
+  // On upload
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsUploading(true);
+    const file = e.target.files?.[0];
+    if (!file) {
+      setIsUploading(false);
+      return;
+    }
+    // Save to /lovable-uploads/ folder, using FileReader and the Lovable uploads endpoint.
+    // Lovable automatically exposes images via /lovable-uploads/
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await fetch('/api/lovable-upload', { method: 'POST', body: formData });
+      if (res.ok) {
+        const { url } = await res.json();
+        if (onUploadCategoryImage) {
+          onUploadCategoryImage(category.id, url);
+        }
+      } else {
+        alert('Failed to upload image');
+      }
+    } catch (e) {
+      alert('An error occurred while uploading');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   return (
     <Card className="overflow-hidden">
@@ -149,6 +186,51 @@ export function ServiceCategoryCard({
             >
               <Image className="w-5 h-5" />
             </Button>
+            {showImagePicker && (
+              <div
+                className="absolute z-20 left-24 top-5 p-2 bg-white text-gray-900 border rounded-xl shadow-xl flex flex-col gap-2"
+                onClick={e => e.stopPropagation()}
+                style={{ width: 220 }}
+              >
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {possibleImages.map(img => (
+                    <button
+                      key={img}
+                      type="button"
+                      className={`w-14 h-14 rounded border-2
+                        ${category.image === img ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-200'}
+                        overflow-hidden bg-gray-100 p-0 m-0`}
+                      style={{ outline: "none" }}
+                      onClick={() => {
+                        if (onChangeCategoryImage) onChangeCategoryImage(category.id, img);
+                        setShowImagePicker(false);
+                      }}
+                    >
+                      <img src={img} alt="" className="object-cover w-full h-full" />
+                    </button>
+                  ))}
+                </div>
+                <div className="flex items-center gap-2">
+                  <label htmlFor={`category-image-upload-${category.id}`}>
+                    <Button variant="outline" size="sm" asChild>
+                      <span>
+                        <Upload className="inline w-4 h-4 mr-1" />
+                        Upload
+                      </span>
+                    </Button>
+                  </label>
+                  <input
+                    type="file"
+                    id={`category-image-upload-${category.id}`}
+                    hidden
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={isUploading}
+                  />
+                  {isUploading && <span className="text-xs text-muted">Uploading...</span>}
+                </div>
+              </div>
+            )}
             <Button
               variant="ghost"
               size="sm"
@@ -193,29 +275,6 @@ export function ServiceCategoryCard({
             )}
           </div>
         </div>
-        {showImagePicker && (
-          <div
-            className="absolute z-20 left-24 top-5 p-2 bg-white text-gray-900 border rounded-xl shadow-xl flex gap-1 flex-wrap"
-            onClick={e => e.stopPropagation()}
-          >
-            {possibleImages.map(img => (
-              <button
-                key={img}
-                type="button"
-                className={`w-14 h-14 rounded border-2
-                  ${category.image === img ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-200'}
-                  overflow-hidden bg-gray-100 p-0 m-0`}
-                style={{ outline: "none" }}
-                onClick={() => {
-                  if (onChangeCategoryImage) onChangeCategoryImage(category.id, img);
-                  setShowImagePicker(false);
-                }}
-              >
-                <img src={img} alt="" className="object-cover w-full h-full" />
-              </button>
-            ))}
-          </div>
-        )}
       </CardHeader>
       {isExpanded && (
         <CardContent className="p-4">
