@@ -1,4 +1,3 @@
-
 import React, { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -96,6 +95,15 @@ export function EditTeamMemberForm({
 
   // Parsing Display Name as first part of full name
   const displayName = fields.name?.split(" ")[0] ?? "";
+
+  // Prepare service categories to satisfy ServiceOfferedSelector shape
+  const serviceSelectorCategories = allServiceCategories.map((cat) => ({
+    ...cat,
+    services: cat.services.map((srv) => ({
+      ...srv,
+      categoryId: cat.id,
+    })),
+  }));
 
   return (
     <div className="max-w-3xl mx-auto mt-8">
@@ -226,7 +234,7 @@ export function EditTeamMemberForm({
             {/* Services Offered (full width) */}
             <div className="col-span-1 md:col-span-2">
               <ServicesOfferedSelector
-                categories={allServiceCategories}
+                categories={serviceSelectorCategories}
                 selectedServiceIds={fields.offeredServiceIds || []}
                 onChange={handleServicesChange}
               />
