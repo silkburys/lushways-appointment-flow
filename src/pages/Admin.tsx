@@ -4,6 +4,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminLocations } from '@/components/admin/AdminLocations';
 import { AdminTeams } from '@/components/admin/AdminTeams';
+import { AdminServices } from '@/components/admin/AdminServices';
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState('Teams');
@@ -13,7 +14,7 @@ const Admin = () => {
       case 'Teams':
         return <AdminTeams />;
       case 'Services':
-        return <div className="p-6"><h1 className="text-3xl font-bold">Services</h1><p>Services management coming soon...</p></div>;
+        return <AdminServices />;
       case 'Locations':
         return <AdminLocations />;
       default:
