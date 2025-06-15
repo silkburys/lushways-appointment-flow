@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus, Download } from 'lucide-react';
@@ -25,18 +26,18 @@ const serviceCategories = initialCategories.map(cat => ({
   })),
 }));
 
-// Updated team members with placeholder data ready for your real team photos
+// Updated team members with your provided team photos
 const teamMembersData = [
   {
     id: 1,
     name: "TeamMember1",
-    avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
+    avatar: "/lovable-uploads/87ebc008-49f9-41a5-aa7e-56c0c09b9ff8.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
     phone: "+971501234567",
     email: "example1@gmail.com",
-    locations: [1],
+    locations: [],
     offeredServiceIds: [],
     weeklyAvailability: [
       { day: 'Mon', available: true },
@@ -51,13 +52,13 @@ const teamMembersData = [
   {
     id: 2,
     name: "TeamMember2",
-    avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
+    avatar: "/lovable-uploads/13e701a6-9424-40f9-9c32-31cb221096e0.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
     phone: "+971501234568",
     email: "example2@gmail.com",
-    locations: [1,2],
+    locations: [],
     offeredServiceIds: [],
     weeklyAvailability: [
       { day: 'Mon', available: true },
@@ -72,13 +73,13 @@ const teamMembersData = [
   {
     id: 3,
     name: "TeamMember3",
-    avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
+    avatar: "/lovable-uploads/943d2ffa-2997-4e55-8141-5a907cfe9da0.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
     phone: "+971501234569",
     email: "example3@gmail.com",
-    locations: [2,3],
+    locations: [],
     offeredServiceIds: [],
     weeklyAvailability: [
       { day: 'Mon', available: true },
@@ -93,7 +94,7 @@ const teamMembersData = [
   {
     id: 4,
     name: "TeamMember4",
-    avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
+    avatar: "/lovable-uploads/ae5b380f-08ab-4ba3-8d6a-4d2ab126c5d6.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
@@ -114,7 +115,7 @@ const teamMembersData = [
   {
     id: 5,
     name: "TeamMember5",
-    avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
+    avatar: "/lovable-uploads/37730d26-0b69-458b-8173-b0ca291a5576.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
@@ -135,7 +136,7 @@ const teamMembersData = [
   {
     id: 6,
     name: "TeamMember6",
-    avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
+    avatar: "/lovable-uploads/87a27e39-114f-4ce5-a2e3-bee4d61e118e.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
@@ -156,7 +157,7 @@ const teamMembersData = [
   {
     id: 7,
     name: "TeamMember7",
-    avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
+    avatar: "/lovable-uploads/0154cc77-6f6d-48b5-8f58-e4aab8517256.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
@@ -177,7 +178,7 @@ const teamMembersData = [
   {
     id: 8,
     name: "TeamMember8",
-    avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
+    avatar: "/lovable-uploads/1f961079-0037-4afa-8270-e7714e3a4964.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
