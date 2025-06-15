@@ -26,12 +26,13 @@ export function useServiceCategories() {
   const [isAddServiceModalOpen, setIsAddServiceModalOpen] = useState(false);
 
   // Handlers
-  const addCategory = (categoryData: { name: string; color: string }) => {
+  // Accept `image` field for new category
+  const addCategory = (categoryData: { name: string; color: string; image: string }) => {
     const newCategory: ServiceCategory = {
       id: Date.now().toString(),
       name: categoryData.name,
       color: categoryData.color,
-      image: CATEGORY_IMAGES["Nail"], // Default image
+      image: categoryData.image, // use the picked/uploaded image
       services: [],
     };
     setCategories([...categories, newCategory]);
