@@ -7,13 +7,14 @@ import { MapPin, Users, Edit, Plus } from 'lucide-react';
 import { LocationCard } from './LocationCard';
 import { AddLocationModal } from './AddLocationModal';
 
-// Hardcoded locations data
+// Hardcoded locations data with actual photos
 const locationsData = [
   {
     id: 1,
     name: "Meaisem City Centre Ladies",
     address: "Meaisem City Centre, Dubai, UAE",
     type: "Ladies",
+    photo: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
     agents: [
       { name: "Agent 1", avatar: "/placeholder.svg" },
       { name: "Agent 2", avatar: "/placeholder.svg" },
@@ -29,6 +30,7 @@ const locationsData = [
     name: "Al Barsha City Centre Ladies",
     address: "Al Barsha City Centre Gents and ladies, Dubai, UAE",
     type: "Ladies",
+    photo: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
     agents: [
       { name: "Agent 1", avatar: "/placeholder.svg" },
       { name: "Agent 2", avatar: "/placeholder.svg" },
@@ -44,6 +46,7 @@ const locationsData = [
     name: "BarberShop",
     address: "Al Barsha City Centre Gents and ladies, Dubai, UAE",
     type: "Barber Shop",
+    photo: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
     agents: [
       { name: "Agent 1", avatar: "/placeholder.svg" },
       { name: "Agent 2", avatar: "/placeholder.svg" },

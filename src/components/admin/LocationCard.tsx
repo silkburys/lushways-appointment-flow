@@ -17,6 +17,7 @@ interface Location {
   type: string;
   agents: Agent[];
   coordinates: { lat: number; lng: number };
+  photo?: string;
 }
 
 interface LocationCardProps {
@@ -26,20 +27,29 @@ interface LocationCardProps {
 export function LocationCard({ location }: LocationCardProps) {
   return (
     <Card className="overflow-hidden">
-      {/* Map placeholder */}
-      <div className="h-48 bg-gradient-to-br from-blue-100 to-blue-200 relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-            <MapPin className="h-4 w-4 text-white" />
+      {/* Location Photo */}
+      <div className="h-48 relative overflow-hidden">
+        {location.photo ? (
+          <img 
+            src={location.photo} 
+            alt={location.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+            <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+              <MapPin className="h-4 w-4 text-white" />
+            </div>
           </div>
-        </div>
-        {/* Map controls */}
+        )}
+        
+        {/* Map controls overlay */}
         <div className="absolute top-2 right-2 flex flex-col gap-1">
-          <Button size="sm" variant="outline" className="w-8 h-8 p-0">+</Button>
-          <Button size="sm" variant="outline" className="w-8 h-8 p-0">-</Button>
+          <Button size="sm" variant="outline" className="w-8 h-8 p-0 bg-white/90">+</Button>
+          <Button size="sm" variant="outline" className="w-8 h-8 p-0 bg-white/90">-</Button>
         </div>
         <div className="absolute top-2 left-2">
-          <Button size="sm" variant="outline" className="text-xs">
+          <Button size="sm" variant="outline" className="text-xs bg-white/90">
             View larger map
           </Button>
         </div>
