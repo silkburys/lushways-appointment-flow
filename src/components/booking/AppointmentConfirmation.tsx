@@ -2,6 +2,8 @@
 import { CheckCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 import { BookingItem, Customer } from '../../types/booking';
+import AddToCalendar from './AddToCalendar';
+import { teamMembersData } from '../admin/AdminTeams';
 
 interface AppointmentConfirmationProps {
   cartItems: BookingItem[];
@@ -18,6 +20,17 @@ const AppointmentConfirmation = ({
   totalPrice, 
   onClose 
 }: AppointmentConfirmationProps) => {
+  
+  // Helper function to get agent image
+  const getAgentImage = (staffId: string, staffName: string) => {
+    if (staffId === 'any' || staffName === 'Any Agent') {
+      return '/placeholder.svg'; // Default image for "Any Agent"
+    }
+    
+    const teamMember = teamMembersData.find(member => member.id.toString() === staffId);
+    return teamMember?.avatar || '/placeholder.svg';
+  };
+
   return (
     <div className="p-6 text-center">
       {/* Success Icon */}
@@ -58,14 +71,22 @@ const AppointmentConfirmation = ({
                   <div>
                     <p className="text-xs text-gray-500">Agent</p>
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-gray-200 rounded-full"></div>
+                      <img 
+                        src={getAgentImage(item.staff.id, item.staff.name)}
+                        alt={item.staff.name}
+                        className="w-6 h-6 rounded-full object-cover"
+                      />
                       <span className="text-sm">{item.staff.name}</span>
                     </div>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500">Location</p>
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-gray-200 rounded"></div>
+                      <img 
+                        src={item.location.image}
+                        alt={item.location.name}
+                        className="w-6 h-6 rounded object-cover"
+                      />
                       <span className="text-sm">{item.location.name}</span>
                     </div>
                   </div>
@@ -82,12 +103,13 @@ const AppointmentConfirmation = ({
             </div>
             
             <div className="flex gap-2 justify-center">
-              <Button variant="outline" size="sm" className="text-xs">
-                📅 Add to Calendar
-              </Button>
-              <Button variant="outline" size="sm" className="text-xs">
-                🖨️ Print
-              </Button>
+              <AddToCalendar
+                title={item.service.name}
+                date={item.date}
+                time={item.time}
+                location={`${item.location.name}, ${item.location.address}`}
+                description={`${item.service.name} appointment with ${item.staff.name}`}
+              />
               {index === 1 && (
                 <Button variant="outline" size="sm" className="text-xs text-red-600 border-red-300">
                   ❌ Cancel
