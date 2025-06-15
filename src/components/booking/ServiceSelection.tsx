@@ -4,6 +4,8 @@ import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { Location, Service } from '../../types/booking';
 import { initialCategories } from '../../data/servicesCategoriesData';
+import { useState } from 'react';
+import ServiceCategoryDetail from './ServiceCategoryDetail';
 
 interface ServiceSelectionProps {
   location: Location;
@@ -19,6 +21,8 @@ const locationServiceMapping: Record<string, string[]> = {
 };
 
 const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps) => {
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+
   // Get relevant categories for this location
   const relevantCategoryIds = locationServiceMapping[location.name] || [];
   const availableCategories = initialCategories.filter(cat => 
@@ -28,11 +32,21 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
   // Check if this is a ladies location (should show categories) or BarberShop (show services directly)
   const isLadiesLocation = location.name === 'Meaisem City Centre Ladies' || location.name === 'Al Barsha City Centre Ladies';
 
+  // If a category is selected for ladies locations, show the service detail
+  if (isLadiesLocation && selectedCategoryId) {
+    return (
+      <ServiceCategoryDetail
+        categoryId={selectedCategoryId}
+        onSelect={onSelect}
+        onBack={() => setSelectedCategoryId(null)}
+      />
+    );
+  }
+
   const handleCategoryOrServiceSelect = (item: any) => {
     if (isLadiesLocation) {
-      // For ladies locations, this would be a category selection
-      // You'll need to implement category selection flow
-      console.log('Category selected:', item);
+      // For ladies locations, this is category selection - go to service detail
+      setSelectedCategoryId(item.id);
     } else {
       // For BarberShop, this is direct service selection
       onSelect(item);
@@ -65,7 +79,7 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
               <CardContent className="p-4">
                 <div className="flex items-center gap-4">
                   {category.imageUrl && (
-                    <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
                       <img 
                         src={category.imageUrl} 
                         alt={category.name}
@@ -74,8 +88,8 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
                     </div>
                   )}
                   <div className="flex-1">
-                    <h3 className="text-base font-medium text-gray-900">{category.name}</h3>
-                    <p className="text-sm text-gray-500">{category.name}</p>
+                    <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
+                    <p className="text-sm text-gray-500 mt-1">Tap to view services</p>
                   </div>
                 </div>
               </CardContent>
