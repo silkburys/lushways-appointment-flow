@@ -71,7 +71,7 @@ export function AdminServices() {
       <AddServiceCategoryModal
         isOpen={isAddCategoryModalOpen}
         onClose={() => setIsAddCategoryModalOpen(false)}
-        onAdd={handleCategoryImageUpload} {/* <-- Now expects imageUrl: string */}
+        onAdd={handleCategoryImageUpload}
       />
       <AddServiceModal
         isOpen={isAddServiceModalOpen}
