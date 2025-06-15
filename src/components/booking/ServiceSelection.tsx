@@ -2,6 +2,7 @@
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
+import { Skeleton } from '../ui/skeleton';
 import { Location, Service } from '../../types/booking';
 import { initialCategories } from '../../data/servicesCategoriesData';
 import { useState } from 'react';
@@ -22,6 +23,7 @@ const locationServiceMapping: Record<string, string[]> = {
 
 const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Get relevant categories for this location
   const relevantCategoryIds = locationServiceMapping[location.name] || [];
@@ -43,7 +45,11 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
     );
   }
 
-  const handleCategoryOrServiceSelect = (item: any) => {
+  const handleCategoryOrServiceSelect = async (item: any) => {
+    setIsLoading(true);
+    // Simulate loading for better UX
+    await new Promise(resolve => setTimeout(resolve, 200));
+    
     if (isLadiesLocation) {
       // For ladies locations, this is category selection - go to service detail
       setSelectedCategoryId(item.id);
@@ -51,7 +57,37 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
       // For BarberShop, this is direct service selection
       onSelect(item);
     }
+    setIsLoading(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className="p-6 max-w-md mx-auto">
+        <div className="flex items-center gap-4 mb-6">
+          <Skeleton className="w-10 h-10 rounded-md" />
+          <div>
+            <Skeleton className="h-6 w-48 mb-2" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+        <div className="space-y-3">
+          {[1, 2, 3, 4].map((i) => (
+            <Card key={i} className="border border-gray-200">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4">
+                  <Skeleton className="w-16 h-16 rounded-full" />
+                  <div className="flex-1">
+                    <Skeleton className="h-5 w-32 mb-2" />
+                    <Skeleton className="h-4 w-24" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 max-w-md mx-auto">
@@ -73,13 +109,13 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
           availableCategories.map(category => (
             <Card 
               key={category.id} 
-              className="border border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
+              className="border border-gray-200 hover:border-orange-400 hover:shadow-md transition-all duration-200 cursor-pointer group"
               onClick={() => handleCategoryOrServiceSelect(category)}
             >
               <CardContent className="p-4">
                 <div className="flex items-center gap-4">
                   {category.imageUrl && (
-                    <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                    <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-gray-100 group-hover:ring-2 group-hover:ring-orange-200 transition-all duration-200">
                       <img 
                         src={category.imageUrl} 
                         alt={category.name}
@@ -88,8 +124,8 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
                     </div>
                   )}
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
-                    <p className="text-sm text-gray-500 mt-1">Tap to view services</p>
+                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">{category.name}</h3>
+                    <p className="text-sm text-gray-500 group-hover:text-orange-500 transition-colors duration-200">Tap to view services</p>
                   </div>
                 </div>
               </CardContent>
@@ -125,17 +161,17 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
                   return (
                     <Card 
                       key={service.id}
-                      className="border border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
+                      className="border border-gray-200 hover:border-orange-400 hover:shadow-md transition-all duration-200 cursor-pointer group"
                       onClick={() => onSelect(frontendService)}
                     >
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
-                            <h4 className="text-base font-medium text-gray-900">{service.name}</h4>
+                            <h4 className="text-base font-medium text-gray-900 group-hover:text-orange-600 transition-colors duration-200">{service.name}</h4>
                             <p className="text-sm text-gray-500">{frontendService.duration} min</p>
                           </div>
                           <div className="text-right">
-                            <p className="text-base font-semibold text-gray-900">
+                            <p className="text-base font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">
                               {service.priceIsFrom ? 'From ' : ''}{service.price} AED
                             </p>
                           </div>
