@@ -41,6 +41,7 @@ interface ServiceCategoryCardProps {
   onDeleteCategory: (categoryId: string) => void;
   onDeleteService: (serviceId: string) => void;
   onTogglePriceIsFrom: (serviceId: string) => void;
+  onUpdatePrice?: (serviceId: string, newPrice: number) => void;
 }
 
 export function ServiceCategoryCard({
@@ -51,7 +52,8 @@ export function ServiceCategoryCard({
   onMoveService,
   onDeleteCategory,
   onDeleteService,
-  onTogglePriceIsFrom
+  onTogglePriceIsFrom,
+  onUpdatePrice
 }: ServiceCategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [draggedService, setDraggedService] = useState<Service | null>(null);
@@ -90,6 +92,12 @@ export function ServiceCategoryCard({
 
     onMoveService(draggedService.id, category.id);
     setDraggedService(null);
+  };
+
+  const handleUpdatePrice = (serviceId: string, newPrice: number) => {
+    if (typeof onUpdatePrice === 'function') {
+      onUpdatePrice(serviceId, newPrice);
+    }
   };
 
   return (
@@ -184,14 +192,8 @@ export function ServiceCategoryCard({
                     onMoveService={onMoveService}
                     onDeleteService={onDeleteService}
                     onTogglePriceIsFrom={onTogglePriceIsFrom}
+                    onUpdatePrice={handleUpdatePrice}
                   />
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      checked={!!service.priceIsFrom}
-                      onCheckedChange={() => onTogglePriceIsFrom(service.id)}
-                    />
-                    <span className="text-xs text-muted-foreground">From?</span>
-                  </div>
                 </div>
               ))}
             </div>

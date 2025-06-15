@@ -23,6 +23,7 @@ export function AdminServices() {
     deleteService,
     openAddServiceModal,
     togglePriceIsFrom,
+    updateServicePrice // Add this in your hook
   } = useServiceCategories();
 
   return (
@@ -49,6 +50,8 @@ export function AdminServices() {
             onDeleteCategory={deleteCategory}
             onDeleteService={deleteService}
             onTogglePriceIsFrom={togglePriceIsFrom}
+            // Pass the update price handler down the tree
+            onUpdatePrice={updateServicePrice}
           />
         ))}
       </div>

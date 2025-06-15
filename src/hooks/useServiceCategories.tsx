@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { initialCategories } from "@/data/servicesCategoriesData";
 
@@ -111,6 +110,20 @@ export function useServiceCategories() {
     );
   };
 
+  // Add updateServicePrice handler
+  const updateServicePrice = (serviceId: string, newPrice: number) => {
+    setCategories(categories =>
+      categories.map(category => ({
+        ...category,
+        services: category.services.map(service =>
+          service.id === serviceId
+            ? { ...service, price: newPrice }
+            : service
+        ),
+      }))
+    );
+  };
+
   // UI handlers
   const openAddServiceModal = (categoryId: string) => {
     setSelectedCategoryId(categoryId);
@@ -132,5 +145,6 @@ export function useServiceCategories() {
     deleteService,
     openAddServiceModal,
     togglePriceIsFrom,
+    updateServicePrice // Return the new handler
   };
 }
