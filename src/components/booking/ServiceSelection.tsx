@@ -2,6 +2,7 @@
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Location, Service } from '../../types/booking';
+import { initialCategories } from '../../data/servicesCategoriesData';
 
 interface ServiceSelectionProps {
   location: Location;
@@ -9,29 +10,19 @@ interface ServiceSelectionProps {
   onBack: () => void;
 }
 
-const services: Record<string, Service[]> = {
-  'BarberShop': [
-    { id: '1', name: 'Hair Cut', price: 70, duration: 45, category: 'Gents' },
-    { id: '2', name: 'Beard Trim', price: 30, duration: 20, category: 'Gents' },
-    { id: '3', name: 'Full Service', price: 95, duration: 60, category: 'Gents' }
-  ],
-  'Meaisem City Centre Ladies': [
-    { id: '4', name: 'Classic Manicure', price: 75, duration: 45, category: 'Nail' },
-    { id: '5', name: 'Gel polish application', price: 65, duration: 30, category: 'Nail' },
-    { id: '6', name: 'Classic Pedicure', price: 90, duration: 60, category: 'Nail' },
-    { id: '7', name: 'Hair Cut & Style', price: 120, duration: 90, category: 'Hair' },
-    { id: '8', name: 'Hair Color', price: 200, duration: 120, category: 'Hair' }
-  ],
-  'Al Barsha City Centre Ladies': [
-    { id: '9', name: 'Classic Manicure', price: 75, duration: 45, category: 'Nail' },
-    { id: '10', name: 'Gel polish application', price: 65, duration: 30, category: 'Nail' },
-    { id: '11', name: 'Classic Pedicure', price: 90, duration: 60, category: 'Nail' }
-  ]
+// Location to service category mapping
+const locationServiceMapping: Record<string, string[]> = {
+  'BarberShop': ['8'], // Gents category
+  'Meaisem City Centre Ladies': ['1', '2', '3', '4', '5', '6', '7', '9'], // All ladies categories
+  'Al Barsha City Centre Ladies': ['1', '2', '3', '4', '5', '6', '7', '9'] // All ladies categories
 };
 
 const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps) => {
-  const locationServices = services[location.name] || [];
-  const categories = [...new Set(locationServices.map(s => s.category))];
+  // Get relevant categories for this location
+  const relevantCategoryIds = locationServiceMapping[location.name] || [];
+  const availableCategories = initialCategories.filter(cat => 
+    relevantCategoryIds.includes(cat.id)
+  );
 
   return (
     <div className="p-6">
@@ -46,28 +37,46 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
       </div>
 
       <div className="space-y-6">
-        {categories.map(category => (
-          <div key={category}>
-            <h3 className="text-lg font-medium mb-3 text-orange-600">{category}</h3>
+        {availableCategories.map(category => (
+          <div key={category.id}>
+            <div className="flex items-center gap-3 mb-3">
+              {category.imageUrl && (
+                <img 
+                  src={category.imageUrl} 
+                  alt={category.name}
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+              )}
+              <h3 className="text-lg font-medium text-orange-600">{category.name}</h3>
+            </div>
             <div className="space-y-2">
-              {locationServices
-                .filter(service => service.category === category)
-                .map(service => (
+              {category.services.map(service => {
+                // Convert backend service format to frontend Service type
+                const frontendService: Service = {
+                  id: service.id,
+                  name: service.name,
+                  price: service.price,
+                  duration: 45, // Default duration, can be made dynamic later
+                  category: category.name
+                };
+
+                return (
                   <Button
                     key={service.id}
                     variant="outline"
                     className="w-full p-4 h-auto text-left justify-between hover:bg-orange-50 hover:border-orange-200"
-                    onClick={() => onSelect(service)}
+                    onClick={() => onSelect(frontendService)}
                   >
                     <div>
                       <div className="font-medium text-gray-900">{service.name}</div>
-                      <div className="text-sm text-gray-500">{service.duration} min</div>
+                      <div className="text-sm text-gray-500">{frontendService.duration} min</div>
                     </div>
                     <div className="text-lg font-semibold text-gray-900">
-                      {service.price} AED
+                      {service.priceIsFrom ? 'From ' : ''}{service.price} AED
                     </div>
                   </Button>
-                ))}
+                );
+              })}
             </div>
           </div>
         ))}
