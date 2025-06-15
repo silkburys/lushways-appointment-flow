@@ -26,7 +26,7 @@ const serviceCategories = initialCategories.map(cat => ({
 }));
 
 // Updated team members with your provided data
-const teamMembersData = [
+export const teamMembersData = [
   {
     "id": 1,
     "name": "Mido",
