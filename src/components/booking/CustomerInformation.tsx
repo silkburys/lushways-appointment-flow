@@ -1,11 +1,10 @@
-
 import { useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ChevronDown } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Customer } from '../../types/booking';
 
 interface CustomerInformationProps {
@@ -146,6 +145,8 @@ const CustomerInformation = ({ onSubmit, onBack, onAddMore }: CustomerInformatio
   const [error, setError] = useState<string>('');
   const [selectedCountry, setSelectedCountry] = useState('+971'); // Default to UAE
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const [countrySearch, setCountrySearch] = useState('');
 
   const handleSubmit = () => {
     if (!customer.firstName || !phoneNumber || !customer.email) {
@@ -180,6 +181,11 @@ const CustomerInformation = ({ onSubmit, onBack, onAddMore }: CustomerInformatio
 
   const selectedCountryData = countries.find(c => c.code === selectedCountry) || countries[0];
 
+  const filteredCountries = countries.filter(country => 
+    country.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
+    country.code.includes(countrySearch)
+  );
+
   return (
     <div className="p-6">
       <div className="flex items-center gap-4 mb-8">
@@ -209,6 +215,65 @@ const CustomerInformation = ({ onSubmit, onBack, onAddMore }: CustomerInformatio
 
         <div className="space-y-4">
           <div>
+            <Label htmlFor="phone">Phone Number</Label>
+            <div className="flex">
+              <Popover open={isCountryOpen} onOpenChange={setIsCountryOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-auto min-w-[130px] rounded-r-none border-r-0 justify-between px-3"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{selectedCountryData.flag}</span>
+                      <span className="text-sm">{selectedCountryData.code}</span>
+                    </div>
+                    <ChevronDown className="h-4 w-4 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 p-0" align="start">
+                  <div className="p-3 border-b">
+                    <Input
+                      placeholder="Search country..."
+                      value={countrySearch}
+                      onChange={(e) => setCountrySearch(e.target.value)}
+                      className="h-9"
+                    />
+                  </div>
+                  <div className="max-h-60 overflow-y-auto">
+                    {filteredCountries.map((country) => (
+                      <Button
+                        key={country.code}
+                        variant="ghost"
+                        className="w-full justify-start px-3 py-2 h-auto text-left"
+                        onClick={() => {
+                          setSelectedCountry(country.code);
+                          setIsCountryOpen(false);
+                          setCountrySearch('');
+                        }}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">{country.flag}</span>
+                          <div className="flex-1">
+                            <div className="text-sm font-medium">{country.name}</div>
+                            <div className="text-xs text-gray-500">{country.code}</div>
+                          </div>
+                        </div>
+                      </Button>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
+              <Input
+                id="phone"
+                placeholder="50 123 4567"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="rounded-l-none flex-1"
+              />
+            </div>
+          </div>
+
+          <div>
             <Label htmlFor="name">Name</Label>
             <Input
               id="name"
@@ -218,40 +283,6 @@ const CustomerInformation = ({ onSubmit, onBack, onAddMore }: CustomerInformatio
               onFocus={handleAutofill}
               className="w-full"
             />
-          </div>
-
-          <div>
-            <Label htmlFor="phone">Phone Number</Label>
-            <div className="flex">
-              <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                <SelectTrigger className="w-auto min-w-[120px] rounded-r-none border-r-0">
-                  <SelectValue>
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg">{selectedCountryData.flag}</span>
-                      <span className="text-sm">{selectedCountryData.code}</span>
-                    </div>
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent className="max-h-60 bg-white">
-                  {countries.map((country) => (
-                    <SelectItem key={country.code} value={country.code}>
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg">{country.flag}</span>
-                        <span className="text-sm">{country.name}</span>
-                        <span className="text-sm text-gray-500">{country.code}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Input
-                id="phone"
-                placeholder="50 123 4567"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className="rounded-l-none flex-1"
-              />
-            </div>
           </div>
 
           <div>
