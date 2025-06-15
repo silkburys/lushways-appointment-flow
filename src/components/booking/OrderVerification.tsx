@@ -107,7 +107,7 @@ const OrderVerification = ({
             onClick={onAddMore}
             className="text-orange-600 border-orange-300 hover:bg-orange-50"
           >
-            + Add more items
+            + Add more items to this order
           </Button>
         </div>
       </div>
