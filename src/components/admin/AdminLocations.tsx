@@ -1,11 +1,11 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Users, Edit, Plus } from 'lucide-react';
+import { MapPin, Users, Edit, Plus, Download } from 'lucide-react';
 import { LocationCard } from './LocationCard';
 import { AddLocationModal } from './AddLocationModal';
+import { downloadJsonFile } from '@/utils/downloadUtils';
 
 // Hardcoded locations data with actual photos
 const locationsData = [
@@ -61,15 +61,25 @@ export function AdminLocations() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Locations');
 
+  const handleDownloadData = () => {
+    downloadJsonFile(locationsData, 'locations-data');
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Locations</h1>
-        <Button onClick={() => setShowAddModal(true)} className="flex items-center gap-2">
-          <Plus className="h-4 w-4" />
-          Add Location
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={handleDownloadData}>
+            <Download className="h-4 w-4 mr-2" />
+            Download Data
+          </Button>
+          <Button onClick={() => setShowAddModal(true)} className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            Add Location
+          </Button>
+        </div>
       </div>
 
       {/* Category Tabs */}

@@ -1,11 +1,11 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Plus, Download } from 'lucide-react';
 import { ServiceCategoryCard } from './ServiceCategoryCard';
 import { AddServiceCategoryModal } from './AddServiceCategoryModal';
 import { AddServiceModal } from './AddServiceModal';
 import { useServiceCategories } from '@/hooks/useServiceCategories';
+import { downloadJsonFile } from '@/utils/downloadUtils';
 
 export function AdminServices() {
   const {
@@ -23,8 +23,12 @@ export function AdminServices() {
     deleteService,
     openAddServiceModal,
     togglePriceIsFrom,
-    updateServicePrice // Add this in your hook
+    updateServicePrice
   } = useServiceCategories();
+
+  const handleDownloadData = () => {
+    downloadJsonFile(categories, 'services-categories-data');
+  };
 
   return (
     <div className="space-y-6">
@@ -33,10 +37,16 @@ export function AdminServices() {
           <h1 className="text-3xl font-bold">Services Management</h1>
           <p className="text-muted-foreground">Manage your service categories and services</p>
         </div>
-        <Button onClick={() => setIsAddCategoryModalOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          Add Category
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={handleDownloadData}>
+            <Download className="h-4 w-4 mr-2" />
+            Download Data
+          </Button>
+          <Button onClick={() => setIsAddCategoryModalOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Category
+          </Button>
+        </div>
       </div>
       <div className="space-y-4">
         {categories.map((category) => (
@@ -50,7 +60,6 @@ export function AdminServices() {
             onDeleteCategory={deleteCategory}
             onDeleteService={deleteService}
             onTogglePriceIsFrom={togglePriceIsFrom}
-            // Pass the update price handler down the tree
             onUpdatePrice={updateServicePrice}
           />
         ))}

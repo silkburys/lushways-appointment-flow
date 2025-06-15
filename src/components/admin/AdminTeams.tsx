@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Plus, Download } from 'lucide-react';
 import { TeamMemberCard } from './TeamMemberCard';
 import { AddTeamMemberModal } from './AddTeamMemberModal';
 import { EditTeamMemberForm } from './EditTeamMemberForm';
+import { downloadJsonFile } from '@/utils/downloadUtils';
 
 // Sample locations data (should come from DB in real app)
 const locationsList = [
@@ -43,7 +44,7 @@ const teamMembersData = [
       { day: 'Wed', available: true },
       { day: 'Thu', available: true },
       { day: 'Fri', available: true },
-      { day: 'Sat', available: true },
+      { day: 'Sat', available: false },
       { day: 'Sun', available: false },
     ]
   },
@@ -168,6 +169,10 @@ export function AdminTeams() {
     setEditingMemberId(null);
   }
 
+  const handleDownloadData = () => {
+    downloadJsonFile(teamMembers, 'team-members-data');
+  };
+
   return (
     <div className="space-y-6">
       {!editingMemberId ? (
@@ -175,10 +180,16 @@ export function AdminTeams() {
           {/* Header */}
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold">Team</h1>
-            <Button onClick={() => setShowAddModal(true)} className="flex items-center gap-2">
-              <Plus className="h-4 w-4" />
-              Add Team Member
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={handleDownloadData}>
+                <Download className="h-4 w-4 mr-2" />
+                Download Data
+              </Button>
+              <Button onClick={() => setShowAddModal(true)} className="flex items-center gap-2">
+                <Plus className="h-4 w-4" />
+                Add Team Member
+              </Button>
+            </div>
           </div>
           {/* Team Members Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
