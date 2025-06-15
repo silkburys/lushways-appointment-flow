@@ -1,108 +1,97 @@
 
-import React, { useRef, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Image } from "lucide-react";
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+
+const colorOptions = [
+  { name: 'Blue', value: 'bg-blue-500' },
+  { name: 'Green', value: 'bg-green-500' },
+  { name: 'Purple', value: 'bg-purple-500' },
+  { name: 'Pink', value: 'bg-pink-500' },
+  { name: 'Indigo', value: 'bg-indigo-500' },
+  { name: 'Red', value: 'bg-red-500' },
+  { name: 'Yellow', value: 'bg-yellow-500' },
+  { name: 'Teal', value: 'bg-teal-500' },
+];
 
 interface AddServiceCategoryModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (imageUrl: string) => void;
+  onAdd: (categoryData: { name: string; color: string }) => void;
 }
 
-const PLACEHOLDER_IMAGE =
-  "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=200&h=200&fit=crop&auto=format";
+export function AddServiceCategoryModal({ isOpen, onClose, onAdd }: AddServiceCategoryModalProps) {
+  const [name, setName] = useState('');
+  const [selectedColor, setSelectedColor] = useState(colorOptions[0].value);
 
-export function AddServiceCategoryModal({
-  isOpen,
-  onClose,
-  onAdd,
-}: AddServiceCategoryModalProps) {
-  const [selectedImage, setSelectedImage] = useState<string>("");
-  const [isUploading, setIsUploading] = useState(false);
-  const imageInputRef = useRef<HTMLInputElement>(null);
-
-  function handleAvatarClick() {
-    if (!isUploading && imageInputRef.current) {
-      imageInputRef.current.value = "";
-      imageInputRef.current.click();
-    }
-  }
-
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setIsUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/lovable-upload", { method: "POST", body: formData });
-      if (res.ok) {
-        const { url } = await res.json();
-        setSelectedImage(url);
-      } else {
-        alert("Failed to upload image");
-      }
-    } catch {
-      alert("An error occurred while uploading");
-    } finally {
-      setIsUploading(false);
-    }
-  }
-
-  function handleAdd() {
-    if (selectedImage) {
-      onAdd(selectedImage);
-      setSelectedImage("");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (name.trim()) {
+      onAdd({ name: name.trim(), color: selectedColor });
+      setName('');
+      setSelectedColor(colorOptions[0].value);
       onClose();
     }
-  }
+  };
 
-  function handleClose() {
-    setSelectedImage("");
+  const handleClose = () => {
+    setName('');
+    setSelectedColor(colorOptions[0].value);
     onClose();
-  }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-xs w-[300px]">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Upload Category Photo</DialogTitle>
+          <DialogTitle>Add Service Category</DialogTitle>
         </DialogHeader>
-        <div className="flex flex-col items-center space-y-6 py-2">
-          <div
-            className={`relative rounded-full bg-gray-100 border w-28 h-28 flex items-center justify-center cursor-pointer overflow-hidden group
-              ${isUploading ? "opacity-70 pointer-events-none" : "hover:ring-2 hover:ring-gray-300"}
-            `}
-            aria-label="Upload"
-            onClick={handleAvatarClick}
-            tabIndex={0}
-          >
-            {selectedImage ? (
-              <img src={selectedImage} alt="Category" className="object-cover w-full h-full" />
-            ) : (
-              <Image className="h-10 w-10 text-gray-400" />
-            )}
-            {isUploading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/70">
-                <span className="text-xs text-gray-500">Uploading...</span>
-              </div>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={imageInputRef}
-              onChange={handleImageUpload}
-              disabled={isUploading}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="categoryName">Category Name</Label>
+            <Input
+              id="categoryName"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter category name"
+              required
             />
           </div>
-          <Button onClick={handleAdd} disabled={!selectedImage || isUploading} className="w-full">
-            Use This Photo
-          </Button>
-        </div>
+
+          <div className="space-y-2">
+            <Label>Category Color</Label>
+            <div className="grid grid-cols-4 gap-2">
+              {colorOptions.map((color) => (
+                <button
+                  key={color.value}
+                  type="button"
+                  onClick={() => setSelectedColor(color.value)}
+                  className={`
+                    w-full h-10 rounded-md border-2 transition-all
+                    ${color.value}
+                    ${selectedColor === color.value ? 'border-gray-900 scale-105' : 'border-gray-300'}
+                  `}
+                  title={color.name}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-end space-x-2 pt-4">
+            <Button type="button" variant="outline" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button type="submit">Add Category</Button>
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );
 }
-

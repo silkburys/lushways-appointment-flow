@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { initialCategories, CATEGORY_IMAGES } from "@/data/servicesCategoriesData";
+import { initialCategories } from "@/data/servicesCategoriesData";
 
 // Types
 export interface Service {
@@ -14,9 +14,7 @@ export interface ServiceCategory {
   id: string;
   name: string;
   color: string;
-  image: string;
   services: Service[];
-  customImages?: string[]; // allow user-added images per category
 }
 
 export function useServiceCategories() {
@@ -26,13 +24,11 @@ export function useServiceCategories() {
   const [isAddServiceModalOpen, setIsAddServiceModalOpen] = useState(false);
 
   // Handlers
-  // Accept `image` field for new category
-  const addCategory = (categoryData: { name: string; color: string; image: string }) => {
+  const addCategory = (categoryData: { name: string; color: string }) => {
     const newCategory: ServiceCategory = {
       id: Date.now().toString(),
       name: categoryData.name,
       color: categoryData.color,
-      image: categoryData.image, // use the picked/uploaded image
       services: [],
     };
     setCategories([...categories, newCategory]);
@@ -128,30 +124,6 @@ export function useServiceCategories() {
     );
   };
 
-  // Handler for changing the image for a category (admin picks from preset images)
-  const changeCategoryImage = (categoryId: string, image: string) => {
-    setCategories(cats =>
-      cats.map(cat => cat.id === categoryId ? { ...cat, image } : cat)
-    );
-  };
-
-  // Handler for uploaded images
-  const uploadCategoryImage = (categoryId: string, imageUrl: string) => {
-    setCategories(cats =>
-      cats.map(cat =>
-        cat.id === categoryId
-          ? {
-              ...cat,
-              customImages: cat.customImages
-                ? [...cat.customImages, imageUrl]
-                : [imageUrl],
-              image: imageUrl,
-            }
-          : cat
-      )
-    );
-  };
-
   // UI handlers
   const openAddServiceModal = (categoryId: string) => {
     setSelectedCategoryId(categoryId);
@@ -173,8 +145,6 @@ export function useServiceCategories() {
     deleteService,
     openAddServiceModal,
     togglePriceIsFrom,
-    updateServicePrice,
-    changeCategoryImage,
-    uploadCategoryImage,
+    updateServicePrice // Return the new handler
   };
 }

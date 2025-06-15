@@ -23,16 +23,8 @@ export function AdminServices() {
     deleteService,
     openAddServiceModal,
     togglePriceIsFrom,
-    updateServicePrice,
-    changeCategoryImage,
-    uploadCategoryImage,
+    updateServicePrice // Add this in your hook
   } = useServiceCategories();
-
-  // Handler for just uploaded images
-  function handleCategoryImageUpload(imageUrl: string) {
-    console.log("Uploaded category image: ", imageUrl);
-    // Use this as needed
-  }
 
   return (
     <div className="space-y-6">
@@ -47,15 +39,26 @@ export function AdminServices() {
         </Button>
       </div>
       <div className="space-y-4">
-        {/* Show as many uploaders as categories, or just one */}
         {categories.map((category) => (
-          <ServiceCategoryCard key={category.id} onUpload={handleCategoryImageUpload} />
+          <ServiceCategoryCard
+            key={category.id}
+            category={category}
+            allCategories={categories}
+            onAddService={() => openAddServiceModal(category.id)}
+            onReorderServices={reorderServices}
+            onMoveService={moveService}
+            onDeleteCategory={deleteCategory}
+            onDeleteService={deleteService}
+            onTogglePriceIsFrom={togglePriceIsFrom}
+            // Pass the update price handler down the tree
+            onUpdatePrice={updateServicePrice}
+          />
         ))}
       </div>
       <AddServiceCategoryModal
         isOpen={isAddCategoryModalOpen}
         onClose={() => setIsAddCategoryModalOpen(false)}
-        onAdd={handleCategoryImageUpload}
+        onAdd={addCategory}
       />
       <AddServiceModal
         isOpen={isAddServiceModalOpen}

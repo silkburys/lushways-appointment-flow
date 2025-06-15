@@ -1,94 +1,205 @@
-import React, { useRef, useState } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Image } from "lucide-react";
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
+import { ServiceCard } from './ServiceCard';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { Switch } from "@/components/ui/switch";
 
-const PLACEHOLDER_IMAGE =
-  "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=200&h=200&fit=crop&auto=format";
-
-interface ServiceCategoryCardProps {
-  // You may keep props if needed, but they're not used here anymore
-  onUpload?: (imageUrl: string) => void; // For external use if needed
+interface Service {
+  id: string;
+  name: string;
+  price: number;
+  categoryId: string;
+  priceIsFrom?: boolean;
 }
 
-export function ServiceCategoryCard({ onUpload }: ServiceCategoryCardProps) {
-  const [image, setImage] = useState<string>("");
-  const [isUploading, setIsUploading] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+interface ServiceCategory {
+  id: string;
+  name: string;
+  color: string;
+  services: Service[];
+}
 
-  function handleAvatarClick() {
-    if (!isUploading && inputRef.current) {
-      inputRef.current.value = "";
-      inputRef.current.click();
-    }
-  }
+interface ServiceCategoryCardProps {
+  category: ServiceCategory;
+  allCategories: ServiceCategory[];
+  onAddService: () => void;
+  onReorderServices: (categoryId: string, reorderedServices: Service[]) => void;
+  onMoveService: (serviceId: string, newCategoryId: string) => void;
+  onDeleteCategory: (categoryId: string) => void;
+  onDeleteService: (serviceId: string) => void;
+  onTogglePriceIsFrom: (serviceId: string) => void;
+  onUpdatePrice?: (serviceId: string, newPrice: number) => void;
+}
 
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setIsUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/lovable-upload", { method: "POST", body: formData });
-      if (res.ok) {
-        const { url } = await res.json();
-        setImage(url);
-        if (onUpload) onUpload(url); // emit up if needed
-      } else {
-        alert("Failed to upload image");
-      }
-    } catch {
-      alert("An error occurred while uploading");
-    } finally {
-      setIsUploading(false);
+export function ServiceCategoryCard({
+  category,
+  allCategories,
+  onAddService,
+  onReorderServices,
+  onMoveService,
+  onDeleteCategory,
+  onDeleteService,
+  onTogglePriceIsFrom,
+  onUpdatePrice
+}: ServiceCategoryCardProps) {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [draggedService, setDraggedService] = useState<Service | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, service: Service) => {
+    setDraggedService(service);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e: React.DragEvent, targetIndex: number) => {
+    e.preventDefault();
+    if (!draggedService) return;
+
+    const sourceIndex = category.services.findIndex(s => s.id === draggedService.id);
+    if (sourceIndex === -1) return;
+
+    const newServices = [...category.services];
+    newServices.splice(sourceIndex, 1);
+    newServices.splice(targetIndex, 0, draggedService);
+
+    onReorderServices(category.id, newServices);
+    setDraggedService(null);
+  };
+
+  const handleDropOnCategory = (e: React.DragEvent) => {
+    e.preventDefault();
+    if (!draggedService || draggedService.categoryId === category.id) {
+      setDraggedService(null);
+      return;
     }
-  }
+
+    onMoveService(draggedService.id, category.id);
+    setDraggedService(null);
+  };
+
+  const handleUpdatePrice = (serviceId: string, newPrice: number) => {
+    if (typeof onUpdatePrice === 'function') {
+      onUpdatePrice(serviceId, newPrice);
+    }
+  };
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-col items-center space-y-4 py-2">
-          <div
-            className={`relative rounded-full bg-gray-100 border w-28 h-28 flex items-center justify-center cursor-pointer overflow-hidden group
-              ${isUploading ? "opacity-70 pointer-events-none" : "hover:ring-2 hover:ring-gray-300"}
-            `}
-            aria-label="Upload"
-            onClick={handleAvatarClick}
-            tabIndex={0}
-          >
-            {image ? (
-              <img
-                src={image}
-                alt="Uploaded"
-                className="object-cover w-full h-full"
-              />
+    <Card className="overflow-hidden">
+      <CardHeader 
+        className={`${category.color} text-white cursor-pointer`}
+        onClick={() => setIsExpanded(!isExpanded)}
+        onDragOver={handleDragOver}
+        onDrop={handleDropOnCategory}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <h3 className="text-lg font-semibold">{category.name}</h3>
+            <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+              {category.services.length} Services
+            </Badge>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onAddService();
+              }}
+              className="text-white hover:bg-white/20"
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-white hover:bg-white/20"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete Category</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to delete "{category.name}"? This will also delete all services in this category.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={() => onDeleteCategory(category.id)}>
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            {isExpanded ? (
+              <ChevronUp className="h-5 w-5 text-white" />
             ) : (
-              <Image className="h-10 w-10 text-gray-400" />
+              <ChevronDown className="h-5 w-5 text-white" />
             )}
-            {isUploading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/70">
-                <span className="text-xs text-gray-500">Uploading...</span>
-              </div>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              ref={inputRef}
-              onChange={handleImageUpload}
-              disabled={isUploading}
-            />
           </div>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="flex items-center justify-center">
-          <span className="text-sm text-muted-foreground">
-            Click the icon to upload a photo.
-          </span>
-        </div>
-      </CardContent>
+      
+      {isExpanded && (
+        <CardContent className="p-4">
+          {category.services.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              <p>No services in this category yet.</p>
+              <Button 
+                variant="outline" 
+                onClick={onAddService}
+                className="mt-2"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add First Service
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {category.services.map((service, index) => (
+                <div
+                  key={service.id}
+                  onDragOver={handleDragOver}
+                  onDrop={(e) => handleDrop(e, index)}
+                  className="flex items-center gap-4"
+                >
+                  <ServiceCard
+                    service={service}
+                    allCategories={allCategories}
+                    onDragStart={handleDragStart}
+                    onMoveService={onMoveService}
+                    onDeleteService={onDeleteService}
+                    onTogglePriceIsFrom={onTogglePriceIsFrom}
+                    onUpdatePrice={handleUpdatePrice}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      )}
     </Card>
   );
 }

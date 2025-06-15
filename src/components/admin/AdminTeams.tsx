@@ -4,7 +4,6 @@ import { Plus } from 'lucide-react';
 import { TeamMemberCard } from './TeamMemberCard';
 import { AddTeamMemberModal } from './AddTeamMemberModal';
 import { EditTeamMemberForm } from './EditTeamMemberForm';
-import { useTeamMembers } from '@/hooks/useTeamMembers';
 
 // Sample locations data (should come from DB in real app)
 const locationsList = [
@@ -25,23 +24,143 @@ const serviceCategories = initialCategories.map(cat => ({
   })),
 }));
 
+// Now stores more data per member for edit screen
+const teamMembersData = [
+  {
+    id: 1,
+    name: "Fadia",
+    avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
+    status: "Active",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234567",
+    email: "salonlushways@gmail.com",
+    locations: [1], // id of locations
+    offeredServiceIds: [], // ids of services offered
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: false },
+    ]
+  },
+  {
+    id: 2,
+    name: "Angelica",
+    avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
+    status: "Active",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234568",
+    email: "angelica@gmail.com",
+    locations: [1,2],
+    offeredServiceIds: [],
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+  {
+    id: 3,
+    name: "Sakina",
+    avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
+    status: "Active",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234569",
+    email: "sakina@gmail.com",
+    locations: [2,3],
+    offeredServiceIds: [],
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+  {
+    id: 4,
+    name: "Jenny",
+    avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
+    status: "Inactive",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234570",
+    email: "jenny@gmail.com",
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: false },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+  {
+    id: 5,
+    name: "Nancy",
+    avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
+    status: "Inactive",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234571",
+    email: "nancy@gmail.com",
+    weeklyAvailability: [
+      { day: 'Mon', available: false },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+  {
+    id: 6,
+    name: "Regine",
+    avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
+    status: "Active",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234572",
+    email: "regine@gmail.com",
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+];
+
 export function AdminTeams() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingMemberId, setEditingMemberId] = useState<number | null>(null);
-  const {
-    teamMembers,
-    updateTeamMember,
-    addTeamMember,
-    // setTeamMembers,
-  } = useTeamMembers();
+  const [teamMembers, setTeamMembers] = useState(teamMembersData);
 
   function handleEdit(id: number) {
     setEditingMemberId(id);
   }
 
-  // Save edits and update state (persists changes!)
   function handleSaveEdit(updated: any) {
-    updateTeamMember(updated);
+    setTeamMembers(prev =>
+      prev.map(m => (m.id === updated.id ? { ...m, ...updated } : m))
+    );
     setEditingMemberId(null);
   }
 
