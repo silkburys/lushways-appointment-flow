@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Image as ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { ServiceCard } from './ServiceCard';
 import {
   AlertDialog,
@@ -57,6 +57,25 @@ export function ServiceCategoryCard({
 }: ServiceCategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [draggedService, setDraggedService] = useState<Service | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImageUrl(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleDragStart = (e: React.DragEvent, service: Service) => {
     setDraggedService(service);
@@ -110,11 +129,34 @@ export function ServiceCategoryCard({
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
+            <button
+              onClick={handleImageClick}
+              className="flex items-center justify-center bg-white/30 hover:bg-white/50 rounded-full w-12 h-12 focus:outline-none transition"
+              title={imageUrl ? "Change image" : "Upload image"}
+              type="button"
+            >
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="Category"
+                  className="object-cover w-12 h-12 rounded-full border border-white"
+                />
+              ) : (
+                <ImageIcon className="w-7 h-7 text-white opacity-80" />
+              )}
+            </button>
             <h3 className="text-lg font-semibold">{category.name}</h3>
             <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
               {category.services.length} Services
             </Badge>
           </div>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            ref={fileInputRef}
+            className="hidden"
+          />
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
