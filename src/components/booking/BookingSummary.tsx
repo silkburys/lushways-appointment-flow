@@ -18,7 +18,7 @@ const BookingSummary = ({
   onAddMore, 
   currentStep 
 }: BookingSummaryProps) => {
-  const showAddMore = ['customer', 'verification'].includes(currentStep);
+  const showAddMore = currentStep === 'customer';
 
   return (
     <div className="p-6 h-full">
