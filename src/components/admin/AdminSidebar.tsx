@@ -17,22 +17,26 @@ const menuItems = [
   {
     title: "Teams",
     icon: Users,
-    url: "/admin/teams",
+    key: "Teams",
   },
   {
     title: "Services", 
     icon: Wrench,
-    url: "/admin/services",
+    key: "Services",
   },
   {
     title: "Locations",
     icon: MapPin,
-    url: "/admin/locations",
-    active: true,
+    key: "Locations",
   },
 ];
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  activeSection: string;
+  onSectionChange: (section: string) => void;
+}
+
+export function AdminSidebar({ activeSection, onSectionChange }: AdminSidebarProps) {
   return (
     <Sidebar>
       <SidebarHeader className="p-4">
@@ -45,11 +49,12 @@ export function AdminSidebar() {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={item.active}>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
+                  <SidebarMenuButton 
+                    isActive={activeSection === item.key}
+                    onClick={() => onSectionChange(item.key)}
+                  >
+                    <item.icon />
+                    <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
