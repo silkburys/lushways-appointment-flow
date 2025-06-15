@@ -15,6 +15,7 @@ export interface ServiceCategory {
   name: string;
   color: string;
   services: Service[];
+  imageUrl?: string;
 }
 
 export function useServiceCategories() {
@@ -145,6 +146,6 @@ export function useServiceCategories() {
     deleteService,
     openAddServiceModal,
     togglePriceIsFrom,
-    updateServicePrice // Return the new handler
+    updateServicePrice
   };
 }

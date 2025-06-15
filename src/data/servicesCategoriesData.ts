@@ -3,6 +3,7 @@ export const initialCategories = [
     id: '7',
     name: 'Moroccan Bath',
     color: 'bg-blue-500',
+    imageUrl: '/lovable-uploads/b9b45731-7c13-440a-ba3f-176575d634af.png',
     services: [
       { id: '1', name: 'Moroccan Bath - Al Barsha', price: 300, categoryId: '7', priceIsFrom: false },
     ],
@@ -11,6 +12,7 @@ export const initialCategories = [
     id: '8',
     name: 'Gents',
     color: 'bg-green-500',
+    imageUrl: '/lovable-uploads/c23d83ab-0454-44e2-985e-2529747ecd34.png',
     services: [
       { id: '2', name: 'Hair & Beard', price: 115, categoryId: '8', priceIsFrom: false },
       { id: '3', name: 'Hair Cut', price: 70, categoryId: '8', priceIsFrom: false },
@@ -23,6 +25,7 @@ export const initialCategories = [
     id: '9',
     name: 'Tatoo & Microbladding',
     color: 'bg-purple-500',
+    imageUrl: '/lovable-uploads/cd76cc65-594a-4842-9975-60265ac12c8f.png',
     services: [
       { id: '7', name: 'Mat Tattoo Eye Brows', price: 500, categoryId: '9', priceIsFrom: true },
       { id: '8', name: '3 D Tattoo Eye Brows', price: 700, categoryId: '9', priceIsFrom: true },
@@ -33,6 +36,7 @@ export const initialCategories = [
     id: '1',
     name: 'Nail',
     color: 'bg-pink-500',
+    imageUrl: '/lovable-uploads/be22f787-2bc9-4220-bd15-0c324658dc09.png',
     services: [
       { id: '10', name: 'Gel repair per nail', price: 40, categoryId: '1', priceIsFrom: false },
       { id: '11', name: 'Gel polish application', price: 65, categoryId: '1', priceIsFrom: false },
@@ -60,6 +64,7 @@ export const initialCategories = [
     id: '2',
     name: 'Hair',
     color: 'bg-indigo-500',
+    imageUrl: '/lovable-uploads/3ee8e854-1dd1-41b9-afa1-e945c38d0be4.png',
     services: [
       { id: '30', name: 'Half Head Highlights', price: 300, categoryId: '2', priceIsFrom: false },
       { id: '31', name: 'Blowdry', price: 105, categoryId: '2', priceIsFrom: false },
@@ -83,6 +88,7 @@ export const initialCategories = [
     id: '3',
     name: 'Waxing',
     color: 'bg-yellow-500',
+    imageUrl: '/lovable-uploads/062304dd-bf5f-415d-b189-a743f00b1534.png',
     services: [
       { id: '46', name: 'Half Arm', price: 55, categoryId: '3', priceIsFrom: false },
       { id: '47', name: 'Full Arm', price: 80, categoryId: '3', priceIsFrom: false },
@@ -105,6 +111,7 @@ export const initialCategories = [
     id: '4',
     name: 'Facial',
     color: 'bg-green-500',
+    imageUrl: '/lovable-uploads/0e48499b-f98f-404d-9391-9d1126e80235.png',
     services: [
       { id: '61', name: 'Vitamino Facial', price: 350, categoryId: '4', priceIsFrom: false },
       { id: '62', name: 'clean up', price: 210, categoryId: '4', priceIsFrom: false },
@@ -118,6 +125,7 @@ export const initialCategories = [
     id: '5',
     name: 'Massage',
     color: 'bg-indigo-500',
+    imageUrl: '/lovable-uploads/952beabe-8036-4609-86d1-00e5e07cbc92.png',
     services: [
       { id: '67', name: 'full body massage', price: 315, categoryId: '5', priceIsFrom: false },
       { id: '68', name: 'foot massage', price: 80, categoryId: '5', priceIsFrom: false },
@@ -129,6 +137,7 @@ export const initialCategories = [
     id: '6',
     name: 'Make Up',
     color: 'bg-pink-500',
+    imageUrl: '/lovable-uploads/80c92a1a-92f2-496d-b655-cf2b37078ef2.png',
     services: [
       { id: '71', name: 'Lashes', price: 300, categoryId: '6', priceIsFrom: false },
       { id: '72', name: 'Evening Makeup with Eye Lash', price: 475, categoryId: '6', priceIsFrom: false },

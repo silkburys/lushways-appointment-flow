@@ -30,6 +30,7 @@ interface ServiceCategory {
   name: string;
   color: string;
   services: Service[];
+  imageUrl?: string;
 }
 
 interface ServiceCategoryCardProps {
@@ -57,7 +58,7 @@ export function ServiceCategoryCard({
 }: ServiceCategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [draggedService, setDraggedService] = useState<Service | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(category.imageUrl || null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
