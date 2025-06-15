@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
@@ -20,41 +19,121 @@ interface ServiceCategory {
   services: Service[];
 }
 
-const initialCategories: ServiceCategory[] = [
+// ALL categories and services, IDs, and grouping based exactly on your screenshots:
+const initialCategories = [
   {
-    id: '1',
+    id: '7',
     name: 'Moroccan Bath',
     color: 'bg-blue-500',
     services: [
-      { id: '1', name: 'Traditional Moroccan Bath', price: 120, categoryId: '1' },
-      { id: '2', name: 'Premium Moroccan Bath', price: 180, categoryId: '1' },
+      { id: '81', name: 'Moroccan Bath - Al Barsha', price: 0, categoryId: '7' },
+    ]
+  },
+  {
+    id: '8',
+    name: 'Gents',
+    color: 'bg-green-500',
+    services: [
+      { id: '82', name: 'Hair & Beard', price: 0, categoryId: '8' },
+      { id: '83', name: 'Hair Cut', price: 0, categoryId: '8' },
+      { id: '84', name: 'Beard Trim', price: 0, categoryId: '8' },
+      { id: '85', name: 'Kids Haircut', price: 0, categoryId: '8' },
+      { id: '89', name: 'Pedicure or Manicure', price: 0, categoryId: '8' },
+    ]
+  },
+  {
+    id: '9',
+    name: 'Tatoo & Microbladding',
+    color: 'bg-purple-500',
+    services: [
+      { id: '86', name: 'Mat Tattoo Eye Brows', price: 0, categoryId: '9' },
+      { id: '87', name: '3 D Tattoo Eye Brows', price: 0, categoryId: '9' },
+      { id: '88', name: 'Tattoo Lips Mat or 3D', price: 0, categoryId: '9' },
+    ]
+  },
+  {
+    id: '1',
+    name: 'Nail',
+    color: 'bg-pink-500',
+    services: [
+      { id: '77', name: 'Gel repair per nail', price: 0, categoryId: '1' },
+      { id: '78', name: 'Gel polish application', price: 0, categoryId: '1' },
+      { id: '4',  name: 'Gelish Manicure', price: 0, categoryId: '1' },
+      { id: '1',  name: 'Classic Manicure', price: 0, categoryId: '1' },
+      { id: '2',  name: 'Classic Pedicure', price: 0, categoryId: '1' },
+      { id: '5',  name: 'Gelish Pedicure', price: 0, categoryId: '1' },
+      { id: '6',  name: 'Gelish Removal', price: 0, categoryId: '1' },
+      { id: '7',  name: 'Gel Full Set', price: 0, categoryId: '1' },
+      { id: '9',  name: 'Gel Refill', price: 0, categoryId: '1' },
+      { id: '11', name: 'Acrylic Repair per nail', price: 0, categoryId: '1' },
+      { id: '41', name: 'Callus Removal', price: 0, categoryId: '1' },
+      { id: '52', name: 'fake nails', price: 0, categoryId: '1' },
+      { id: '53', name: 'french pedicure', price: 0, categoryId: '1' },
+      { id: '54', name: 'french manicure', price: 0, categoryId: '1' },
+      { id: '56', name: 'cut and file', price: 0, categoryId: '1' },
+      { id: '57', name: 'spa manicure', price: 0, categoryId: '1' },
+      { id: '58', name: 'spa pedicure', price: 0, categoryId: '1' },
+      { id: '71', name: 'manicure parafin', price: 0, categoryId: '1' },
+      { id: '72', name: 'pedicure parafin', price: 0, categoryId: '1' },
+      { id: '73', name: 'classic polish change', price: 0, categoryId: '1' },
     ]
   },
   {
     id: '2',
-    name: 'Gents',
-    color: 'bg-green-500',
+    name: 'Hair',
+    color: 'bg-indigo-500',
     services: [
-      { id: '3', name: 'Haircut & Styling', price: 80, categoryId: '2' },
-      { id: '4', name: 'Beard Trim', price: 40, categoryId: '2' },
+      { id: '80', name: 'Half Head Highlights', price: 0, categoryId: '2' },
+      { id: '12', name: 'Blowdry', price: 0, categoryId: '2' },
+      { id: '15', name: 'Hair Cut', price: 0, categoryId: '2' },
+      { id: '14', name: 'Curls', price: 0, categoryId: '2' },
+      { id: '16', name: 'Hair Style', price: 0, categoryId: '2' },
+      { id: '17', name: 'Full Hair Color', price: 0, categoryId: '2' },
+      { id: '18', name: 'Full Hair Highlights', price: 0, categoryId: '2' },
+      { id: '19', name: 'Hair Toner', price: 0, categoryId: '2' },
+      { id: '20', name: 'Keratin', price: 0, categoryId: '2' },
+      { id: '22', name: 'Hair Mask', price: 0, categoryId: '2' },
+      { id: '46', name: 'Hair trim', price: 0, categoryId: '2' },
+      { id: '64', name: 'hair braids kid', price: 0, categoryId: '2' },
+      { id: '65', name: 'hair braid', price: 0, categoryId: '2' },
+      { id: '66', name: 'root color', price: 0, categoryId: '2' },
+      { id: '67', name: 'fringe cut', price: 0, categoryId: '2' },
+      { id: '68', name: 'hair wash', price: 0, categoryId: '2' },
     ]
   },
   {
     id: '3',
-    name: 'Hair',
-    color: 'bg-purple-500',
+    name: 'Waxing',
+    color: 'bg-yellow-500',
     services: [
-      { id: '5', name: 'Hair Wash & Blow Dry', price: 60, categoryId: '3' },
-      { id: '6', name: 'Hair Color', price: 200, categoryId: '3' },
+      { id: '23', name: 'Half Arm', price: 0, categoryId: '3' },
+      { id: '24', name: 'Full Arm', price: 0, categoryId: '3' },
+      { id: '25', name: 'Under Arm', price: 0, categoryId: '3' },
+      { id: '26', name: 'Half Legs', price: 0, categoryId: '3' },
+      { id: '27', name: 'Full Legs', price: 0, categoryId: '3' },
+      { id: '28', name: 'Bikini Line', price: 0, categoryId: '3' },
+      { id: '29', name: 'Full Bikini', price: 0, categoryId: '3' },
+      { id: '30', name: 'Half Back', price: 0, categoryId: '3' },
+      { id: '31', name: 'Full back', price: 0, categoryId: '3' },
+      { id: '32', name: 'Stomach', price: 0, categoryId: '3' },
+      { id: '33', name: 'Full body with Brazilian', price: 0, categoryId: '3' },
+      { id: '34', name: 'Eyebrows', price: 0, categoryId: '3' },
+      { id: '35', name: 'Upperlip', price: 0, categoryId: '3' },
+      { id: '36', name: 'Fullface', price: 0, categoryId: '3' },
+      { id: '37', name: 'Eyebrow tint', price: 0, categoryId: '3' },
     ]
   },
   {
     id: '4',
     name: 'Facial',
-    color: 'bg-pink-500',
+    color: 'bg-green-500',
     services: [
-      { id: '7', name: 'Deep Cleansing Facial', price: 150, categoryId: '4' },
-      { id: '8', name: 'Anti-Aging Facial', price: 220, categoryId: '4' },
+      { id: '47', name: 'Vitamino Facial', price: 0, categoryId: '4' },
+      { id: '48', name: 'clean up', price: 0, categoryId: '4' },
+      { id: '49', name: 'Antiaging Facial', price: 0, categoryId: '4' },
+      { id: '50', name: 'Deep Moisturizing', price: 0, categoryId: '4' },
+      { id: '51', name: 'Brightening', price: 0, categoryId: '4' },
+      { id: '74', name: 'basic facial', price: 0, categoryId: '4' },
     ]
   },
   {
@@ -62,10 +141,24 @@ const initialCategories: ServiceCategory[] = [
     name: 'Massage',
     color: 'bg-indigo-500',
     services: [
-      { id: '9', name: 'Full Body Massage', price: 180, categoryId: '5' },
-      { id: '10', name: 'Relaxation Massage', price: 120, categoryId: '5' },
+      { id: '59', name: 'full body massage', price: 0, categoryId: '5' },
+      { id: '60', name: 'foot massage', price: 0, categoryId: '5' },
+      { id: '61', name: 'head massage', price: 0, categoryId: '5' },
+      { id: '62', name: 'back and neck massage', price: 0, categoryId: '5' },
     ]
-  }
+  },
+  {
+    id: '6',
+    name: 'Make Up',
+    color: 'bg-pink-500',
+    services: [
+      { id: '79', name: 'Lashes', price: 0, categoryId: '6' },
+      { id: '38', name: 'Evening Makeup with Eye Lash', price: 0, categoryId: '6' },
+      { id: '39', name: 'Party Makeup with Eye Lash', price: 0, categoryId: '6' },
+      { id: '40', name: 'Bridal Makeup', price: 0, categoryId: '6' },
+      { id: '70', name: 'Lashes Refill', price: 0, categoryId: '6' },
+    ]
+  },
 ];
 
 export function AdminServices() {
