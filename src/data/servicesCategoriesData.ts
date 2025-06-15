@@ -1,4 +1,3 @@
-
 export const initialCategories = [
   {
     id: '7',
@@ -25,9 +24,9 @@ export const initialCategories = [
     name: 'Tatoo & Microbladding',
     color: 'bg-purple-500',
     services: [
-      { id: '7', name: 'Mat Tattoo Eye Brows', price: 0, categoryId: '9', priceIsFrom: false },
-      { id: '8', name: '3 D Tattoo Eye Brows', price: 0, categoryId: '9', priceIsFrom: false },
-      { id: '9', name: 'Tattoo Lips Mat or 3D', price: 0, categoryId: '9', priceIsFrom: false },
+      { id: '7', name: 'Mat Tattoo Eye Brows', price: 500, categoryId: '9', priceIsFrom: true },
+      { id: '8', name: '3 D Tattoo Eye Brows', price: 700, categoryId: '9', priceIsFrom: true },
+      { id: '9', name: 'Tattoo Lips Mat or 3D', price: 500, categoryId: '9', priceIsFrom: true },
     ],
   },
   {
@@ -139,4 +138,3 @@ export const initialCategories = [
     ],
   },
 ];
-
