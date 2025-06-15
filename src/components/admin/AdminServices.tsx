@@ -28,6 +28,16 @@ export function AdminServices() {
     uploadCategoryImage,
   } = useServiceCategories();
 
+  // Add handler for the new image-only modal (just logs image URL for now)
+  function handleCategoryImageUpload(imageUrl: string) {
+    // This function is triggered when a photo is uploaded in the AddServiceCategoryModal
+    // You may extend this to actually create a new category using the uploaded image
+    // For now, simply log or use uploadCategoryImage as needed
+    console.log("Uploaded category image: ", imageUrl);
+    // Example: To use uploadCategoryImage for a placeholder/dummy category:
+    // uploadCategoryImage(dummyCategoryId, imageUrl);
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -61,7 +71,7 @@ export function AdminServices() {
       <AddServiceCategoryModal
         isOpen={isAddCategoryModalOpen}
         onClose={() => setIsAddCategoryModalOpen(false)}
-        onAdd={addCategory}
+        onAdd={handleCategoryImageUpload} {/* <-- Now expects imageUrl: string */}
       />
       <AddServiceModal
         isOpen={isAddServiceModalOpen}
@@ -73,3 +83,4 @@ export function AdminServices() {
     </div>
   );
 }
+
