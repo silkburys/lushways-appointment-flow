@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus, Download } from 'lucide-react';
@@ -199,7 +198,7 @@ const teamMembersData = [
   {
     id: 9,
     name: "TeamMember9",
-    avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
+    avatar: "/lovable-uploads/edec9eda-938b-46cf-b09d-ee60ab8852bf.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
@@ -220,12 +219,96 @@ const teamMembersData = [
   {
     id: 10,
     name: "TeamMember10",
-    avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
+    avatar: "/lovable-uploads/ac97c4b3-0dfb-46da-934f-abf726ad0d1b.png",
     status: "Active",
     schedule: "10:00am - 10:00pm",
     bookings: 0,
     phone: "+971501234576",
     email: "example10@gmail.com",
+    locations: [],
+    offeredServiceIds: [],
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+  {
+    id: 11,
+    name: "TeamMember11",
+    avatar: "/lovable-uploads/92746ddb-049c-401c-aa42-531e5a59b52a.png",
+    status: "Active",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234577",
+    email: "example11@gmail.com",
+    locations: [],
+    offeredServiceIds: [],
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+  {
+    id: 12,
+    name: "TeamMember12",
+    avatar: "/lovable-uploads/3291a5c5-b9d7-4738-8319-0ff971948f7a.png",
+    status: "Active",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234578",
+    email: "example12@gmail.com",
+    locations: [],
+    offeredServiceIds: [],
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+  {
+    id: 13,
+    name: "TeamMember13",
+    avatar: "/lovable-uploads/9d7dd87c-77f3-4667-a18d-36e25fc3cda4.png",
+    status: "Active",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234579",
+    email: "example13@gmail.com",
+    locations: [],
+    offeredServiceIds: [],
+    weeklyAvailability: [
+      { day: 'Mon', available: true },
+      { day: 'Tue', available: true },
+      { day: 'Wed', available: true },
+      { day: 'Thu', available: true },
+      { day: 'Fri', available: true },
+      { day: 'Sat', available: true },
+      { day: 'Sun', available: true },
+    ]
+  },
+  {
+    id: 14,
+    name: "TeamMember14",
+    avatar: "/lovable-uploads/4cb7ad04-56fd-49b8-8215-55f92eaded9a.png",
+    status: "Active",
+    schedule: "10:00am - 10:00pm",
+    bookings: 0,
+    phone: "+971501234580",
+    email: "example14@gmail.com",
     locations: [],
     offeredServiceIds: [],
     weeklyAvailability: [
