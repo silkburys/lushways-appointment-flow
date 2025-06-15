@@ -1,6 +1,7 @@
 
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '../ui/button';
+import { Card, CardContent } from '../ui/card';
 import { Location, Service } from '../../types/booking';
 import { initialCategories } from '../../data/servicesCategoriesData';
 
@@ -39,59 +40,64 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 max-w-md mx-auto">
       <div className="flex items-center gap-4 mb-6">
-        <Button variant="ghost" size="sm" onClick={onBack}>
-          <ArrowLeft className="w-4 h-4" />
+        <Button variant="ghost" size="sm" onClick={onBack} className="p-2">
+          <ArrowLeft className="w-5 h-5" />
         </Button>
         <div>
-          <h2 className="text-xl font-semibold">
+          <h2 className="text-xl font-semibold text-gray-900">
             {isLadiesLocation ? 'Select Category' : 'Select Service'}
           </h2>
-          <p className="text-gray-600">{location.name}</p>
+          <p className="text-sm text-gray-500">{location.name}</p>
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {isLadiesLocation ? (
           // Show categories for ladies locations
           availableCategories.map(category => (
-            <Button
-              key={category.id}
-              variant="outline"
-              className="w-full p-4 h-auto text-left justify-start hover:bg-orange-50 hover:border-orange-200"
+            <Card 
+              key={category.id} 
+              className="border border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
               onClick={() => handleCategoryOrServiceSelect(category)}
             >
-              <div className="flex items-center gap-3">
-                {category.imageUrl && (
-                  <img 
-                    src={category.imageUrl} 
-                    alt={category.name}
-                    className="w-12 h-12 rounded-lg object-cover"
-                  />
-                )}
-                <div>
-                  <div className="font-medium text-gray-900">{category.name}</div>
-                  <div className="text-sm text-gray-500">{category.name}</div>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4">
+                  {category.imageUrl && (
+                    <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                      <img 
+                        src={category.imageUrl} 
+                        alt={category.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="flex-1">
+                    <h3 className="text-base font-medium text-gray-900">{category.name}</h3>
+                    <p className="text-sm text-gray-500">{category.name}</p>
+                  </div>
                 </div>
-              </div>
-            </Button>
+              </CardContent>
+            </Card>
           ))
         ) : (
           // Show services directly for BarberShop
           availableCategories.map(category => (
-            <div key={category.id}>
+            <div key={category.id} className="space-y-3">
               <div className="flex items-center gap-3 mb-3">
                 {category.imageUrl && (
-                  <img 
-                    src={category.imageUrl} 
-                    alt={category.name}
-                    className="w-8 h-8 rounded-full object-cover"
-                  />
+                  <div className="w-8 h-8 rounded-full overflow-hidden">
+                    <img 
+                      src={category.imageUrl} 
+                      alt={category.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 )}
                 <h3 className="text-lg font-medium text-orange-600">{category.name}</h3>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {category.services.map(service => {
                   // Convert backend service format to frontend Service type
                   const frontendService: Service = {
@@ -103,20 +109,25 @@ const ServiceSelection = ({ location, onSelect, onBack }: ServiceSelectionProps)
                   };
 
                   return (
-                    <Button
+                    <Card 
                       key={service.id}
-                      variant="outline"
-                      className="w-full p-4 h-auto text-left justify-between hover:bg-orange-50 hover:border-orange-200"
+                      className="border border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
                       onClick={() => onSelect(frontendService)}
                     >
-                      <div>
-                        <div className="font-medium text-gray-900">{service.name}</div>
-                        <div className="text-sm text-gray-500">{frontendService.duration} min</div>
-                      </div>
-                      <div className="text-lg font-semibold text-gray-900">
-                        {service.priceIsFrom ? 'From ' : ''}{service.price} AED
-                      </div>
-                    </Button>
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <h4 className="text-base font-medium text-gray-900">{service.name}</h4>
+                            <p className="text-sm text-gray-500">{frontendService.duration} min</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-base font-semibold text-gray-900">
+                              {service.priceIsFrom ? 'From ' : ''}{service.price} AED
+                            </p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   );
                 })}
               </div>
