@@ -1,205 +1,43 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+
+import React from 'react';
 import { TeamMemberCard } from './TeamMemberCard';
-import { AddTeamMemberModal } from './AddTeamMemberModal';
-import { EditTeamMemberForm } from './EditTeamMemberForm';
 
-// Sample locations data (should come from DB in real app)
-const locationsList = [
-  { id: 1, name: "Meaisem City Centre Ladies" },
-  { id: 2, name: "Al Barsha City Centre Ladies" },
-  { id: 3, name: "BarberShop" },
-];
-
-// For services, flatten out categories/services for selector
-import { initialCategories } from "@/data/servicesCategoriesData";
-const serviceCategories = initialCategories.map(cat => ({
-  id: cat.id,
-  name: cat.name,
-  services: cat.services.map(srv => ({
-    id: srv.id,
-    name: srv.name,
-    // categoryId: cat.id,
-  })),
-}));
-
-// Now stores more data per member for edit screen
-const teamMembersData = [
-  {
-    id: 1,
-    name: "Fadia",
-    avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
-    status: "Active",
-    schedule: "10:00am - 10:00pm",
-    bookings: 0,
-    phone: "+971501234567",
-    email: "salonlushways@gmail.com",
-    locations: [1], // id of locations
-    offeredServiceIds: [], // ids of services offered
-    weeklyAvailability: [
-      { day: 'Mon', available: true },
-      { day: 'Tue', available: true },
-      { day: 'Wed', available: true },
-      { day: 'Thu', available: true },
-      { day: 'Fri', available: true },
-      { day: 'Sat', available: true },
-      { day: 'Sun', available: false },
-    ]
-  },
-  {
-    id: 2,
-    name: "Angelica",
-    avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
-    status: "Active",
-    schedule: "10:00am - 10:00pm",
-    bookings: 0,
-    phone: "+971501234568",
-    email: "angelica@gmail.com",
-    locations: [1,2],
-    offeredServiceIds: [],
-    weeklyAvailability: [
-      { day: 'Mon', available: true },
-      { day: 'Tue', available: true },
-      { day: 'Wed', available: true },
-      { day: 'Thu', available: true },
-      { day: 'Fri', available: true },
-      { day: 'Sat', available: true },
-      { day: 'Sun', available: true },
-    ]
-  },
-  {
-    id: 3,
-    name: "Sakina",
-    avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
-    status: "Active",
-    schedule: "10:00am - 10:00pm",
-    bookings: 0,
-    phone: "+971501234569",
-    email: "sakina@gmail.com",
-    locations: [2,3],
-    offeredServiceIds: [],
-    weeklyAvailability: [
-      { day: 'Mon', available: true },
-      { day: 'Tue', available: true },
-      { day: 'Wed', available: true },
-      { day: 'Thu', available: true },
-      { day: 'Fri', available: true },
-      { day: 'Sat', available: true },
-      { day: 'Sun', available: true },
-    ]
-  },
-  {
-    id: 4,
-    name: "Jenny",
-    avatar: "/lovable-uploads/13b0267d-8b36-40ad-b130-7ddd7df807ef.png",
-    status: "Inactive",
-    schedule: "10:00am - 10:00pm",
-    bookings: 0,
-    phone: "+971501234570",
-    email: "jenny@gmail.com",
-    weeklyAvailability: [
-      { day: 'Mon', available: true },
-      { day: 'Tue', available: true },
-      { day: 'Wed', available: true },
-      { day: 'Thu', available: true },
-      { day: 'Fri', available: false },
-      { day: 'Sat', available: true },
-      { day: 'Sun', available: true },
-    ]
-  },
-  {
-    id: 5,
-    name: "Nancy",
-    avatar: "/lovable-uploads/57c261ea-b093-4b27-9510-aaf80ab2c7d0.png",
-    status: "Inactive",
-    schedule: "10:00am - 10:00pm",
-    bookings: 0,
-    phone: "+971501234571",
-    email: "nancy@gmail.com",
-    weeklyAvailability: [
-      { day: 'Mon', available: false },
-      { day: 'Tue', available: true },
-      { day: 'Wed', available: true },
-      { day: 'Thu', available: true },
-      { day: 'Fri', available: true },
-      { day: 'Sat', available: true },
-      { day: 'Sun', available: true },
-    ]
-  },
-  {
-    id: 6,
-    name: "Regine",
-    avatar: "/lovable-uploads/9457829a-7ad8-4f83-846a-9da00b4ed4d9.png",
-    status: "Active",
-    schedule: "10:00am - 10:00pm",
-    bookings: 0,
-    phone: "+971501234572",
-    email: "regine@gmail.com",
-    weeklyAvailability: [
-      { day: 'Mon', available: true },
-      { day: 'Tue', available: true },
-      { day: 'Wed', available: true },
-      { day: 'Thu', available: true },
-      { day: 'Fri', available: true },
-      { day: 'Sat', available: true },
-      { day: 'Sun', available: true },
-    ]
-  },
+const uploadedTeamImages = [
+  { name: "c91f1236-bef4-4b51-b652-ff6522b5d3dd", avatar: "/lovable-uploads/c91f1236-bef4-4b51-b652-ff6522b5d3dd.png" },
+  { name: "472d5605-bbe8-4ee4-b3ee-f1806e529818", avatar: "/lovable-uploads/472d5605-bbe8-4ee4-b3ee-f1806e529818.png" },
+  { name: "7cb84900-f30f-4fd0-b95a-9a975563102a", avatar: "/lovable-uploads/7cb84900-f30f-4fd0-b95a-9a975563102a.png" },
+  { name: "207c8641-4b1b-4fd8-9ca8-50b25e0b7deb", avatar: "/lovable-uploads/207c8641-4b1b-4fd8-9ca8-50b25e0b7deb.png" },
+  { name: "17de3447-93df-415a-b2b3-0061b3a1051e", avatar: "/lovable-uploads/17de3447-93df-415a-b2b3-0061b3a1051e.png" },
+  { name: "0f2a9615-ec00-47f2-a705-a116d3497280", avatar: "/lovable-uploads/0f2a9615-ec00-47f2-a705-a116d3497280.png" },
+  { name: "383798b2-b61f-44fa-850b-eae919e1b4dc", avatar: "/lovable-uploads/383798b2-b61f-44fa-850b-eae919e1b4dc.png" },
+  { name: "5e534ff6-c2a4-40a9-b749-3f04ab0bd6db", avatar: "/lovable-uploads/5e534ff6-c2a4-40a9-b749-3f04ab0bd6db.png" },
+  { name: "16485530-2354-4be5-89c7-03604b29a2f7", avatar: "/lovable-uploads/16485530-2354-4be5-89c7-03604b29a2f7.png" },
+  { name: "693563cb-6b17-4cf0-8544-8ad1174e23f2", avatar: "/lovable-uploads/693563cb-6b17-4cf0-8544-8ad1174e23f2.png" },
 ];
 
 export function AdminTeams() {
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [editingMemberId, setEditingMemberId] = useState<number | null>(null);
-  const [teamMembers, setTeamMembers] = useState(teamMembersData);
-
-  function handleEdit(id: number) {
-    setEditingMemberId(id);
-  }
-
-  function handleSaveEdit(updated: any) {
-    setTeamMembers(prev =>
-      prev.map(m => (m.id === updated.id ? { ...m, ...updated } : m))
-    );
-    setEditingMemberId(null);
-  }
-
-  function handleCancelEdit() {
-    setEditingMemberId(null);
-  }
-
   return (
     <div className="space-y-6">
-      {!editingMemberId ? (
-        <>
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold">Team</h1>
-            <Button onClick={() => setShowAddModal(true)} className="flex items-center gap-2">
-              <Plus className="h-4 w-4" />
-              Add Team Member
-            </Button>
-          </div>
-          {/* Team Members Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {teamMembers.map((member) => (
-              <TeamMemberCard key={member.id} member={member} onEdit={handleEdit} />
-            ))}
-          </div>
-        </>
-      ) : (
-        <EditTeamMemberForm
-          member={teamMembers.find(m => m.id === editingMemberId)!}
-          allLocations={locationsList}
-          allServiceCategories={serviceCategories}
-          onSave={handleSaveEdit}
-          onCancel={handleCancelEdit}
-        />
-      )}
-      {/* Add Team Member Modal */}
-      {showAddModal && (
-        <AddTeamMemberModal onClose={() => setShowAddModal(false)} />
-      )}
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Team</h1>
+      </div>
+      {/* Team Members Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {uploadedTeamImages.map((member, i) => (
+          <TeamMemberCard
+            key={i}
+            member={{
+              id: i + 1,
+              name: member.name.replace(/-/g, " "),
+              avatar: member.avatar,
+              schedule: "",
+              status: "",
+              bookings: 0,
+              weeklyAvailability: [],
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
