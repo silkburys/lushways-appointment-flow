@@ -24,7 +24,7 @@ const serviceCategories = initialCategories.map(cat => ({
   })),
 }));
 
-// Now stores more data per member for edit screen
+// Team member data structure, can be replaced with up-to-date members/avatars
 const teamMembersData = [
   {
     id: 1,
@@ -35,8 +35,8 @@ const teamMembersData = [
     bookings: 0,
     phone: "+971501234567",
     email: "salonlushways@gmail.com",
-    locations: [1], // id of locations
-    offeredServiceIds: [], // ids of services offered
+    locations: [1],
+    offeredServiceIds: [],
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -157,9 +157,24 @@ export function AdminTeams() {
     setEditingMemberId(id);
   }
 
+  // Save edits and update state **deeply** (fix: copy all updated fields, including avatar and arrays)
   function handleSaveEdit(updated: any) {
     setTeamMembers(prev =>
-      prev.map(m => (m.id === updated.id ? { ...m, ...updated } : m))
+      prev.map(m =>
+        m.id === updated.id
+          ? {
+              ...m,
+              ...updated,
+              locations: Array.isArray(updated.locations)
+                ? [...updated.locations]
+                : m.locations || [],
+              offeredServiceIds: Array.isArray(updated.offeredServiceIds)
+                ? [...updated.offeredServiceIds]
+                : m.offeredServiceIds || [],
+              avatar: updated.avatar !== undefined ? updated.avatar : m.avatar,
+            }
+          : m
+      )
     );
     setEditingMemberId(null);
   }
