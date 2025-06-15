@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,12 +15,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Switch } from "@/components/ui/switch";
 
 interface Service {
   id: string;
   name: string;
   price: number;
   categoryId: string;
+  priceIsFrom?: boolean;
 }
 
 interface ServiceCategory {
@@ -39,6 +40,7 @@ interface ServiceCategoryCardProps {
   onMoveService: (serviceId: string, newCategoryId: string) => void;
   onDeleteCategory: (categoryId: string) => void;
   onDeleteService: (serviceId: string) => void;
+  onTogglePriceIsFrom: (serviceId: string) => void;
 }
 
 export function ServiceCategoryCard({
@@ -48,7 +50,8 @@ export function ServiceCategoryCard({
   onReorderServices,
   onMoveService,
   onDeleteCategory,
-  onDeleteService
+  onDeleteService,
+  onTogglePriceIsFrom
 }: ServiceCategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [draggedService, setDraggedService] = useState<Service | null>(null);
@@ -172,6 +175,7 @@ export function ServiceCategoryCard({
                   key={service.id}
                   onDragOver={handleDragOver}
                   onDrop={(e) => handleDrop(e, index)}
+                  className="flex items-center gap-4"
                 >
                   <ServiceCard
                     service={service}
@@ -179,7 +183,15 @@ export function ServiceCategoryCard({
                     onDragStart={handleDragStart}
                     onMoveService={onMoveService}
                     onDeleteService={onDeleteService}
+                    onTogglePriceIsFrom={onTogglePriceIsFrom}
                   />
+                  <div className="flex items-center gap-2">
+                    <Switch
+                      checked={!!service.priceIsFrom}
+                      onCheckedChange={() => onTogglePriceIsFrom(service.id)}
+                    />
+                    <span className="text-xs text-muted-foreground">From?</span>
+                  </div>
                 </div>
               ))}
             </div>

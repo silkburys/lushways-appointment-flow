@@ -10,6 +10,7 @@ interface Service {
   name: string;
   price: number;
   categoryId: string;
+  priceIsFrom?: boolean;
 }
 
 interface ServiceCategory {
@@ -26,7 +27,7 @@ const initialCategories = [
     name: 'Moroccan Bath',
     color: 'bg-blue-500',
     services: [
-      { id: '81', name: 'Moroccan Bath - Al Barsha', price: 300, categoryId: '7' },
+      { id: '81', name: 'Moroccan Bath - Al Barsha', price: 300, categoryId: '7', priceIsFrom: false },
     ]
   },
   {
@@ -34,11 +35,11 @@ const initialCategories = [
     name: 'Gents',
     color: 'bg-green-500',
     services: [
-      { id: '82', name: 'Hair & Beard', price: 115, categoryId: '8' },
-      { id: '83', name: 'Hair Cut', price: 70, categoryId: '8' }, // Gents
-      { id: '84', name: 'Beard Trim', price: 45, categoryId: '8' },
-      { id: '85', name: 'Kids Haircut', price: 50, categoryId: '8' },
-      { id: '89', name: 'Pedicure or Manicure', price: 120, categoryId: '8' },
+      { id: '82', name: 'Hair & Beard', price: 115, categoryId: '8', priceIsFrom: false },
+      { id: '83', name: 'Hair Cut', price: 70, categoryId: '8', priceIsFrom: false }, // Gents
+      { id: '84', name: 'Beard Trim', price: 45, categoryId: '8', priceIsFrom: false },
+      { id: '85', name: 'Kids Haircut', price: 50, categoryId: '8', priceIsFrom: false },
+      { id: '89', name: 'Pedicure or Manicure', price: 120, categoryId: '8', priceIsFrom: false },
     ]
   },
   {
@@ -46,9 +47,9 @@ const initialCategories = [
     name: 'Tatoo & Microbladding',
     color: 'bg-purple-500',
     services: [
-      { id: '86', name: 'Mat Tattoo Eye Brows', price: 0, categoryId: '9' },
-      { id: '87', name: '3 D Tattoo Eye Brows', price: 0, categoryId: '9' },
-      { id: '88', name: 'Tattoo Lips Mat or 3D', price: 0, categoryId: '9' },
+      { id: '86', name: 'Mat Tattoo Eye Brows', price: 0, categoryId: '9', priceIsFrom: false },
+      { id: '87', name: '3 D Tattoo Eye Brows', price: 0, categoryId: '9', priceIsFrom: false },
+      { id: '88', name: 'Tattoo Lips Mat or 3D', price: 0, categoryId: '9', priceIsFrom: false },
     ]
   },
   {
@@ -56,26 +57,26 @@ const initialCategories = [
     name: 'Nail',
     color: 'bg-pink-500',
     services: [
-      { id: '77', name: 'Gel repair per nail', price: 40, categoryId: '1' },
-      { id: '78', name: 'Gel polish application', price: 65, categoryId: '1' },
-      { id: '4',  name: 'Gelish Manicure', price: 115, categoryId: '1' },
-      { id: '1',  name: 'Classic Manicure', price: 75, categoryId: '1' },
-      { id: '2',  name: 'Classic Pedicure', price: 90, categoryId: '1' },
-      { id: '5',  name: 'Gelish Pedicure', price: 130, categoryId: '1' },
-      { id: '6',  name: 'Gelish Removal', price: 35, categoryId: '1' },
-      { id: '7',  name: 'Gel Full Set', price: 350, categoryId: '1' },
-      { id: '9',  name: 'Gel Refill', price: 200, categoryId: '1' },
-      { id: '11', name: 'Acrylic Repair per nail', price: 25, categoryId: '1' },
-      { id: '41', name: 'Callus Removal', price: 60, categoryId: '1' },
-      { id: '52', name: 'fake nails', price: 90, categoryId: '1' },
-      { id: '53', name: 'french pedicure', price: 105, categoryId: '1' },
-      { id: '54', name: 'french manicure', price: 90, categoryId: '1' },
-      { id: '56', name: 'cut and file', price: 25, categoryId: '1' },
-      { id: '57', name: 'spa manicure', price: 140, categoryId: '1' },
-      { id: '58', name: 'spa pedicure', price: 160, categoryId: '1' },
-      { id: '71', name: 'manicure parafin', price: 130, categoryId: '1' },
-      { id: '72', name: 'pedicure parafin', price: 140, categoryId: '1' },
-      { id: '73', name: 'classic polish change', price: 45, categoryId: '1' },
+      { id: '77', name: 'Gel repair per nail', price: 40, categoryId: '1', priceIsFrom: false },
+      { id: '78', name: 'Gel polish application', price: 65, categoryId: '1', priceIsFrom: false },
+      { id: '4',  name: 'Gelish Manicure', price: 115, categoryId: '1', priceIsFrom: false },
+      { id: '1',  name: 'Classic Manicure', price: 75, categoryId: '1', priceIsFrom: false },
+      { id: '2',  name: 'Classic Pedicure', price: 90, categoryId: '1', priceIsFrom: false },
+      { id: '5',  name: 'Gelish Pedicure', price: 130, categoryId: '1', priceIsFrom: false },
+      { id: '6',  name: 'Gelish Removal', price: 35, categoryId: '1', priceIsFrom: false },
+      { id: '7',  name: 'Gel Full Set', price: 350, categoryId: '1', priceIsFrom: false },
+      { id: '9',  name: 'Gel Refill', price: 200, categoryId: '1', priceIsFrom: false },
+      { id: '11', name: 'Acrylic Repair per nail', price: 25, categoryId: '1', priceIsFrom: false },
+      { id: '41', name: 'Callus Removal', price: 60, categoryId: '1', priceIsFrom: false },
+      { id: '52', name: 'fake nails', price: 90, categoryId: '1', priceIsFrom: false },
+      { id: '53', name: 'french pedicure', price: 105, categoryId: '1', priceIsFrom: false },
+      { id: '54', name: 'french manicure', price: 90, categoryId: '1', priceIsFrom: false },
+      { id: '56', name: 'cut and file', price: 25, categoryId: '1', priceIsFrom: false },
+      { id: '57', name: 'spa manicure', price: 140, categoryId: '1', priceIsFrom: false },
+      { id: '58', name: 'spa pedicure', price: 160, categoryId: '1', priceIsFrom: false },
+      { id: '71', name: 'manicure parafin', price: 130, categoryId: '1', priceIsFrom: false },
+      { id: '72', name: 'pedicure parafin', price: 140, categoryId: '1', priceIsFrom: false },
+      { id: '73', name: 'classic polish change', price: 45, categoryId: '1', priceIsFrom: false },
     ]
   },
   {
@@ -83,22 +84,22 @@ const initialCategories = [
     name: 'Hair',
     color: 'bg-indigo-500',
     services: [
-      { id: '80', name: 'Half Head Highlights', price: 300, categoryId: '2' },
-      { id: '12', name: 'Blowdry', price: 105, categoryId: '2' },
-      { id: '15', name: 'Hair Cut', price: 150, categoryId: '2' }, // Hair
-      { id: '14', name: 'Curls', price: 130, categoryId: '2' },
-      { id: '16', name: 'Hair Style', price: 300, categoryId: '2' },
-      { id: '17', name: 'Full Hair Color', price: 300, categoryId: '2' },
-      { id: '18', name: 'Full Hair Highlights', price: 700, categoryId: '2' },
-      { id: '19', name: 'Hair Toner', price: 105, categoryId: '2' },
-      { id: '20', name: 'Keratin', price: 700, categoryId: '2' },
-      { id: '22', name: 'Hair Mask', price: 85, categoryId: '2' },
-      { id: '46', name: 'Hair trim', price: 130, categoryId: '2' },
-      { id: '64', name: 'hair braids kid', price: 40, categoryId: '2' },
-      { id: '65', name: 'hair braid', price: 50, categoryId: '2' },
-      { id: '66', name: 'root color', price: 300, categoryId: '2' },
-      { id: '67', name: 'fringe cut', price: 55, categoryId: '2' },
-      { id: '68', name: 'hair wash', price: 65, categoryId: '2' },
+      { id: '80', name: 'Half Head Highlights', price: 300, categoryId: '2', priceIsFrom: false },
+      { id: '12', name: 'Blowdry', price: 105, categoryId: '2', priceIsFrom: false },
+      { id: '15', name: 'Hair Cut', price: 150, categoryId: '2', priceIsFrom: false }, // Hair
+      { id: '14', name: 'Curls', price: 130, categoryId: '2', priceIsFrom: false },
+      { id: '16', name: 'Hair Style', price: 300, categoryId: '2', priceIsFrom: false },
+      { id: '17', name: 'Full Hair Color', price: 300, categoryId: '2', priceIsFrom: false },
+      { id: '18', name: 'Full Hair Highlights', price: 700, categoryId: '2', priceIsFrom: false },
+      { id: '19', name: 'Hair Toner', price: 105, categoryId: '2', priceIsFrom: false },
+      { id: '20', name: 'Keratin', price: 700, categoryId: '2', priceIsFrom: false },
+      { id: '22', name: 'Hair Mask', price: 85, categoryId: '2', priceIsFrom: false },
+      { id: '46', name: 'Hair trim', price: 130, categoryId: '2', priceIsFrom: false },
+      { id: '64', name: 'hair braids kid', price: 40, categoryId: '2', priceIsFrom: false },
+      { id: '65', name: 'hair braid', price: 50, categoryId: '2', priceIsFrom: false },
+      { id: '66', name: 'root color', price: 300, categoryId: '2', priceIsFrom: false },
+      { id: '67', name: 'fringe cut', price: 55, categoryId: '2', priceIsFrom: false },
+      { id: '68', name: 'hair wash', price: 65, categoryId: '2', priceIsFrom: false },
     ]
   },
   {
@@ -106,21 +107,21 @@ const initialCategories = [
     name: 'Waxing',
     color: 'bg-yellow-500',
     services: [
-      { id: '23', name: 'Half Arm', price: 55, categoryId: '3' },
-      { id: '24', name: 'Full Arm', price: 80, categoryId: '3' },
-      { id: '25', name: 'Under Arm', price: 75, categoryId: '3' },
-      { id: '26', name: 'Half Legs', price: 75, categoryId: '3' },
-      { id: '27', name: 'Full Legs', price: 90, categoryId: '3' },
-      { id: '28', name: 'Bikini Line', price: 50, categoryId: '3' },
-      { id: '29', name: 'Full Bikini', price: 150, categoryId: '3' },
-      { id: '30', name: 'Half Back', price: 45, categoryId: '3' },
-      { id: '31', name: 'Full back', price: 80, categoryId: '3' },
-      { id: '32', name: 'Stomach', price: 70, categoryId: '3' },
-      { id: '33', name: 'Full body with Brazilian', price: 300, categoryId: '3' },
-      { id: '34', name: 'Eyebrows', price: 50, categoryId: '3' },
-      { id: '35', name: 'Upperlip', price: 25, categoryId: '3' },
-      { id: '36', name: 'Fullface', price: 105, categoryId: '3' },
-      { id: '37', name: 'Eyebrow tint', price: 55, categoryId: '3' },
+      { id: '23', name: 'Half Arm', price: 55, categoryId: '3', priceIsFrom: false },
+      { id: '24', name: 'Full Arm', price: 80, categoryId: '3', priceIsFrom: false },
+      { id: '25', name: 'Under Arm', price: 75, categoryId: '3', priceIsFrom: false },
+      { id: '26', name: 'Half Legs', price: 75, categoryId: '3', priceIsFrom: false },
+      { id: '27', name: 'Full Legs', price: 90, categoryId: '3', priceIsFrom: false },
+      { id: '28', name: 'Bikini Line', price: 50, categoryId: '3', priceIsFrom: false },
+      { id: '29', name: 'Full Bikini', price: 150, categoryId: '3', priceIsFrom: false },
+      { id: '30', name: 'Half Back', price: 45, categoryId: '3', priceIsFrom: false },
+      { id: '31', name: 'Full back', price: 80, categoryId: '3', priceIsFrom: false },
+      { id: '32', name: 'Stomach', price: 70, categoryId: '3', priceIsFrom: false },
+      { id: '33', name: 'Full body with Brazilian', price: 300, categoryId: '3', priceIsFrom: false },
+      { id: '34', name: 'Eyebrows', price: 50, categoryId: '3', priceIsFrom: false },
+      { id: '35', name: 'Upperlip', price: 25, categoryId: '3', priceIsFrom: false },
+      { id: '36', name: 'Fullface', price: 105, categoryId: '3', priceIsFrom: false },
+      { id: '37', name: 'Eyebrow tint', price: 55, categoryId: '3', priceIsFrom: false },
     ]
   },
   {
@@ -128,12 +129,12 @@ const initialCategories = [
     name: 'Facial',
     color: 'bg-green-500',
     services: [
-      { id: '47', name: 'Vitamino Facial', price: 350, categoryId: '4' },
-      { id: '48', name: 'clean up', price: 210, categoryId: '4' },
-      { id: '49', name: 'Antiaging Facial', price: 315, categoryId: '4' },
-      { id: '50', name: 'Deep Moisturizing', price: 315, categoryId: '4' },
-      { id: '51', name: 'Brightening', price: 315, categoryId: '4' },
-      { id: '74', name: 'basic facial', price: 260, categoryId: '4' },
+      { id: '47', name: 'Vitamino Facial', price: 350, categoryId: '4', priceIsFrom: false },
+      { id: '48', name: 'clean up', price: 210, categoryId: '4', priceIsFrom: false },
+      { id: '49', name: 'Antiaging Facial', price: 315, categoryId: '4', priceIsFrom: false },
+      { id: '50', name: 'Deep Moisturizing', price: 315, categoryId: '4', priceIsFrom: false },
+      { id: '51', name: 'Brightening', price: 315, categoryId: '4', priceIsFrom: false },
+      { id: '74', name: 'basic facial', price: 260, categoryId: '4', priceIsFrom: false },
     ]
   },
   {
@@ -141,10 +142,10 @@ const initialCategories = [
     name: 'Massage',
     color: 'bg-indigo-500',
     services: [
-      { id: '59', name: 'full body massage', price: 315, categoryId: '5' },
-      { id: '60', name: 'foot massage', price: 80, categoryId: '5' },
-      { id: '61', name: 'head massage', price: 80, categoryId: '5' },
-      { id: '62', name: 'back and neck massage', price: 105, categoryId: '5' },
+      { id: '59', name: 'full body massage', price: 315, categoryId: '5', priceIsFrom: false },
+      { id: '60', name: 'foot massage', price: 80, categoryId: '5', priceIsFrom: false },
+      { id: '61', name: 'head massage', price: 80, categoryId: '5', priceIsFrom: false },
+      { id: '62', name: 'back and neck massage', price: 105, categoryId: '5', priceIsFrom: false },
     ]
   },
   {
@@ -152,11 +153,11 @@ const initialCategories = [
     name: 'Make Up',
     color: 'bg-pink-500',
     services: [
-      { id: '79', name: 'Lashes', price: 300, categoryId: '6' },
-      { id: '38', name: 'Evening Makeup with Eye Lash', price: 475, categoryId: '6' },
-      { id: '39', name: 'Party Makeup with Eye Lash', price: 475, categoryId: '6' },
-      { id: '40', name: 'Bridal Makeup', price: 900, categoryId: '6' },
-      { id: '70', name: 'Lashes Refill', price: 155, categoryId: '6' },
+      { id: '79', name: 'Lashes', price: 300, categoryId: '6', priceIsFrom: false },
+      { id: '38', name: 'Evening Makeup with Eye Lash', price: 475, categoryId: '6', priceIsFrom: false },
+      { id: '39', name: 'Party Makeup with Eye Lash', price: 475, categoryId: '6', priceIsFrom: false },
+      { id: '40', name: 'Bridal Makeup', price: 900, categoryId: '6', priceIsFrom: false },
+      { id: '70', name: 'Lashes Refill', price: 155, categoryId: '6', priceIsFrom: false },
     ]
   },
 ];
@@ -243,6 +244,20 @@ export function AdminServices() {
     setIsAddServiceModalOpen(true);
   };
 
+    // Handler to toggle priceIsFrom for a service
+    const handleTogglePriceIsFrom = (serviceId: string) => {
+      setCategories(categories =>
+        categories.map(category => ({
+          ...category,
+          services: category.services.map(service =>
+            service.id === serviceId
+              ? { ...service, priceIsFrom: !service.priceIsFrom }
+              : service
+          )
+        }))
+      );
+    };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -267,6 +282,7 @@ export function AdminServices() {
             onMoveService={handleMoveService}
             onDeleteCategory={handleDeleteCategory}
             onDeleteService={handleDeleteService}
+            onTogglePriceIsFrom={handleTogglePriceIsFrom}
           />
         ))}
       </div>

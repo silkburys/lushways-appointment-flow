@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -32,6 +31,7 @@ interface Service {
   name: string;
   price: number;
   categoryId: string;
+  priceIsFrom?: boolean;
 }
 
 interface ServiceCategory {
@@ -47,6 +47,7 @@ interface ServiceCardProps {
   onDragStart: (e: React.DragEvent, service: Service) => void;
   onMoveService: (serviceId: string, newCategoryId: string) => void;
   onDeleteService: (serviceId: string) => void;
+  onTogglePriceIsFrom?: (serviceId: string) => void; // Optional, passed down for admin
 }
 
 export function ServiceCard({
@@ -79,7 +80,11 @@ export function ServiceCard({
                 </Badge>
               </div>
               <p className="text-sm text-muted-foreground mt-1">
-                Price: AED {service.price}
+                {service.priceIsFrom ? (
+                  <>From AED {service.price}</>
+                ) : (
+                  <>AED {service.price}</>
+                )}
               </p>
             </div>
           </div>
