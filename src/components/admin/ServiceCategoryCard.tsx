@@ -16,6 +16,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Switch } from "@/components/ui/switch";
+import { Image } from "lucide-react";
+import { CATEGORY_IMAGES } from "@/data/servicesCategoriesData";
 
 interface Service {
   id: string;
@@ -29,6 +31,7 @@ interface ServiceCategory {
   id: string;
   name: string;
   color: string;
+  image: string;
   services: Service[];
 }
 
@@ -42,6 +45,7 @@ interface ServiceCategoryCardProps {
   onDeleteService: (serviceId: string) => void;
   onTogglePriceIsFrom: (serviceId: string) => void;
   onUpdatePrice?: (serviceId: string, newPrice: number) => void;
+  onChangeCategoryImage?: (categoryId: string, image: string) => void;
 }
 
 export function ServiceCategoryCard({
@@ -53,10 +57,12 @@ export function ServiceCategoryCard({
   onDeleteCategory,
   onDeleteService,
   onTogglePriceIsFrom,
-  onUpdatePrice
+  onUpdatePrice,
+  onChangeCategoryImage
 }: ServiceCategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [draggedService, setDraggedService] = useState<Service | null>(null);
+  const [showImagePicker, setShowImagePicker] = useState(false);
 
   const handleDragStart = (e: React.DragEvent, service: Service) => {
     setDraggedService(service);
@@ -100,22 +106,49 @@ export function ServiceCategoryCard({
     }
   };
 
+  const possibleImages = Object.values(CATEGORY_IMAGES);
+
   return (
     <Card className="overflow-hidden">
       <CardHeader 
-        className={`${category.color} text-white cursor-pointer`}
+        className={`${category.color} text-white cursor-pointer relative`}
         onClick={() => setIsExpanded(!isExpanded)}
         onDragOver={handleDragOver}
         onDrop={handleDropOnCategory}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
+            <div
+              className="w-16 h-16 rounded-lg overflow-hidden bg-white border border-gray-200 shadow mr-3 flex items-center justify-center shrink-0"
+              style={{ cursor: "default" }}
+              onClick={e => e.stopPropagation()}
+            >
+              <img
+                src={category.image}
+                alt={category.name}
+                className="object-cover w-full h-full"
+                draggable={false}
+              />
+            </div>
             <h3 className="text-lg font-semibold">{category.name}</h3>
             <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
               {category.services.length} Services
             </Badge>
           </div>
           <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              type="button"
+              className="bg-white text-gray-900"
+              onClick={e => {
+                e.stopPropagation();
+                setShowImagePicker(p => !p);
+              }}
+              title="Change Image"
+            >
+              <Image className="w-5 h-5" />
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -160,8 +193,30 @@ export function ServiceCategoryCard({
             )}
           </div>
         </div>
+        {showImagePicker && (
+          <div
+            className="absolute z-20 left-24 top-5 p-2 bg-white text-gray-900 border rounded-xl shadow-xl flex gap-1 flex-wrap"
+            onClick={e => e.stopPropagation()}
+          >
+            {possibleImages.map(img => (
+              <button
+                key={img}
+                type="button"
+                className={`w-14 h-14 rounded border-2
+                  ${category.image === img ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-200'}
+                  overflow-hidden bg-gray-100 p-0 m-0`}
+                style={{ outline: "none" }}
+                onClick={() => {
+                  if (onChangeCategoryImage) onChangeCategoryImage(category.id, img);
+                  setShowImagePicker(false);
+                }}
+              >
+                <img src={img} alt="" className="object-cover w-full h-full" />
+              </button>
+            ))}
+          </div>
+        )}
       </CardHeader>
-      
       {isExpanded && (
         <CardContent className="p-4">
           {category.services.length === 0 ? (

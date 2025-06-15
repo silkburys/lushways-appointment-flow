@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { initialCategories } from "@/data/servicesCategoriesData";
+import { initialCategories, CATEGORY_IMAGES } from "@/data/servicesCategoriesData";
 
 // Types
 export interface Service {
@@ -14,6 +14,7 @@ export interface ServiceCategory {
   id: string;
   name: string;
   color: string;
+  image: string;
   services: Service[];
 }
 
@@ -29,6 +30,7 @@ export function useServiceCategories() {
       id: Date.now().toString(),
       name: categoryData.name,
       color: categoryData.color,
+      image: CATEGORY_IMAGES["Nail"], // Default image
       services: [],
     };
     setCategories([...categories, newCategory]);
@@ -124,6 +126,13 @@ export function useServiceCategories() {
     );
   };
 
+  // Handler for changing the image for a category (admin picks from preset images)
+  const changeCategoryImage = (categoryId: string, image: string) => {
+    setCategories(cats =>
+      cats.map(cat => cat.id === categoryId ? { ...cat, image } : cat)
+    );
+  };
+
   // UI handlers
   const openAddServiceModal = (categoryId: string) => {
     setSelectedCategoryId(categoryId);
@@ -145,6 +154,7 @@ export function useServiceCategories() {
     deleteService,
     openAddServiceModal,
     togglePriceIsFrom,
-    updateServicePrice // Return the new handler
+    updateServicePrice,
+    changeCategoryImage,
   };
 }

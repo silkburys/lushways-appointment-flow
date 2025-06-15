@@ -1,9 +1,21 @@
+export const CATEGORY_IMAGES = {
+  "Moroccan Bath": "/lovable-uploads/photo-1488972685288-c3fd157d7c7a.png",
+  "Gents": "/lovable-uploads/f1c06ab8-85f5-4ed4-b321-133a1f2e35f6.png",
+  "Tatoo & Microbladding": "/lovable-uploads/photo-1582562124811-c09040d0aaf0.png",
+  "Nail": "/lovable-uploads/photo-1618160702438-9b02ab6515c9.png",
+  "Hair": "/lovable-uploads/photo-1466721591366-2d5fba72006d.png",
+  "Waxing": "/lovable-uploads/photo-1535268647677-300dbf3d78d1.png",
+  "Facial": "/lovable-uploads/photo-1452960962994-acf4fd70b632.png",
+  "Massage": "/lovable-uploads/photo-1485833077593-4278bba3f11f.png",
+  "Make Up": "/lovable-uploads/photo-1501286353178-1ec881214838.png",
+};
 
 export const initialCategories = [
   {
     id: '7',
     name: 'Moroccan Bath',
     color: 'bg-blue-500',
+    image: CATEGORY_IMAGES["Moroccan Bath"],
     services: [
       { id: '1', name: 'Moroccan Bath - Al Barsha', price: 300, categoryId: '7', priceIsFrom: false },
     ],
@@ -12,6 +24,7 @@ export const initialCategories = [
     id: '8',
     name: 'Gents',
     color: 'bg-green-500',
+    image: CATEGORY_IMAGES["Gents"],
     services: [
       { id: '2', name: 'Hair & Beard', price: 115, categoryId: '8', priceIsFrom: false },
       { id: '3', name: 'Hair Cut', price: 70, categoryId: '8', priceIsFrom: false },
@@ -24,6 +37,7 @@ export const initialCategories = [
     id: '9',
     name: 'Tatoo & Microbladding',
     color: 'bg-purple-500',
+    image: CATEGORY_IMAGES["Tatoo & Microbladding"],
     services: [
       { id: '7', name: 'Mat Tattoo Eye Brows', price: 0, categoryId: '9', priceIsFrom: false },
       { id: '8', name: '3 D Tattoo Eye Brows', price: 0, categoryId: '9', priceIsFrom: false },
@@ -34,6 +48,7 @@ export const initialCategories = [
     id: '1',
     name: 'Nail',
     color: 'bg-pink-500',
+    image: CATEGORY_IMAGES["Nail"],
     services: [
       { id: '10', name: 'Gel repair per nail', price: 40, categoryId: '1', priceIsFrom: false },
       { id: '11', name: 'Gel polish application', price: 65, categoryId: '1', priceIsFrom: false },
@@ -61,6 +76,7 @@ export const initialCategories = [
     id: '2',
     name: 'Hair',
     color: 'bg-indigo-500',
+    image: CATEGORY_IMAGES["Hair"],
     services: [
       { id: '30', name: 'Half Head Highlights', price: 300, categoryId: '2', priceIsFrom: false },
       { id: '31', name: 'Blowdry', price: 105, categoryId: '2', priceIsFrom: false },
@@ -84,6 +100,7 @@ export const initialCategories = [
     id: '3',
     name: 'Waxing',
     color: 'bg-yellow-500',
+    image: CATEGORY_IMAGES["Waxing"],
     services: [
       { id: '46', name: 'Half Arm', price: 55, categoryId: '3', priceIsFrom: false },
       { id: '47', name: 'Full Arm', price: 80, categoryId: '3', priceIsFrom: false },
@@ -106,6 +123,7 @@ export const initialCategories = [
     id: '4',
     name: 'Facial',
     color: 'bg-green-500',
+    image: CATEGORY_IMAGES["Facial"],
     services: [
       { id: '61', name: 'Vitamino Facial', price: 350, categoryId: '4', priceIsFrom: false },
       { id: '62', name: 'clean up', price: 210, categoryId: '4', priceIsFrom: false },
@@ -119,6 +137,7 @@ export const initialCategories = [
     id: '5',
     name: 'Massage',
     color: 'bg-indigo-500',
+    image: CATEGORY_IMAGES["Massage"],
     services: [
       { id: '67', name: 'full body massage', price: 315, categoryId: '5', priceIsFrom: false },
       { id: '68', name: 'foot massage', price: 80, categoryId: '5', priceIsFrom: false },
@@ -130,6 +149,7 @@ export const initialCategories = [
     id: '6',
     name: 'Make Up',
     color: 'bg-pink-500',
+    image: CATEGORY_IMAGES["Make Up"],
     services: [
       { id: '71', name: 'Lashes', price: 300, categoryId: '6', priceIsFrom: false },
       { id: '72', name: 'Evening Makeup with Eye Lash', price: 475, categoryId: '6', priceIsFrom: false },
@@ -139,4 +159,3 @@ export const initialCategories = [
     ],
   },
 ];
-
