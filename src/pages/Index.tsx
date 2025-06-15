@@ -7,6 +7,7 @@ import { Instagram, PhoneCall, Mail, MapPin, ShoppingBag, CreditCard, Gift } fro
 const Index = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [heroImageLoaded, setHeroImageLoaded] = useState(false);
+  const [instagramWidgetLoaded, setInstagramWidgetLoaded] = useState(false);
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -41,6 +42,37 @@ const Index = () => {
       img.src = src;
     });
   }, []);
+
+  // Lazy load Instagram widget when it comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !instagramWidgetLoaded) {
+            setInstagramWidgetLoaded(true);
+            // Load Elfsight script
+            const script = document.createElement('script');
+            script.src = 'https://static.elfsight.com/platform/platform.js';
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+          }
+        });
+      },
+      { rootMargin: '100px' }
+    );
+
+    const instagramSection = document.getElementById('instagram-section');
+    if (instagramSection) {
+      observer.observe(instagramSection);
+    }
+
+    return () => {
+      if (instagramSection) {
+        observer.unobserve(instagramSection);
+      }
+    };
+  }, [instagramWidgetLoaded]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -356,30 +388,45 @@ const Index = () => {
       </section>
 
       {/* Instagram Feed Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <section id="instagram-section" className="py-16 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <h2 className="text-3xl md:text-4xl font-serif text-center mb-6">FOLLOW US ON INSTAGRAM</h2>
           <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Stay updated with our latest styles, promotions, and beauty tips.</p>
           
           <div className="flex items-center justify-center mb-12">
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/lushwaysuae/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
             >
               <Instagram className="mr-2" />
-              Follow @lushways
+              Follow @lushwaysuae
             </a>
           </div>
           
-          {/* Instagram Gallery - This would be replaced with the actual Instagram feed */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {[...Array(6)].map((_, index) => (
-              <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
-                {/* This would be filled with actual Instagram posts */}
+          {/* Instagram Widget with lazy loading */}
+          <div className="flex justify-center">
+            {instagramWidgetLoaded ? (
+              <div className="w-full max-w-4xl">
+                <div 
+                  className="elfsight-app-a1b2c3d4-e5f6-7890-abcd-ef1234567890" 
+                  data-elfsight-app-lazy
+                  style={{ minHeight: '400px' }}
+                ></div>
               </div>
-            ))}
+            ) : (
+              <div className="w-full max-w-4xl">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[...Array(4)].map((_, index) => (
+                    <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden animate-pulse">
+                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300"></div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-center text-gray-500 text-sm mt-4">Loading Instagram posts...</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
