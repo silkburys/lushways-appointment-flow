@@ -37,7 +37,7 @@ export const teamMembersData = [
     "phone": "+971501234567",
     "email": "example1@gmail.com",
     "locations": [
-      2
+      3
     ],
     "offeredServiceIds": [
       "2",
@@ -79,15 +79,22 @@ export const teamMembersData = [
   },
   {
     "id": 2,
-    "name": "TeamMember2",
+    "name": "Mohamad",
     "avatar": "/lovable-uploads/13e701a6-9424-40f9-9c32-31cb221096e0.png",
     "status": "Active",
     "schedule": "10:00am - 10:00pm",
     "bookings": 0,
     "phone": "+971501234568",
     "email": "example2@gmail.com",
-    "locations": [],
-    "offeredServiceIds": [],
+    "locations": [
+      3
+    ],
+    "offeredServiceIds": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
     "weeklyAvailability": [
       {
         "day": "Mon",
@@ -288,15 +295,39 @@ export const teamMembersData = [
   },
   {
     "id": 5,
-    "name": "TeamMember5",
+    "name": "Rawan",
     "avatar": "/lovable-uploads/37730d26-0b69-458b-8173-b0ca291a5576.png",
     "status": "Active",
     "schedule": "10:00am - 10:00pm",
     "bookings": 0,
     "phone": "+971501234571",
     "email": "example5@gmail.com",
-    "locations": [],
-    "offeredServiceIds": [],
+    "locations": [
+      2
+    ],
+    "offeredServiceIds": [
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "71",
+      "72",
+      "73",
+      "74",
+      "75"
+    ],
     "weeklyAvailability": [
       {
         "day": "Mon",
@@ -394,15 +425,49 @@ export const teamMembersData = [
   },
   {
     "id": 7,
-    "name": "TeamMember7",
+    "name": "Regine",
     "avatar": "/lovable-uploads/0154cc77-6f6d-48b5-8f58-e4aab8517256.png",
     "status": "Active",
     "schedule": "10:00am - 10:00pm",
     "bookings": 0,
     "phone": "+971501234573",
     "email": "example7@gmail.com",
-    "locations": [],
-    "offeredServiceIds": [],
+    "locations": [
+      2
+    ],
+    "offeredServiceIds": [
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "1",
+      "67",
+      "68",
+      "69",
+      "70",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66"
+    ],
     "weeklyAvailability": [
       {
         "day": "Mon",
@@ -443,8 +508,15 @@ export const teamMembersData = [
     "bookings": 0,
     "phone": "+971501234574",
     "email": "example8@gmail.com",
-    "locations": [],
-    "offeredServiceIds": [],
+    "locations": [
+      3
+    ],
+    "offeredServiceIds": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
     "weeklyAvailability": [
       {
         "day": "Mon",
@@ -478,15 +550,38 @@ export const teamMembersData = [
   },
   {
     "id": 9,
-    "name": "TeamMember9",
+    "name": "Nadine",
     "avatar": "/lovable-uploads/edec9eda-938b-46cf-b09d-ee60ab8852bf.png",
     "status": "Active",
     "schedule": "10:00am - 10:00pm",
     "bookings": 0,
     "phone": "+971501234575",
     "email": "example9@gmail.com",
-    "locations": [],
-    "offeredServiceIds": [],
+    "locations": [
+      2
+    ],
+    "offeredServiceIds": [
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29"
+    ],
     "weeklyAvailability": [
       {
         "day": "Mon",
@@ -520,15 +615,49 @@ export const teamMembersData = [
   },
   {
     "id": 10,
-    "name": "TeamMember10",
+    "name": "Areej",
     "avatar": "/lovable-uploads/ac97c4b3-0dfb-46da-934f-abf726ad0d1b.png",
     "status": "Active",
     "schedule": "10:00am - 10:00pm",
     "bookings": 0,
     "phone": "+971501234576",
     "email": "example10@gmail.com",
-    "locations": [],
-    "offeredServiceIds": [],
+    "locations": [
+      2
+    ],
+    "offeredServiceIds": [
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "55",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "56",
+      "57",
+      "58",
+      "59",
+      "60"
+    ],
     "weeklyAvailability": [
       {
         "day": "Mon",
@@ -597,7 +726,13 @@ export const teamMembersData = [
       "72",
       "73",
       "74",
-      "75"
+      "75",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66"
     ],
     "weeklyAvailability": [
       {
@@ -721,7 +856,13 @@ export const teamMembersData = [
       "26",
       "27",
       "28",
-      "29"
+      "29",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66"
     ],
     "weeklyAvailability": [
       {
@@ -756,15 +897,53 @@ export const teamMembersData = [
   },
   {
     "id": 14,
-    "name": "TeamMember14",
+    "name": "Angelica",
     "avatar": "/lovable-uploads/4cb7ad04-56fd-49b8-8215-55f92eaded9a.png",
     "status": "Active",
     "schedule": "10:00am - 10:00pm",
     "bookings": 0,
     "phone": "+971501234580",
     "email": "example14@gmail.com",
-    "locations": [],
-    "offeredServiceIds": [],
+    "locations": [
+      1
+    ],
+    "offeredServiceIds": [
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "60"
+    ],
     "weeklyAvailability": [
       {
         "day": "Mon",
