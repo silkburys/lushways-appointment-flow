@@ -5,6 +5,25 @@ import { TeamMemberCard } from './TeamMemberCard';
 import { AddTeamMemberModal } from './AddTeamMemberModal';
 import { EditTeamMemberForm } from './EditTeamMemberForm';
 
+// Sample locations data (should come from DB in real app)
+const locationsList = [
+  { id: 1, name: "Meaisem City Centre Ladies" },
+  { id: 2, name: "Al Barsha City Centre Ladies" },
+  { id: 3, name: "BarberShop" },
+];
+
+// For services, flatten out categories/services for selector
+import { initialCategories } from "@/data/servicesCategoriesData";
+const serviceCategories = initialCategories.map(cat => ({
+  id: cat.id,
+  name: cat.name,
+  services: cat.services.map(srv => ({
+    id: srv.id,
+    name: srv.name,
+    // categoryId: cat.id,
+  })),
+}));
+
 // Now stores more data per member for edit screen
 const teamMembersData = [
   {
@@ -16,6 +35,8 @@ const teamMembersData = [
     bookings: 0,
     phone: "+971501234567",
     email: "salonlushways@gmail.com",
+    locations: [1], // id of locations
+    offeredServiceIds: [], // ids of services offered
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -35,6 +56,8 @@ const teamMembersData = [
     bookings: 0,
     phone: "+971501234568",
     email: "angelica@gmail.com",
+    locations: [1,2],
+    offeredServiceIds: [],
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -54,6 +77,8 @@ const teamMembersData = [
     bookings: 0,
     phone: "+971501234569",
     email: "sakina@gmail.com",
+    locations: [2,3],
+    offeredServiceIds: [],
     weeklyAvailability: [
       { day: 'Mon', available: true },
       { day: 'Tue', available: true },
@@ -155,7 +180,6 @@ export function AdminTeams() {
               Add Team Member
             </Button>
           </div>
-
           {/* Team Members Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {teamMembers.map((member) => (
@@ -166,11 +190,12 @@ export function AdminTeams() {
       ) : (
         <EditTeamMemberForm
           member={teamMembers.find(m => m.id === editingMemberId)!}
+          allLocations={locationsList}
+          allServiceCategories={serviceCategories}
           onSave={handleSaveEdit}
           onCancel={handleCancelEdit}
         />
       )}
-
       {/* Add Team Member Modal */}
       {showAddModal && (
         <AddTeamMemberModal onClose={() => setShowAddModal(false)} />

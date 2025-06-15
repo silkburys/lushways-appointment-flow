@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { X } from "lucide-react";
+import { ServicesOfferedSelector } from "./ServicesOfferedSelector";
+import { LocationsMultiSelect } from "./LocationsMultiSelect";
 
 interface TeamMemberEditable {
   id: number;
@@ -14,21 +16,49 @@ interface TeamMemberEditable {
   email: string;
   status: string;
   phone: string;
+  locations?: number[];
+  offeredServiceIds?: string[];
+}
+
+interface ServiceCategory {
+  id: string;
+  name: string;
+  services: { id: string; name: string }[];
+}
+
+interface LocationOption {
+  id: number;
+  name: string;
 }
 
 interface EditTeamMemberFormProps {
   member: TeamMemberEditable;
+  allLocations: LocationOption[];
+  allServiceCategories: ServiceCategory[];
   onSave: (updated: TeamMemberEditable) => void;
   onCancel: () => void;
 }
 
-export function EditTeamMemberForm({ member, onSave, onCancel }: EditTeamMemberFormProps) {
+export function EditTeamMemberForm({
+  member,
+  allLocations,
+  allServiceCategories,
+  onSave,
+  onCancel,
+}: EditTeamMemberFormProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fields, setFields] = React.useState({ ...member });
   const [avatarPreview, setAvatarPreview] = React.useState<string>(member.avatar);
 
+  // Init selections if undefined
+  React.useEffect(() => {
+    if (!fields.locations) setFields((f) => ({ ...f, locations: [] }));
+    if (!fields.offeredServiceIds) setFields((f) => ({ ...f, offeredServiceIds: [] }));
+  // eslint-disable-next-line
+  }, []);
+
   const statuses = ["Active", "Inactive", "On Duty"];
-  
+
   function handleInputChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
@@ -51,12 +81,20 @@ export function EditTeamMemberForm({ member, onSave, onCancel }: EditTeamMemberF
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
+  function handleLocationChange(ids: number[]) {
+    setFields((c) => ({ ...c, locations: ids }));
+  }
+
+  function handleServicesChange(ids: string[]) {
+    setFields((c) => ({ ...c, offeredServiceIds: ids }));
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     onSave(fields);
   }
 
-  // Parsing Display Name as first part of full name for demo purposes
+  // Parsing Display Name as first part of full name
   const displayName = fields.name?.split(" ")[0] ?? "";
 
   return (
@@ -177,6 +215,22 @@ export function EditTeamMemberForm({ member, onSave, onCancel }: EditTeamMemberF
                 ))}
               </select>
             </div>
+            {/* Locations MultiSelect (full width) */}
+            <div className="col-span-1 md:col-span-2">
+              <LocationsMultiSelect
+                locations={allLocations}
+                selectedLocationIds={fields.locations || []}
+                onChange={handleLocationChange}
+              />
+            </div>
+            {/* Services Offered (full width) */}
+            <div className="col-span-1 md:col-span-2">
+              <ServicesOfferedSelector
+                categories={allServiceCategories}
+                selectedServiceIds={fields.offeredServiceIds || []}
+                onChange={handleServicesChange}
+              />
+            </div>
             {/* Buttons */}
             <div className="flex items-end justify-end md:justify-start gap-2 mt-4">
               <Button type="button" variant="outline" onClick={onCancel}>
@@ -192,4 +246,3 @@ export function EditTeamMemberForm({ member, onSave, onCancel }: EditTeamMemberF
     </div>
   );
 }
-
