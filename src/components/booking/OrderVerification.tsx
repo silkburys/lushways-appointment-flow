@@ -95,7 +95,8 @@ const OrderVerification = ({
           </div>
         </div>
 
-        <div className="flex gap-3">
+        {/* Bottom Action Buttons */}
+        <div className="flex flex-col-reverse sm:flex-row gap-3">
           <Button 
             onClick={onSubmit}
             className="bg-orange-500 hover:bg-orange-600 text-white px-8"
@@ -107,7 +108,7 @@ const OrderVerification = ({
             onClick={onAddMore}
             className="text-orange-600 border-orange-300 hover:bg-orange-50"
           >
-            + Add more items to this order
+            + Add more items
           </Button>
         </div>
       </div>

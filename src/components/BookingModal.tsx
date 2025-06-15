@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import LocationSelection from './booking/LocationSelection';
 import ServiceSelection from './booking/ServiceSelection';
@@ -9,6 +8,7 @@ import OrderVerification from './booking/OrderVerification';
 import AppointmentConfirmation from './booking/AppointmentConfirmation';
 import BookingSummary from './booking/BookingSummary';
 import { BookingItem, Customer } from '../types/booking';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -30,6 +30,8 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
   const [currentBooking, setCurrentBooking] = useState<Partial<BookingItem>>({});
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [orderNumber, setOrderNumber] = useState<string>('');
+
+  const isMobile = useIsMobile();
 
   const addToCart = (item: BookingItem) => {
     setCartItems(prev => [...prev, item]);
@@ -153,7 +155,11 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
   };
 
   // Only show summary if there are items in cart AND we're past the datetime step
-  const showSummary = cartItems.length > 0 && ['customer', 'verification', 'confirmation'].includes(currentStep);
+  // On mobile, hide summary for 'verification' and 'confirmation' steps
+  const hideSummaryOnMobileSteps = ['verification', 'confirmation'];
+  const showSummary = cartItems.length > 0
+    && ['customer', 'verification', 'confirmation'].includes(currentStep)
+    && !(isMobile && hideSummaryOnMobileSteps.includes(currentStep));
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
