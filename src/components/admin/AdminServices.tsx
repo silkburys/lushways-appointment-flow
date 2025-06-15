@@ -28,14 +28,10 @@ export function AdminServices() {
     uploadCategoryImage,
   } = useServiceCategories();
 
-  // Add handler for the new image-only modal (just logs image URL for now)
+  // Handler for just uploaded images
   function handleCategoryImageUpload(imageUrl: string) {
-    // This function is triggered when a photo is uploaded in the AddServiceCategoryModal
-    // You may extend this to actually create a new category using the uploaded image
-    // For now, simply log or use uploadCategoryImage as needed
     console.log("Uploaded category image: ", imageUrl);
-    // Example: To use uploadCategoryImage for a placeholder/dummy category:
-    // uploadCategoryImage(dummyCategoryId, imageUrl);
+    // Use this as needed
   }
 
   return (
@@ -51,21 +47,9 @@ export function AdminServices() {
         </Button>
       </div>
       <div className="space-y-4">
+        {/* Show as many uploaders as categories, or just one */}
         {categories.map((category) => (
-          <ServiceCategoryCard
-            key={category.id}
-            category={category}
-            allCategories={categories}
-            onAddService={() => openAddServiceModal(category.id)}
-            onReorderServices={reorderServices}
-            onMoveService={moveService}
-            onDeleteCategory={deleteCategory}
-            onDeleteService={deleteService}
-            onTogglePriceIsFrom={togglePriceIsFrom}
-            onUpdatePrice={updateServicePrice}
-            onChangeCategoryImage={changeCategoryImage}
-            onUploadCategoryImage={uploadCategoryImage}
-          />
+          <ServiceCategoryCard key={category.id} onUpload={handleCategoryImageUpload} />
         ))}
       </div>
       <AddServiceCategoryModal
@@ -83,4 +67,3 @@ export function AdminServices() {
     </div>
   );
 }
-
